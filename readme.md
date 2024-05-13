@@ -124,3 +124,29 @@ import "./index.css";
    npm run frontend
 
    ```
+
+# Running the project:
+
+Run the following command in the terminal to start the frontend and backend servers concurrently:
+
+```bash
+
+npm run dev
+
+```
+
+or to run the backend server only:
+
+```bash
+
+npm run backend
+
+```
+
+or to run the frontend server only:
+
+```bash
+
+npm run frontend
+
+```
