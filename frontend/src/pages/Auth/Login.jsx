@@ -34,10 +34,10 @@ const Login = () => {
       const res = await login({ email, password }).unwrap();
       console.log(res);
       dispatch(setCredentials({ ...res }));
-    }catch (error) {
+    } catch (error) {
       toast.error(error.data.message || error.error);
     }
-  }
+  };
 
   return (
     <div>
@@ -45,7 +45,11 @@ const Login = () => {
         <div className="mr-[4rem] mt-[5rem]">
           <h1 className="text-2xl font-semibold mb-4">Login</h1>
 
-          <form onSubmit={submitHandler} className="container w-[40rem]" action="">
+          <form
+            onSubmit={submitHandler}
+            className="container w-[40rem]"
+            action=""
+          >
             <div className="my-[2rem]">
               <label
                 htmlFor="email"
@@ -56,8 +60,8 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
-                className="mt-1 p-
-              border rounded w-full"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -72,8 +76,8 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="mt-1 p-
-              border rounded w-full"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
