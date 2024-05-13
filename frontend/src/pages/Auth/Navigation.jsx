@@ -54,6 +54,7 @@ const Navigation = () => {
         showSidebar ? "hidden" : "flex"
       } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-[#1a1a1a] w-[4%] hover:w-[15%] h-[100vh]  fixed `}
       id="navigation-container"
+      onMouseLeave={() => setDropdownOpen(false)}
     >
       <div className="flex flex-col justify-center space-y-4">
         <Link
@@ -173,7 +174,7 @@ const Navigation = () => {
 
             <li>
               <Link
-                to="/admin/profile"
+                to="/profile"
                 className="rounded block px-4 py-2 hover:bg-gray-200"
               >
                 Profile
@@ -181,7 +182,7 @@ const Navigation = () => {
             </li>
             <li>
               <Link
-                to="/admin/logout"
+                to="/logout"
                 onClick={logoutHandler}
                 className="rounded block px-4 py-2 hover:bg-gray-200"
               >

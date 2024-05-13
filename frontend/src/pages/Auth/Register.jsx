@@ -5,6 +5,7 @@ import Loader from "../../components/Loader";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "../../redux/api/usersApiSlice";
+import signupImage from "../../components/images/signup.jpg";
 
 const Register = () => {
   const [username, setUserName] = useState("");
@@ -34,6 +35,7 @@ const Register = () => {
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
+      return;
     }
 
     try {
@@ -145,6 +147,12 @@ const Register = () => {
           </p>
         </div>
       </div>
+
+      <img
+        src={signupImage}
+        alt="Login"
+        className="h-[60rem] w-[55%] xl:block md:hidden sm:hidden rounded-lg"
+      />
     </section>
   );
 };

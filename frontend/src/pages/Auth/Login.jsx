@@ -5,6 +5,7 @@ import { useLoginMutation } from "../../redux/api/usersApiSlice";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+import loginImage from "../../components/images/login.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +36,8 @@ const Login = () => {
       console.log(res);
       dispatch(setCredentials({ ...res }));
     } catch (error) {
-      toast.error(error.data.message || error.error);
+      console.log(error);
+      toast.error(error?.data?.message || error.message);
     }
   };
 
@@ -106,6 +108,11 @@ const Login = () => {
             </p>
           </div>
         </div>
+        <img
+          src={loginImage}
+          alt="Login"
+          className="h-[60rem] w-[55%] xl:block md:hidden sm:hidden rounded-lg"
+        />
       </section>
     </div>
   );
