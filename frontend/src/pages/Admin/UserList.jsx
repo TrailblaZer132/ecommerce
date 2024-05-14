@@ -61,7 +61,7 @@ const UserList = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="dangeer">
+        <Message variant="danger">
           {error?.data.message || error.message}
         </Message>
       ) : (
