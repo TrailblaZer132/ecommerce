@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
@@ -10,6 +9,8 @@ import {
 import { toast } from "react-toastify";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
+import AdminMenu from "./AdminMenu";
+import { useNavigate } from "react-router";
 
 const CategoryList = () => {
   const { data: categories } = useFetchCategoriesQuery();
@@ -76,7 +77,7 @@ const CategoryList = () => {
       if (result.error) {
         toast.error(result.error);
       } else {
-        toast.success(`${result.name} deleted successfully`);
+        toast.error(`${result.name} deleted successfully`);
         setSelectedCategory(null);
         setModalVisible(false);
       }
@@ -88,9 +89,9 @@ const CategoryList = () => {
 
   return (
     <div className="ml-[10rem] flex-col md:flex-row">
-      {/* Admin Menu */}
+      <AdminMenu />
       <div className="md:w-3/4 p-3">
-        <div className="text-xl font-semibold mb-4">Manage categories</div>
+        <div className="text-xl font-semibold mb-4">Manage Categories</div>
         <CategoryForm
           value={name}
           setValue={setName}
