@@ -3,7 +3,8 @@ import Product from "../models/productModel.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity, brand } = req.fields;
+    const { name, description, detail, price, category, quantity, brand } =
+      req.fields;
 
     // Validation
     switch (true) {
@@ -13,6 +14,8 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Brand is required" });
       case !description:
         return res.json({ error: "Description is required" });
+      case !detail:
+        return res.json({ error: "Detail is required" });
       case !price:
         return res.json({ error: "Price is required" });
       case !category:
@@ -21,7 +24,10 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Quantity is required" });
     }
 
-    const product = new Product({ ...req.fields });
+    const product = new Product({
+      ...req.fields,
+      detail: JSON.parse(req.fields.detail), // Parse detail as object
+    });
     await product.save();
     res.json(product);
   } catch (error) {
@@ -32,7 +38,8 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const updateProductDetails = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity, brand } = req.fields;
+    const { name, description, detail, price, category, quantity, brand } =
+      req.fields;
 
     // Validation
     switch (true) {
@@ -42,6 +49,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Brand is required" });
       case !description:
         return res.json({ error: "Description is required" });
+      case !detail:
+        return res.json({ error: "Detail is required" });
       case !price:
         return res.json({ error: "Price is required" });
       case !category:
@@ -52,7 +61,10 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { ...req.fields },
+      {
+        ...req.fields,
+        detail: JSON.parse(req.fields.detail), // Parse detail as object
+      },
       { new: true }
     );
 
@@ -126,8 +138,9 @@ const fetchAllProducts = asyncHandler(async (req, res) => {
   try {
     const products = await Product.find({})
       .populate("category")
-      .limit(30)
+      .limit(1000)
       .sort({ createdAt: -1 });
+
     res.json(products);
   } catch (error) {
     console.error(error);

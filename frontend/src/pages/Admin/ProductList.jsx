@@ -11,9 +11,9 @@ import AdminMenu from "./AdminMenu";
 const ProductList = () => {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
-  const [description, setDescription] = useState(
-    "Dimension:\nColour:\nWeight:\nMaterial:"
-  );
+  const [description, setDescription] = useState("");
+  const [detail, setDetail] = useState({});
+
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -26,6 +26,21 @@ const ProductList = () => {
   const [createProduct] = useCreateProductMutation();
   const { data: categories } = useFetchCategoriesQuery();
 
+  const handleAddDetailField = () => {
+    setDetail({ ...detail, "": "" });
+  };
+
+  const handleDetailChange = (key, value) => {
+    const updatedDetail = { ...detail };
+    delete updatedDetail[key];
+    updatedDetail[value] = detail[key];
+    setDetail(updatedDetail);
+  };
+
+  const handleDetailValueChange = (key, value) => {
+    setDetail({ ...detail, [key]: value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,6 +49,7 @@ const ProductList = () => {
       productData.append("image", image);
       productData.append("name", name);
       productData.append("description", description);
+      productData.append("detail", JSON.stringify(detail)); // Stringify detail
       productData.append("price", price);
       productData.append("category", category);
       productData.append("quantity", quantity);
@@ -151,7 +167,37 @@ const ProductList = () => {
               className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-black h-[8rem]"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+            />
+
+            <label htmlFor="" className="my-5">
+              Product Details
+            </label>
+            <br />
+            {Object.entries(detail).map(([key, value], index) => (
+              <div key={index} className="flex mb-2">
+                <input
+                  type="text"
+                  placeholder="Key"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  value={key}
+                  onChange={(e) => handleDetailChange(key, e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Value"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  value={value}
+                  onChange={(e) => handleDetailValueChange(key, e.target.value)}
+                />
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={handleAddDetailField}
+              className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
+            >
+              Add Field
+            </button>
 
             <div className="flex justify-between">
               <div>

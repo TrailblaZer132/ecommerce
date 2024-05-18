@@ -20,31 +20,31 @@ const AdminProductUpdate = () => {
   const [description, setDescription] = useState(
     productData?.description || ""
   );
+  const [detail, setDetail] = useState(productData?.description || {});
+
   const [price, setPrice] = useState(productData?.price || "");
-  const [category, setCategory] = useState(productData?.category || "");
+  const [category, setCategory] = useState(productData?.category?._id || "");
   const [quantity, setQuantity] = useState(productData?.quantity || "");
   const [brand, setBrand] = useState(productData?.brand || "");
-  const [stock, setStock] = useState(productData?.countInStock);
+  const [stock, setStock] = useState(productData?.countInStock || 0);
 
   const navigate = useNavigate();
-
   const { data: categories = [] } = useFetchCategoriesQuery();
-
   const [uploadProductImage] = useUploadProductImageMutation();
-
   const [updateProduct] = useUpdateProductMutation();
-
   const [deleteProduct] = useDeleteProductMutation();
 
   useEffect(() => {
     if (productData && productData._id) {
       setName(productData.name);
       setDescription(productData.description);
+      setDetail(productData.detail || {});
       setPrice(productData.price);
       setCategory(productData.category?._id);
       setQuantity(productData.quantity);
       setBrand(productData.brand);
       setImage(productData.image);
+      setStock(productData.countInStock);
     }
   }, [productData]);
 
@@ -66,6 +66,21 @@ const AdminProductUpdate = () => {
     }
   };
 
+  const handleDetailChange = (key, value) => {
+    setDetail((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleAddDetailField = () => {
+    const newKey = `newKey${Object.keys(detail).length}`;
+    setDetail((prev) => ({
+      ...prev,
+      [newKey]: "",
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -73,6 +88,7 @@ const AdminProductUpdate = () => {
       formData.append("image", image);
       formData.append("name", name);
       formData.append("description", description);
+      formData.append("detail", JSON.stringify(detail));
       formData.append("price", price);
       formData.append("category", category);
       formData.append("quantity", quantity);
@@ -229,10 +245,40 @@ const AdminProductUpdate = () => {
               </label>
               <textarea
                 type="text"
-                className="p-2 mb-3 transition-all ease-in-out duration-75  border rounded-lg w-[95%] text-black"
+                className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-black h-[8rem]"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+
+              <label htmlFor="" className="my-5">
+                Product Details
+              </label>
+              <br />
+              {Object.keys(detail).map((key) => (
+                <div key={key} className="mb-2">
+                  <input
+                    type="text"
+                    placeholder="Key"
+                    value={key}
+                    readOnly
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Value"
+                    value={detail[key]}
+                    onChange={(e) => handleDetailChange(key, e.target.value)}
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddDetailField}
+                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
+              >
+                Add Field
+              </button>
 
               <div className="flex justify-between">
                 <div>

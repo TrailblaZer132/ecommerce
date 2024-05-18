@@ -23,6 +23,8 @@ const productSchema = mongoose.Schema(
     quantity: { type: Number, required: true },
     category: { type: ObjectId, ref: "Category", required: true },
     description: { type: String, required: true },
+    detail: { type: Map, of: String, required: true }, // Change detail to Map
+
     reviews: [reviewSchema],
     rating: { type: Number, required: true, default: 0 },
     numReviews: { type: Number, required: true, default: 0 },
