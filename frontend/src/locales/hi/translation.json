@@ -1,7 +1,9 @@
 {
   "welcomeMessage": "हमारी साइट पर आपका स्वागत है!",
   "greeting": "अभिवादन",
+
   "All Products": "सभी प्रोडक्ट",
+
   "HOME": "होम",
   "SHOP": "शॉप",
   "CART": "कार्ट",
@@ -14,5 +16,7 @@
   "Profile": "प्रोफाइल",
   "Logout": "लॉग आउट",
   "LOGIN": "लॉग इन",
-  "REGISTER": "रजिस्टर"
+  "REGISTER": "रजिस्टर",
+
+  "Manage Categories": "श्रेणी प्रबंधित करें"
 }

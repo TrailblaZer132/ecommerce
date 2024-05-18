@@ -11,8 +11,10 @@ import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
 import AdminMenu from "./AdminMenu";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const CategoryList = () => {
+  const { t } = useTranslation();
   const { data: categories } = useFetchCategoriesQuery();
   const [name, setName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -91,7 +93,7 @@ const CategoryList = () => {
     <div className="ml-[10rem] flex-col md:flex-row">
       <AdminMenu />
       <div className="md:w-3/4 p-3">
-        <div className="text-xl font-semibold mb-4">Manage Categories</div>
+        <div className="text-xl font-semibold mb-4">{t("Manage Categories")}</div>
         <CategoryForm
           value={name}
           setValue={setName}
@@ -113,7 +115,7 @@ const CategoryList = () => {
                   }
                 }}
               >
-                {category.name}
+                {t(`${category.name}`)}
               </button>
             </div>
           ))}
