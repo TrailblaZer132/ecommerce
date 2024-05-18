@@ -150,3 +150,120 @@ or to run the frontend server only:
 npm run frontend
 
 ```
+
+# Installing translations:
+
+1. In the terminal, run the following command:
+
+   ```bash
+
+   npm install i18next react-i18next
+   npm install i18next-http-backend
+
+   ```
+
+   2. Create a folder named locales in the src folder.
+   3. Create a file named en.json in the locales folder.
+   4. Add the following code in the en.json file:
+
+   ```json
+   {
+     "translation": {
+       "hello": "Hello world!"
+     }
+   }
+   ```
+
+   5. Create a file named i18n.js in the src folder.
+   6. Add the following code in the i18n.js file:
+
+   ```js
+   import i18n from "i18next";
+   import { initReactI18next } from "react-i18next";
+   import HttpApi from "i18next-http-backend";
+
+   i18n
+     .use(HttpApi)
+     .use(initReactI18next)
+     .init({
+       fallbackLng: "en",
+       debug: true,
+       interpolation: {
+         escapeValue: false, // React already does escaping
+       },
+       backend: {
+         loadPath: "/src/locales/{{lng}}/translation.json",
+       },
+       react: {
+         useSuspense: false,
+       },
+     });
+
+   export default i18n;
+   ```
+
+2. In the main.jsx file, add the following code:
+
+   ```jsx
+   import i18n from "./i18n";
+   ```
+
+3. In the App.jsx file, add the following code:
+
+   ```jsx
+   import { Outlet } from "react-router-dom";
+   import Navigation from "./pages/Auth/Navigation";
+   import { ToastContainer } from "react-toastify";
+   import "react-toastify/dist/ReactToastify.css";
+   import { useTranslation } from "react-i18next";
+   import LanguageDropdown from "./components/LanguageDropdown";
+   import "./i18n";
+
+   const App = () => {
+     const { t } = useTranslation();
+     return (
+       <>
+         <ToastContainer />
+         <Navigation />
+         <main className="py-3">
+           <Outlet />
+
+           <center>
+             <LanguageDropdown />
+             <div>
+               <h1>{t("welcomeMessage")}</h1>
+               <h2>{t("greeting")}</h2>
+             </div>
+           </center>
+         </main>
+       </>
+     );
+   };
+
+   export default App;
+   ```
+
+4. In the LanguageDropdown.jsx file, add the following code:
+
+   ```jsx
+   import { useTranslation } from "react-i18next";
+
+   const LanguageDropdown = () => {
+     const { i18n } = useTranslation();
+
+     const changeLanguage = (event) => {
+       i18n.changeLanguage(event.target.value);
+     };
+
+     return (
+       <select onChange={changeLanguage}>
+         <option value="en">English</option>
+         <option value="hi">Hindi</option>
+         {/* Add more options for other languages */}
+       </select>
+     );
+   };
+
+   export default LanguageDropdown;
+   ```
+
