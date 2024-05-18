@@ -3,8 +3,10 @@ import moment from "moment";
 import { useEffect } from "react";
 import { useAllProductsQuery } from "../../redux/api/productApiSlice";
 import AdminMenu from "./AdminMenu";
+import { useTranslation } from "react-i18next";
 
 const AllProducts = () => {
+  const { t } = useTranslation();
   const { data: products, isLoading, isError, refetch } = useAllProductsQuery();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const AllProducts = () => {
         <div className="flex flex-col  md:flex-row">
           <div className="p-3">
             <div className="ml-[2rem] text-xl font-bold h-12">
-              All Products ({products.length})
+              {t("All Products")} ({products.length})
             </div>
             <div className="flex flex-wrap justify-around items-center">
               {products.map((product) => (

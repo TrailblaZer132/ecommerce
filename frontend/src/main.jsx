@@ -5,6 +5,7 @@ import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store.js";
+import "./i18n.js"
 
 //private Route
 import PrivateRoute from "./components/PrivateRoute.jsx";

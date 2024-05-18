@@ -107,7 +107,7 @@ const ProductList = () => {
                 <label htmlFor="name">Name</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />

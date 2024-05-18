@@ -137,7 +137,7 @@ const AdminProductUpdate = () => {
           position: "top-right",
           autoClose: 2000,
         });
-        navigate("/admin/allproductslist", { replace: true }); 
+        navigate("/admin/allproductslist", { replace: true });
       }
     } catch (err) {
       console.log(err);
@@ -185,7 +185,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name">Name</label> <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem] capitalize"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
