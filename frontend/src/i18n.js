@@ -7,6 +7,7 @@ i18n
   .use(HttpApi)
   .use(initReactI18next)
   .init({
+    lng: localStorage.getItem("language"),
     fallbackLng: "en",
     debug: true,
     interpolation: {

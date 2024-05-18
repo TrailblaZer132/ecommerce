@@ -2,5 +2,17 @@
   "welcomeMessage": "हमारी साइट पर आपका स्वागत है!",
   "greeting": "अभिवादन",
   "All Products": "सभी प्रोडक्ट",
-  "signIn": "Se connecter"
+  "HOME": "होम",
+  "SHOP": "शॉप",
+  "CART": "कार्ट",
+  "FAVOURITES": "पसंदीदा",
+  "Dashboard": "डैशबोर्ड",
+  "Products": "प्रोडक्ट",
+  "Categories": "श्रेणियाँ",
+  "Orders": "ऑर्डर",
+  "Users": "उपयोगकर्ता",
+  "Profile": "प्रोफाइल",
+  "Logout": "लॉग आउट",
+  "LOGIN": "लॉग इन",
+  "REGISTER": "रजिस्टर"
 }

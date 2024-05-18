@@ -5,6 +5,7 @@ import {
   AiOutlineLogin,
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
+  AiOutlineTranslation,
 } from "react-icons/ai";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -13,8 +14,11 @@ import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
+import { useTranslation } from "react-i18next";
+import LanguageDropdown from "../../components/LanguageDropdown";
 
 const Navigation = () => {
+  const { t } = useTranslation();
   const { userInfo } = useSelector((state) => state.auth);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -62,7 +66,9 @@ const Navigation = () => {
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
           <AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">HOME</span>{" "}
+          <span className="hidden nav-item-name mt-[3rem]">
+            {t("HOME")}
+          </span>{" "}
         </Link>
 
         <Link
@@ -70,13 +76,17 @@ const Navigation = () => {
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
           <AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">SHOP</span>{" "}
+          <span className="hidden nav-item-name mt-[3rem]">
+            {t("SHOP")}
+          </span>{" "}
         </Link>
 
         <Link to="/cart" className="flex relative">
           <div className="flex items-center transition-transform transform hover:translate-x-2">
             <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
-            <span className="hidden nav-item-name mt-[3rem]">Cart</span>{" "}
+            <span className="hidden nav-item-name mt-[3rem]">
+              {t("CART")}
+            </span>{" "}
           </div>
         </Link>
 
@@ -84,10 +94,19 @@ const Navigation = () => {
           <div className="flex items-center transition-transform transform hover:translate-x-2">
             <FaHeart className="mt-[3rem] mr-2" size={26} />
             <span className="hidden nav-item-name mt-[3rem]">
-              Favorite
+              {t("FAVOURITES")}
             </span>{" "}
           </div>
         </Link>
+
+        <>
+          <div className="flex items-center transition-transform transform hover:translate-x-2">
+            <AiOutlineTranslation className="mt-[3rem] mr-2" size={26} />
+            <span className="hidden nav-item-name mt-[3rem]">
+              <LanguageDropdown />
+            </span>{" "}
+          </div>
+        </>
       </div>
 
       <div className="relative">
@@ -134,7 +153,7 @@ const Navigation = () => {
                     to="/admin/dashboard"
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
-                    Dashboard
+                    {t("Dashboard")}
                   </Link>
                 </li>
                 <li>
@@ -142,7 +161,7 @@ const Navigation = () => {
                     to="/admin/productlist"
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
-                    Products
+                    {t("Products")}
                   </Link>
                 </li>
                 <li>
@@ -150,7 +169,7 @@ const Navigation = () => {
                     to="/admin/categorylist"
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
-                    Category
+                    {t("Categories")}
                   </Link>
                 </li>
                 <li>
@@ -158,7 +177,7 @@ const Navigation = () => {
                     to="/admin/orderlist"
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
-                    Order
+                    {t("Orders")}
                   </Link>
                 </li>
                 <li>
@@ -166,7 +185,7 @@ const Navigation = () => {
                     to="/admin/userlist"
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
-                    Users
+                    {t("Users")}
                   </Link>
                 </li>
               </>
@@ -177,7 +196,7 @@ const Navigation = () => {
                 to="/profile"
                 className="rounded block px-4 py-2 hover:bg-gray-200"
               >
-                Profile
+                {t("Profile")}
               </Link>
             </li>
             <li>
@@ -186,7 +205,7 @@ const Navigation = () => {
                 onClick={logoutHandler}
                 className="rounded block px-4 py-2 hover:bg-gray-200"
               >
-                Logout
+                {t("Logout")}
               </Link>
             </li>
           </ul>
@@ -201,7 +220,9 @@ const Navigation = () => {
               className="flex items-center transition-transform transform hover:translate-x-2"
             >
               <AiOutlineLogin className="mr-2 mt-[3rem]" size={26} />
-              <span className="hidden nav-item-name mt-[3rem]">LOGIN</span>{" "}
+              <span className="hidden nav-item-name mt-[3rem]">
+                {t("LOGIN")}
+              </span>{" "}
             </Link>
           </li>
 
@@ -212,7 +233,7 @@ const Navigation = () => {
             >
               <AiOutlineUserAdd className="mr-2 mt-[3rem]" size={26} />
               <span className="hidden nav-item-name mt-[3rem]">
-                REGISTER
+                {t("REGISTER")}
               </span>{" "}
             </Link>
           </li>

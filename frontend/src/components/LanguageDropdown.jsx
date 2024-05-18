@@ -4,15 +4,26 @@ import { useTranslation } from "react-i18next";
 
 const LanguageDropdown = () => {
   const { i18n } = useTranslation();
+  const currentLang = localStorage.getItem("language") || "en";
 
   const changeLanguage = (event) => {
-    i18n.changeLanguage(event.target.value);
+    const newLang = event.target.value;
+    i18n.changeLanguage(newLang);
+    localStorage.setItem("language", newLang);
   };
 
   return (
-    <select onChange={changeLanguage}>
-      <option value="en">English</option>
-      <option value="hi">Hindi</option>
+    <select
+      value={currentLang}
+      onChange={changeLanguage}
+      className="bg-inherit"
+    >
+      <option value="en" className="bg-black">
+        English
+      </option>
+      <option value="hi" className="bg-black">
+        हिंदी
+      </option>
       {/* Add more options for other languages */}
     </select>
   );
