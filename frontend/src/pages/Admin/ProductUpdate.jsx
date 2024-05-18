@@ -20,11 +20,13 @@ const AdminProductUpdate = () => {
   const [description, setDescription] = useState(
     productData?.description || ""
   );
+  const [details, setDetails] = useState(productData?.details || {});
+
   const [price, setPrice] = useState(productData?.price || "");
-  const [category, setCategory] = useState(productData?.category || "");
+  const [category, setCategory] = useState(productData?.category?._id || "");
   const [quantity, setQuantity] = useState(productData?.quantity || "");
   const [brand, setBrand] = useState(productData?.brand || "");
-  const [stock, setStock] = useState(productData?.countInStock);
+  const [stock, setStock] = useState(productData?.countInStock || 0);
 
   const navigate = useNavigate();
 
@@ -40,11 +42,13 @@ const AdminProductUpdate = () => {
     if (productData && productData._id) {
       setName(productData.name);
       setDescription(productData.description);
+      setDetails(productData.details || {});
       setPrice(productData.price);
       setCategory(productData.category?._id);
       setQuantity(productData.quantity);
       setBrand(productData.brand);
       setImage(productData.image);
+      setStock(productData.countInStock);
     }
   }, [productData]);
 
@@ -53,33 +57,53 @@ const AdminProductUpdate = () => {
     formData.append("image", e.target.files[0]);
     try {
       const res = await uploadProductImage(formData).unwrap();
-      toast.success("Item added successfully", {
+      toast.success("Image uploaded successfully", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
       setImage(res.image);
     } catch (err) {
-      toast.success("Item added successfully", {
+      toast.success("Imge upload failed", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 2000,
       });
     }
   };
 
+  const handleDetailsChange = (key, value) => {
+    setDetails((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleAddDetailsField = () => {
+    const newKey = `newKey${Object.keys(details).length}`;
+    setDetails((prev) => ({
+      ...prev,
+      [newKey]: "",
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("price", price);
-      formData.append("category", category);
-      formData.append("quantity", quantity);
-      formData.append("brand", brand);
-      formData.append("countInStock", stock);
+      const updatedProduct = {
+        image,
+        name,
+        description,
+        details,
+        price,
+        category,
+        quantity,
+        brand,
+        countInStock: stock,
+      };
 
-      const data = await updateProduct({ productId: params._id, formData });
+      const data = await updateProduct({
+        productId: params._id,
+        ...updatedProduct,
+      });
 
       console.log("Update product response:", data);
 
@@ -192,7 +216,7 @@ const AdminProductUpdate = () => {
                 </div>
 
                 <div className="two">
-                  <label htmlFor="name block">Price</label> <br />
+                  <label htmlFor="price">Price</label> <br />
                   <input
                     type="number"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
@@ -204,7 +228,7 @@ const AdminProductUpdate = () => {
 
               <div className="flex flex-wrap">
                 <div>
-                  <label htmlFor="name block">Quantity</label> <br />
+                  <label htmlFor="quantity">Quantity</label> <br />
                   <input
                     type="number"
                     min="1"
@@ -214,7 +238,7 @@ const AdminProductUpdate = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="name block">Brand</label> <br />
+                  <label htmlFor="brand">Brand</label> <br />
                   <input
                     type="text"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
@@ -224,7 +248,7 @@ const AdminProductUpdate = () => {
                 </div>
               </div>
 
-              <label htmlFor="" className="my-5">
+              <label htmlFor="description" className="my-5">
                 Description
               </label>
               <textarea
@@ -234,9 +258,40 @@ const AdminProductUpdate = () => {
                 onChange={(e) => setDescription(e.target.value)}
               />
 
+              <br />
+
+              <label htmlFor="details" className="my-5">
+                Details
+              </label>
+              <br />
+              {Object.keys(details).map((key) => (
+                <div key={key} className="mb-2">
+                  <input
+                    type="text"
+                    placeholder="Key"
+                    value={key}
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Value"
+                    value={details[key]}
+                    onChange={(e) => handleDetailsChange(key, e.target.value)}
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddDetailsField}
+                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-400 text-white hover:bg-cyan-500 transition-all ease-in-out duration-75"
+              >
+                Add Field
+              </button>
+
               <div className="flex justify-between">
                 <div>
-                  <label htmlFor="name block">Count In Stock</label> <br />
+                  <label htmlFor="countInStock">Count In Stock</label> <br />
                   <input
                     type="text"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"

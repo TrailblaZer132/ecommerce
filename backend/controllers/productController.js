@@ -3,7 +3,8 @@ import Product from "../models/productModel.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity, brand } = req.fields;
+    const { name, description, details, price, category, quantity, brand } =
+      req.fields;
 
     // Validation
     switch (true) {
@@ -13,6 +14,8 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Brand is required" });
       case !description:
         return res.json({ error: "Description is required" });
+      case !details:
+        return res.json({ error: "Details is required" });
       case !price:
         return res.json({ error: "Price is required" });
       case !category:
@@ -21,7 +24,10 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Quantity is required" });
     }
 
-    const product = new Product({ ...req.fields });
+    const product = new Product({
+      ...req.fields,
+      details: JSON.parse(req.fields.details), // Parse details as object
+    });
     await product.save();
     res.json(product);
   } catch (error) {
@@ -32,7 +38,8 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const updateProductDetails = asyncHandler(async (req, res) => {
   try {
-    const { name, description, price, category, quantity, brand } = req.fields;
+    const { name, description, details, price, category, quantity, brand } =
+      req.fields;
 
     // Validation
     switch (true) {
@@ -42,6 +49,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Brand is required" });
       case !description:
         return res.json({ error: "Description is required" });
+      case !details:
+        return res.json({ error: "Details is required" });
       case !price:
         return res.json({ error: "Price is required" });
       case !category:
@@ -52,7 +61,10 @@ const updateProductDetails = asyncHandler(async (req, res) => {
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { ...req.fields },
+      {
+        ...req.fields,
+        details: JSON.parse(req.fields.details), // Parse details as object
+      },
       { new: true }
     );
 
@@ -80,7 +92,7 @@ const removeProduct = asyncHandler(async (req, res) => {
 
 const fetchProducts = asyncHandler(async (req, res) => {
   try {
-    const pageSize = 10;
+    const pageSize = 30;
     const keyword = req.query.keyword
       ? {
           name: {
@@ -95,7 +107,7 @@ const fetchProducts = asyncHandler(async (req, res) => {
 
     res.json({
       products,
-      page: 1,
+      page: 10,
       pages: Math.ceil(count / pageSize),
       hasMore: false,
     });
@@ -199,6 +211,22 @@ const fetchNewProducts = asyncHandler(async (req, res) => {
   }
 });
 
+const filterProducts = asyncHandler(async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+
+    let args = {};
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+
+    const products = await Product.find(args);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 export {
   addProduct,
   updateProductDetails,
@@ -209,4 +237,5 @@ export {
   addProductReview,
   fetchTopProducts,
   fetchNewProducts,
+  filterProducts,
 };
