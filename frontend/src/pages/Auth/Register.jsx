@@ -6,8 +6,10 @@ import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "../../redux/api/usersApiSlice";
 import signupImage from "../../components/images/signup.jpg";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+  const { t } = useTranslation();
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +54,7 @@ const Register = () => {
   return (
     <section className="pl-[10rem] flex flex-wrap">
       <div className="mr-[4rem] mt-[5rem]">
-        <h1 className="text-2xl font-semibold mb-4">Register</h1>
+        <h1 className="text-2xl font-semibold mb-4">{t("Register")}</h1>
 
         <form
           onSubmit={submitHandler}
@@ -64,13 +66,13 @@ const Register = () => {
               htmlFor="name"
               className="block text-sm font-medium text-black"
             >
-              Name
+              {t("Name")}
             </label>
             <input
               type="text"
               id="name"
               className="mt-1 p-2 border rounded w-full"
-              placeholder="Enter your name"
+              placeholder={t("Enter your name")}
               value={username}
               onChange={(e) => setUserName(e.target.value)}
             />
@@ -80,13 +82,13 @@ const Register = () => {
               htmlFor="email"
               className="block text-sm font-medium text-black"
             >
-              Email Address
+              {t("Email address")}
             </label>
             <input
               type="email"
               id="email"
               className="mt-1 p-2 border rounded w-full"
-              placeholder="Enter your email address"
+              placeholder={t("Enter your email address")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -96,13 +98,13 @@ const Register = () => {
               htmlFor="password"
               className="block text-sm font-medium text-black"
             >
-              Password
+              {t("Password")}
             </label>
             <input
               type="password"
               id="password"
               className="mt-1 p-2 border rounded w-full"
-              placeholder="Enter your password"
+              placeholder={t("Enter your password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -112,13 +114,13 @@ const Register = () => {
               htmlFor="confirmPassword"
               className="block text-sm font-medium text-black"
             >
-              Confirm Password
+              {t("Confirm Password")}
             </label>
             <input
               type="password"
               id="confirmPassword"
               className="mt-1 p-2 border rounded w-full"
-              placeholder="Confirm Password"
+              placeholder={t("Confirm Password")}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -129,7 +131,7 @@ const Register = () => {
             type="submit"
             className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer my[1rem]"
           >
-            {isLoading ? "Registering..." : "Register"}
+            {t(`${isLoading ? "Registering..." : "Register"}`)}
           </button>
 
           {isLoading && <Loader />}
@@ -137,12 +139,12 @@ const Register = () => {
 
         <div className="mt-4">
           <p className="text-gray">
-            Already have an account?{" "}
+            {t("Already have an account")}?{" "}
             <Link
               to={redirect ? `/login?redirect=${redirect}` : `/login`}
               className="text-blue-500 hover:underline"
             >
-              Login
+              {t("Login")}
             </Link>
           </p>
         </div>

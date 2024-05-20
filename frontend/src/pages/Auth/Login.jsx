@@ -6,8 +6,10 @@ import { setCredentials } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import loginImage from "../../components/images/login.jpg";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -45,7 +47,7 @@ const Login = () => {
     <div>
       <section className="pl-[10rem] flex flex-wrap">
         <div className="mr-[4rem] mt-[5rem]">
-          <h1 className="text-2xl font-semibold mb-4">Login</h1>
+          <h1 className="text-2xl font-semibold mb-4">{t("Login")}</h1>
 
           <form
             onSubmit={submitHandler}
@@ -57,13 +59,13 @@ const Login = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-black"
               >
-                Email Address
+                {t("Email Address")}
               </label>
               <input
                 type="email"
                 id="email"
                 className="mt-1 p-2 border rounded w-full"
-                placeholder="Enter your email address"
+                placeholder={t("Enter your email address")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -73,13 +75,13 @@ const Login = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-black"
               >
-                Password
+                {t("Password")}
               </label>
               <input
                 type="password"
                 id="password"
                 className="mt-1 p-2 border rounded w-full"
-                placeholder="Enter your password"
+                placeholder={t("Enter your password")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -90,7 +92,7 @@ const Login = () => {
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer my-[1rem]"
             >
-              {isLoading ? "Logging in..." : "Login"}
+              {t(`${isLoading ? "Logging in..." : "Login"}`)}
             </button>
 
             {isLoading && <Loader />}
@@ -98,12 +100,12 @@ const Login = () => {
 
           <div className="mt-4">
             <p className="text-black">
-              New Customer?{" "}
+              {t("New User")}?{" "}
               <Link
                 to={redirect ? `/register?redirect=${redirect}` : `/register`}
                 className="text-green-500 hover:underline"
               >
-                Register
+                {t("Register")}
               </Link>
             </p>
           </div>

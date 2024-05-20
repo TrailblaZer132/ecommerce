@@ -24,6 +24,15 @@ const LanguageDropdown = () => {
       <option value="hi" className="bg-black">
         हिंदी
       </option>
+      <option value="be" className="bg-black">
+        বাংলা
+      </option>
+      <option value="as" className="bg-black">
+        অসমীয়া
+      </option>
+      <option value="kh" className="bg-black">
+        খসি
+      </option>
       {/* Add more options for other languages */}
     </select>
   );

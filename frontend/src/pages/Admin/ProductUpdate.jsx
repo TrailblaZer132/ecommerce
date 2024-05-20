@@ -9,8 +9,10 @@ import {
 } from "../../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const AdminProductUpdate = () => {
+  const { t } = useTranslation();
   const params = useParams();
 
   const { data: productData } = useGetProductByIdQuery(params._id);
@@ -170,7 +172,9 @@ const AdminProductUpdate = () => {
         <div className="flex flex-col md:flex-row">
           <AdminMenu />
           <div className="md:w-3/4 p-3">
-            <div className="h-12">Update / Delete Product</div>
+            <div className="text-2xl font-semibold mb-4">
+              {t("Update / Delete Product")}
+            </div>
 
             {image && (
               <div className="text-center">
@@ -183,8 +187,8 @@ const AdminProductUpdate = () => {
             )}
 
             <div className="mb-3">
-              <label className="text-white py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-                {image ? image.name : "Upload image"}
+              <label className="text-white py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11 hover:shadow-lg transition-all ease-in-out duration-75">
+                {t(`${image ? image.name : "Upload Image"}`)}
                 <input
                   type="file"
                   name="image"
@@ -198,7 +202,7 @@ const AdminProductUpdate = () => {
             <div className="p-3">
               <div className="flex flex-wrap">
                 <div className="one">
-                  <label htmlFor="name">Name</label> <br />
+                  <label htmlFor="name">{t("Name")}</label> <br />
                   <input
                     type="text"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem] capitalize"
@@ -208,7 +212,7 @@ const AdminProductUpdate = () => {
                 </div>
 
                 <div className="two">
-                  <label htmlFor="name block">Price</label> <br />
+                  <label htmlFor="name block">{t("Price")}</label> <br />
                   <input
                     type="number"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
@@ -220,7 +224,7 @@ const AdminProductUpdate = () => {
 
               <div className="flex flex-wrap">
                 <div>
-                  <label htmlFor="name block">Quantity</label> <br />
+                  <label htmlFor="name block">{t("Quantity")}</label> <br />
                   <input
                     type="number"
                     min="1"
@@ -230,7 +234,7 @@ const AdminProductUpdate = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="name block">Brand</label> <br />
+                  <label htmlFor="name block">{t("Brand")}</label> <br />
                   <input
                     type="text"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
@@ -241,7 +245,7 @@ const AdminProductUpdate = () => {
               </div>
 
               <label htmlFor="" className="my-5">
-                Description
+                {t("Description")}
               </label>
               <textarea
                 type="text"
@@ -249,23 +253,24 @@ const AdminProductUpdate = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+              <br />
 
               <label htmlFor="" className="my-5">
-                Product Details
+                {t("Product Details")}
               </label>
               <br />
               {Object.keys(detail).map((key) => (
                 <div key={key} className="mb-2">
                   <input
                     type="text"
-                    placeholder="Key"
+                    placeholder={t("Property Name")}
                     value={key}
                     readOnly
                     className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
                   />
                   <input
                     type="text"
-                    placeholder="Value"
+                    placeholder=""
                     value={detail[key]}
                     onChange={(e) => handleDetailChange(key, e.target.value)}
                     className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
@@ -277,12 +282,13 @@ const AdminProductUpdate = () => {
                 onClick={handleAddDetailField}
                 className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
               >
-                Add Field
+                {t("Add Field")}
               </button>
 
               <div className="flex justify-between">
                 <div>
-                  <label htmlFor="name block">Count In Stock</label> <br />
+                  <label htmlFor="name block">{t("Count In Stock")}</label>{" "}
+                  <br />
                   <input
                     type="text"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
@@ -292,7 +298,7 @@ const AdminProductUpdate = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="">Category</label> <br />
+                  <label htmlFor="">{t("Category")}</label> <br />
                   <select
                     placeholder="Choose Category"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
@@ -312,13 +318,13 @@ const AdminProductUpdate = () => {
                   onClick={handleSubmit}
                   className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 text-white mr-6"
                 >
-                  Update
+                  {t("Update")}
                 </button>
                 <button
                   onClick={handleDelete}
                   className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 text-white"
                 >
-                  Delete
+                  {t("Delete")}
                 </button>
               </div>
             </div>

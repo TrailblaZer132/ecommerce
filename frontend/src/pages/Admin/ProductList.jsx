@@ -7,8 +7,10 @@ import {
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
+import { useTranslation } from "react-i18next";
 
 const ProductList = () => {
+  const { t } = useTranslation();
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -91,7 +93,9 @@ const ProductList = () => {
       <div className="flex flex-col md:flex-row">
         <AdminMenu />
         <div className="md:w-3/4 p-3">
-          <div className="text-2xl font-semibold mb-4">Create Product</div>
+          <div className="text-2xl font-semibold mb-4">
+            {t("Create Product")}
+          </div>
 
           {imageUrl && (
             <div className="text-center">
@@ -104,8 +108,8 @@ const ProductList = () => {
           )}
 
           <div className="mb-3">
-            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-              {image ? image.name : "Upload Image"}
+            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11 hover:shadow-lg transition-all ease-in-out duration-75">
+              {t(`${image ? image.name : "Upload Image"}`)}
 
               <input
                 type="file"
@@ -120,7 +124,7 @@ const ProductList = () => {
           <div className="p-3">
             <div className="flex flex-wrap">
               <div className="one">
-                <label htmlFor="name">Name</label> <br />
+                <label htmlFor="name">{t("Name")}</label> <br />
                 <input
                   type="text"
                   className="p-4 mb-3 w-[30rem] border rounded-lg  text-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize"
@@ -129,7 +133,7 @@ const ProductList = () => {
                 />
               </div>
               <div className="two ml-10 ">
-                <label htmlFor="name block">Price</label> <br />
+                <label htmlFor="name block">{t("Price")}</label> <br />
                 <input
                   type="number"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
@@ -140,7 +144,7 @@ const ProductList = () => {
             </div>
             <div className="flex flex-wrap">
               <div className="one">
-                <label htmlFor="name block">Quantity</label> <br />
+                <label htmlFor="name block">{t("Quantity")}</label> <br />
                 <input
                   type="number"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
@@ -149,7 +153,7 @@ const ProductList = () => {
                 />
               </div>
               <div className="two ml-10 ">
-                <label htmlFor="name block">Brand</label> <br />
+                <label htmlFor="name block">{t("Brand")}</label> <br />
                 <input
                   type="text"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
@@ -160,7 +164,7 @@ const ProductList = () => {
             </div>
 
             <label htmlFor="" className="my-5">
-              Description
+              {t("Description")}
             </label>
             <textarea
               type="text"
@@ -170,21 +174,21 @@ const ProductList = () => {
             />
 
             <label htmlFor="" className="my-5">
-              Product Details
+              {t("Product Details")}
             </label>
             <br />
             {Object.entries(detail).map(([key, value], index) => (
               <div key={index} className="flex mb-2">
                 <input
                   type="text"
-                  placeholder="Key"
+                  placeholder={t("Property Name")}
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
                   value={key}
                   onChange={(e) => handleDetailChange(key, e.target.value)}
                 />
                 <input
                   type="text"
-                  placeholder="Value"
+                  placeholder=""
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
                   value={value}
                   onChange={(e) => handleDetailValueChange(key, e.target.value)}
@@ -196,12 +200,12 @@ const ProductList = () => {
               onClick={handleAddDetailField}
               className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
             >
-              Add Field
+              {t("Add Field")}
             </button>
 
             <div className="flex justify-between">
               <div>
-                <label htmlFor="name block">Count In Stock</label> <br />
+                <label htmlFor="name block">{t("Count In Stock")}</label> <br />
                 <input
                   type="text"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
@@ -211,7 +215,7 @@ const ProductList = () => {
               </div>
 
               <div>
-                <label htmlFor="">Category</label> <br />
+                <label htmlFor="">{t("Category")}</label> <br />
                 <select
                   placeholder="Choose Category"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
@@ -230,7 +234,7 @@ const ProductList = () => {
               onClick={handleSubmit}
               className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-blue-500 text-white hover:bg-blue-600"
             >
-              Submit
+              {t("Submit")}
             </button>
           </div>
         </div>

@@ -9,8 +9,10 @@ import {
 } from "../../redux/api/usersApiSlice";
 import Message from "../../components/Message";
 import AdminMenu from "./AdminMenu";
+import { useTranslation } from "react-i18next";
 
 const UserList = () => {
+  const { t } = useTranslation();
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
   const [deleteUser] = useDeleteUserMutation();
   const [updateUser] = useUpdateUserMutation();
@@ -58,7 +60,9 @@ const UserList = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4 text-center p-4">User List</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-center p-4">
+        {t("User List")}
+      </h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
