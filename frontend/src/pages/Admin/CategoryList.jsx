@@ -10,12 +10,11 @@ import { toast } from "react-toastify";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
 import AdminMenu from "./AdminMenu";
-import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
 const CategoryList = () => {
   const { t } = useTranslation();
-  const { data: categories } = useFetchCategoriesQuery();
+  const { data: categories, refetch } = useFetchCategoriesQuery();
   const [name, setName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [updatingName, setUpdatingName] = useState("");
@@ -38,6 +37,7 @@ const CategoryList = () => {
       } else {
         setName("");
         toast.success("Category created successfully");
+        refetch();
       }
     } catch (error) {
       console.error(error);
@@ -66,6 +66,7 @@ const CategoryList = () => {
         setSelectedCategory(null);
         setUpdatingName("");
         setModalVisible(false);
+        refetch();
       }
     } catch (error) {
       console.error(error);
@@ -82,6 +83,7 @@ const CategoryList = () => {
         toast.error(`${result.name} deleted successfully`);
         setSelectedCategory(null);
         setModalVisible(false);
+        refetch();
       }
     } catch (error) {
       console.error(error);
@@ -93,7 +95,9 @@ const CategoryList = () => {
     <div className="ml-[10rem] flex-col md:flex-row">
       <AdminMenu />
       <div className="md:w-3/4 p-3">
-        <div className="text-xl font-semibold mb-4">{t("Manage Categories")}</div>
+        <div className="text-xl font-semibold mb-4">
+          {t("Manage Categories")}
+        </div>
         <CategoryForm
           value={name}
           setValue={setName}

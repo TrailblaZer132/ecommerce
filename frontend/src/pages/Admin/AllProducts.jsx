@@ -83,6 +83,9 @@ const AllProducts = () => {
                             />
                           </svg>
                         </Link>
+                        <p className="text-gray-500">
+                          Stock Available: {product?.countInStock}
+                        </p>
                         <p>₹{product?.price}</p>
                       </div>
                     </div>

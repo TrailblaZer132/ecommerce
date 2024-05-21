@@ -15,7 +15,7 @@ const AdminProductUpdate = () => {
   const { t } = useTranslation();
   const params = useParams();
 
-  const { data: productData } = useGetProductByIdQuery(params._id);
+  const { data: productData, refetch } = useGetProductByIdQuery(params._id);
 
   const [image, setImage] = useState(productData?.image || "");
   const [name, setName] = useState(productData?.name || "");
@@ -48,7 +48,13 @@ const AdminProductUpdate = () => {
       setImage(productData.image);
       setStock(productData.countInStock);
     }
-  }, [productData]);
+
+    const interval = setInterval(() => {
+      refetch();
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [productData, refetch]);
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
@@ -76,10 +82,9 @@ const AdminProductUpdate = () => {
   };
 
   const handleAddDetailField = () => {
-    const newKey = `newKey${Object.keys(detail).length}`;
     setDetail((prev) => ({
       ...prev,
-      [newKey]: "",
+      [""]: "",
     }));
   };
 
@@ -259,13 +264,19 @@ const AdminProductUpdate = () => {
                 {t("Product Details")}
               </label>
               <br />
-              {Object.keys(detail).map((key) => (
-                <div key={key} className="mb-2">
+              {Object.keys(detail).map((key, index) => (
+                <div key={index} className="mb-2">
                   <input
                     type="text"
                     placeholder={t("Property Name")}
                     value={key}
-                    readOnly
+                    onChange={(e) => {
+                      const newKey = e.target.value;
+                      setDetail(({ [key]: value, ...rest }) => ({
+                        ...rest,
+                        [newKey]: value,
+                      }));
+                    }}
                     className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
                   />
                   <input
