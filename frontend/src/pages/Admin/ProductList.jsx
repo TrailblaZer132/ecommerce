@@ -8,7 +8,6 @@ import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
 import AdminMenu from "./AdminMenu";
 import { useTranslation } from "react-i18next";
-
 const ProductList = () => {
   const { t } = useTranslation();
   const [image, setImage] = useState("");
@@ -27,6 +26,11 @@ const ProductList = () => {
   const [uploadProductImage] = useUploadProductImageMutation();
   const [createProduct] = useCreateProductMutation();
   const { data: categories } = useFetchCategoriesQuery();
+  useEffect(() => {
+    if (categories && categories.length > 0) {
+      setCategory(categories[0]._id); // Set default category to the first one
+    }
+  }, [categories]);
 
   const handleAddDetailField = () => {
     setDetail({ ...detail, "": "" });
@@ -58,7 +62,7 @@ const ProductList = () => {
       productData.append("brand", brand);
       productData.append("countInStock", stock);
 
-      console.log(productData);
+      console.log("Submitting product with category ID: ", category); // Add this line
 
       const { data } = await createProduct(productData);
 
@@ -108,7 +112,7 @@ const ProductList = () => {
           )}
 
           <div className="mb-3">
-            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11 hover:shadow-lg transition-all ease-in-out duration-75">
+            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
               {t(`${image ? image.name : "Upload Image"}`)}
 
               <input
@@ -181,14 +185,14 @@ const ProductList = () => {
               <div key={index} className="flex mb-2">
                 <input
                   type="text"
-                  placeholder={t("Property Name")}
+                  placeholder="Key"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
                   value={key}
                   onChange={(e) => handleDetailChange(key, e.target.value)}
                 />
                 <input
                   type="text"
-                  placeholder=""
+                  placeholder="Value"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
                   value={value}
                   onChange={(e) => handleDetailValueChange(key, e.target.value)}

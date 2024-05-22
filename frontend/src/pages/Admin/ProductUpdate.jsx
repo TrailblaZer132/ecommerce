@@ -269,7 +269,7 @@ const AdminProductUpdate = () => {
                   <input
                     type="text"
                     placeholder={t("Property Name")}
-                    value={key}
+                    defaultValue={key}
                     onChange={(e) => {
                       const newKey = e.target.value;
                       setDetail(({ [key]: value, ...rest }) => ({
