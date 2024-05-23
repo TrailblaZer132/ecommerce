@@ -16,6 +16,7 @@ import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import LanguageDropdown from "../../components/LanguageDropdown";
+import FavoritesCount from "../../pages/Products/FavoritesCount";
 
 const Navigation = () => {
   const { t } = useTranslation();
@@ -96,6 +97,7 @@ const Navigation = () => {
             <span className="hidden nav-item-name mt-[3rem]">
               {t("FAVOURITES")}
             </span>{" "}
+            <FavoritesCount />
           </div>
         </Link>
 
