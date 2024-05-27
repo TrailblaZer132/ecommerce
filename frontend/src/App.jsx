@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useTranslation } from 'react-i18next';
 // import LanguageDropdown from './components/LanguageDropdown';
+import Navbar from "./pages/Navbar";
 import "./i18n";
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
+      <Navbar />
       <Navigation />
       <main className="py-3">
         <Outlet />
