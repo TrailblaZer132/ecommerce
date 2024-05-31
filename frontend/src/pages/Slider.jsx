@@ -21,8 +21,8 @@ const Slider = () => {
   return (
     <div
       id="animation-carousel"
-      className="relative w-full mx-auto mt-[5rem]"
-      style={{ maxWidth: "97%", marginBottom: "3%", marginLeft: "3.5%" }}
+      className="relative w-full mx-auto "
+      style={{ maxWidth: "97%", marginBottom: "3%", marginLeft: "1.5%" }}
       data-carousel="static"
     >
       <br />

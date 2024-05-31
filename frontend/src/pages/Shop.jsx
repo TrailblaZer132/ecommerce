@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { useGetFilteredProductsQuery } from "../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../redux/api/categoryApiSlice";
 
@@ -13,6 +14,7 @@ import ProductCard from "./Products/ProductCard.jsx";
 
 const Shop = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const { categories, products, checked, radio } = useSelector(
     (state) => state.shop
   );
@@ -24,12 +26,34 @@ const Shop = () => {
     checked,
     radio,
   });
-
+  const resetFilters = () => {
+    // Reset local states
+    setPriceFilter("");
+  
+    // Reset Redux states
+    dispatch(setChecked([]));
+    dispatch(setProducts([]));
+  };
   useEffect(() => {
     if (!categoriesQuery.isLoading) {
       dispatch(setCategories(categoriesQuery.data));
     }
   }, [categoriesQuery.data, dispatch]);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const categoryFilter = searchParams.get("category");
+
+    if (categoryFilter && categories) {
+      const filteredCategory = categories.find(
+        (category) => category.name === categoryFilter
+      );
+
+      // Apply the category filter to checked
+      const updatedChecked = [filteredCategory?._id];
+      dispatch(setChecked(updatedChecked));
+    }
+  }, [location.search, categories, dispatch]);
 
   useEffect(() => {
     if (!checked.length || !radio.length) {
@@ -76,7 +100,7 @@ const Shop = () => {
   ];
 
   const handlePriceChange = (e) => {
-    // Update the price filter state when the user types in the input filed
+    // Update the price filter state when the user types in the input field
     setPriceFilter(e.target.value);
   };
 
@@ -92,16 +116,17 @@ const Shop = () => {
             <div className="p-5 w-[15rem]">
               {categories?.map((c) => (
                 <div key={c._id} className="mb-2">
-                  <div className="flex ietms-center mr-4">
+                  <div className="flex items-center mr-4">
                     <input
                       type="checkbox"
-                      id="red-checkbox"
+                      id={`${c._id}-checkbox`}
+                      checked={checked.includes(c._id)} // Check if the category ID is present in the checked array
                       onChange={(e) => handleCheck(e.target.checked, c._id)}
                       className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
 
                     <label
-                      htmlFor="pink-checkbox"
+                      htmlFor={`${c._id}-checkbox`}
                       className="ml-2 text-sm font-medium text-white dark:text-gray-800"
                     >
                       {c.name}
@@ -117,29 +142,27 @@ const Shop = () => {
 
             <div className="p-5">
               {uniqueBrands?.map((brand) => (
-                <>
-                  <div className="flex items-enter mr-4 mb-5">
-                    <input
-                      type="radio"
-                      id={brand}
-                      name="brand"
-                      onChange={() => handleBrandClick(brand)}
-                      className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
+                <div key={brand} className="flex items-center mr-4 mb-5">
+                  <input
+                    type="radio"
+                    id={`${brand}-radio`}
+                    name="brand"
+                    onChange={() => handleBrandClick(brand)}
+                    className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
 
-                    <label
-                      htmlFor="pink-radio"
-                      className="ml-2 text-sm font-medium text-white dark:text-gray-800"
-                    >
-                      {brand}
-                    </label>
-                  </div>
-                </>
+                  <label
+                    htmlFor={`${brand}-radio`}
+                    className="ml-2 text-sm font-medium text-white dark:text-gray-800"
+                  >
+                    {brand}
+                  </label>
+                </div>
               ))}
             </div>
 
             <h2 className="h4 text-center py-2 bg-white rounded-full mb-2">
-              Filer by Price
+              Filter by Price
             </h2>
 
             <div className="p-5 w-[15rem]">
@@ -155,7 +178,7 @@ const Shop = () => {
             <div className="p-5 pt-0">
               <button
                 className="w-full border my-4"
-                onClick={() => window.location.reload()}
+                onClick={resetFilters}
               >
                 Reset
               </button>

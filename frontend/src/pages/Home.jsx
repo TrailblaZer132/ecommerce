@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Header from '../components/Header';
 import Product from "./Products/Product";
 import Slider from "./Slider";
+import Categories from "../components/CategoryForHome";
 
 
 
@@ -14,6 +15,7 @@ const Home = () => {
 
   return (
     <>
+    <Categories/>
       <Slider />
       {!keyword ? <Header /> : null}
       {isLoading ? (

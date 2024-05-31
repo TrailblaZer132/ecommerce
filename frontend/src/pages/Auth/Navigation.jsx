@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  AiOutlineHome,
   AiOutlineShopping,
   AiOutlineLogin,
   AiOutlineUserAdd,
@@ -58,71 +57,63 @@ const Navigation = () => {
       style={{ zIndex: 9999 }}
       className={`${
         showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-4 text-white bg-[#1a1a1a] w-[4%] hover:w-[15%] h-[100vh]  fixed z-50`}
+      } xl:flex lg:flex md:flex sm:flex flex-row justify-between p-4 text-white bg-blue-800 w-full h-12 fixed`}
       id="navigation-container"
       onMouseLeave={() => setDropdownOpen(false)}
     >
-      <div className="flex flex-col justify-center space-y-4">
-        <Link
-          to="/"
-          className="flex items-center transition-transform transform hover:translate-x-2"
-        >
-          <AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">
-            {t("HOME")}
-          </span>{" "}
+      <div className="flex flex-row items-center space-x-4">
+        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="h-8"
+            alt="Flowbite Logo"
+          />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            E-Meghalaya
+          </span>
+        </a>
+      </div>
+      <div className="flex flex-row items-center space-x-10">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="mr-[25rem] py-2 px-[1rem] w-[30rem] h-[2.5rem] rounded-xl bg-white text-gray-500"
+        />
+
+        <Link to="/shop" className="nav-link">
+          <AiOutlineShopping size={26} />
+          <span className="nav-item-name">{t("SHOP")}</span>
         </Link>
 
-        <Link
-          to="/shop"
-          className="flex items-center transition-transform transform hover:translate-x-2"
-        >
-          <AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">
-            {t("SHOP")}
-          </span>{" "}
-        </Link>
-
-        <Link to="/cart" className="flex relative">
-          <div className="flex items-center transition-transform transform hover:translate-x-2">
-            <AiOutlineShoppingCart className="mt-[3rem] mr-2" size={26} />
-            <span className="hidden nav-item-name mt-[3rem]">
-              {t("CART")}
-            </span>{" "}
-          </div>
-
-          <div className="absolute top-9">
+        <Link to="/cart" className="nav-link relative">
+          <AiOutlineShoppingCart size={26} />
+          <span className="nav-item-name">{t("CART")}</span>
+          <div className="absolute top-0">
             {cartItems.length > 0 && (
               <span>
                 <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
-                  {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                  {cartItems.reduce((a, c) => a + c.qty, 0)}
                 </span>
               </span>
             )}
           </div>
         </Link>
 
-        <Link to="/favorite" className="flex relative">
-          <div className="flex items-center transition-transform transform hover:translate-x-2">
-            <FaHeart className="mt-[3rem] mr-2" size={26} />
-            <span className="hidden nav-item-name mt-[3rem]">
-              {t("FAVOURITES")}
-            </span>{" "}
-            <FavoritesCount />
-          </div>
+        <Link to="/favorite" className="nav-link relative">
+          <FaHeart size={26} />
+          <span className="nav-item-name">{t("FAVOURITES")}</span>
+          <FavoritesCount />
         </Link>
 
-        <>
-          <div className="flex items-center transition-transform transform hover:translate-x-2">
-            <AiOutlineTranslation className="mt-[3rem] mr-2" size={26} />
-            <span className="hidden nav-item-name mt-[3rem]">
-              <LanguageDropdown />
-            </span>{" "}
-          </div>
-        </>
+        <div className="nav-link">
+          <AiOutlineTranslation size={26} />
+          <span className="nav-item-name">
+            <LanguageDropdown />
+          </span>
+        </div>
       </div>
 
-      <div className="relative">
+      <div className="relative flex items-center">
         <button
           onClick={toggleDropdown}
           className="flex items-center text-gray-800 focus:outline-none"
@@ -132,7 +123,6 @@ const Navigation = () => {
           ) : (
             <></>
           )}
-
           {userInfo && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -154,11 +144,7 @@ const Navigation = () => {
         </button>
 
         {dropdownOpen && userInfo && (
-          <ul
-            className={`absolute rounded right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
-              !userInfo.isAdmin ? "-top-20" : "-top-80"
-            } `}
-          >
+          <ul className="dropdown-menu">
             {userInfo.isAdmin && (
               <>
                 <li>
@@ -226,28 +212,18 @@ const Navigation = () => {
       </div>
 
       {!userInfo && (
-        <ul>
+        <ul className="flex flex-row space-x-4">
           <li>
-            <Link
-              to="/login"
-              className="flex items-center transition-transform transform hover:translate-x-2"
-            >
-              <AiOutlineLogin className="mr-2 mt-[3rem]" size={26} />
-              <span className="hidden nav-item-name mt-[3rem]">
-                {t("LOGIN")}
-              </span>{" "}
+            <Link to="/login" className="nav-link">
+              <AiOutlineLogin size={26} />
+              <span className="nav-item-name">{t("LOGIN")}</span>
             </Link>
           </li>
 
           <li>
-            <Link
-              to="/register"
-              className="flex items-center transition-transform transform hover:translate-x-2"
-            >
-              <AiOutlineUserAdd className="mr-2 mt-[3rem]" size={26} />
-              <span className="hidden nav-item-name mt-[3rem]">
-                {t("REGISTER")}
-              </span>{" "}
+            <Link to="/register" className="nav-link">
+              <AiOutlineUserAdd size={26} />
+              <span className="nav-item-name">{t("REGISTER")}</span>
             </Link>
           </li>
         </ul>
