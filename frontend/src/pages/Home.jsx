@@ -1,13 +1,11 @@
-import {Link, useParams} from 'react-router-dom';
-import { useGetProductsQuery } from '../redux/api/productApiSlice';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
-import Header from '../components/Header';
+import { Link, useParams } from "react-router-dom";
+import { useGetProductsQuery } from "../redux/api/productApiSlice";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+import Header from "../components/Header";
 import Product from "./Products/Product";
 import Slider from "./Slider";
 import Categories from "../components/CategoryForHome";
-
-
 
 const Home = () => {
   const { keyword } = useParams();
@@ -15,7 +13,9 @@ const Home = () => {
 
   return (
     <>
-    <Categories/>
+      <div className="mt-[6rem] flex justify-center items-center">
+        <Categories />
+      </div>
       <Slider />
       {!keyword ? <Header /> : null}
       {isLoading ? (

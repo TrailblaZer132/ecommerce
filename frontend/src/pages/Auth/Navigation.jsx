@@ -80,12 +80,12 @@ const Navigation = () => {
           className="mr-[25rem] py-2 px-[1rem] w-[30rem] h-[2.5rem] rounded-xl bg-white text-gray-500"
         />
 
-        <Link to="/shop" className="nav-link">
+        <Link to="/shop" className="nav-link hover:text-cyan-200">
           <AiOutlineShopping size={26} />
           <span className="nav-item-name">{t("SHOP")}</span>
         </Link>
 
-        <Link to="/cart" className="nav-link relative">
+        <Link to="/cart" className="nav-link relative hover:text-cyan-200">
           <AiOutlineShoppingCart size={26} />
           <span className="nav-item-name">{t("CART")}</span>
           <div className="absolute top-0">
@@ -99,13 +99,13 @@ const Navigation = () => {
           </div>
         </Link>
 
-        <Link to="/favorite" className="nav-link relative">
+        <Link to="/favorite" className="nav-link relative hover:text-cyan-200">
           <FaHeart size={26} />
           <span className="nav-item-name">{t("FAVOURITES")}</span>
           <FavoritesCount />
         </Link>
 
-        <div className="nav-link">
+        <div className="nav-link hover:text-cyan-200">
           <AiOutlineTranslation size={26} />
           <span className="nav-item-name">
             <LanguageDropdown />
@@ -113,13 +113,13 @@ const Navigation = () => {
         </div>
       </div>
 
-      <div className="relative flex items-center">
+      <div className="relative flex items-center ">
         <button
           onClick={toggleDropdown}
           className="flex items-center text-gray-800 focus:outline-none"
         >
           {userInfo ? (
-            <span className="text-white">{userInfo.username}</span>
+            <span className="text-white ">{userInfo.username}</span>
           ) : (
             <></>
           )}
