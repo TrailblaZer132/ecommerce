@@ -29,7 +29,7 @@ const Shop = () => {
   const resetFilters = () => {
     // Reset local states
     setPriceFilter("");
-  
+
     // Reset Redux states
     dispatch(setChecked([]));
     dispatch(setProducts([]));
@@ -108,7 +108,14 @@ const Shop = () => {
     <>
       <div className="container mx-auto mt-[5rem]">
         <div className="flex md:flex-row">
-          <div className="bg-[#d1d1d1] p-3 mt-2 mb-2 rounded-xl">
+          <div
+            className="p-3 mt-2 mb-2 rounded-xl"
+            style={{
+              borderRadius: "20px",
+              background: "#e8e8e8",
+              boxShadow: "8px 8px 18px #cccccc, -8px -8px 18px #ffffff",
+            }}
+          >
             <h2 className="h4 text-center py-2 bg-white rounded-full mb-2">
               Filter by Categories
             </h2>
@@ -176,10 +183,7 @@ const Shop = () => {
             </div>
 
             <div className="p-5 pt-0">
-              <button
-                className="w-full border my-4"
-                onClick={resetFilters}
-              >
+              <button className="w-full border my-4" onClick={resetFilters}>
                 Reset
               </button>
             </div>
