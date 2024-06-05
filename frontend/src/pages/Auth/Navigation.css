@@ -8,9 +8,9 @@
   left: 0;
   transition: none; /* Remove transition effect */
   overflow: visible; /* Allow overflow for dropdown */
+  background: #da3636;
 }
 
-/* Display nav-item-name normally */
 .nav-item-name {
   display: block;
   opacity: 1;
@@ -31,7 +31,7 @@
 .nav-link {
   display: flex;
   align-items: center;
-  margin-right: 2rem;
+  margin-right: 2rem; /* Apply consistent margin to all nav items */
 }
 
 /* Dropdown menu styles */
@@ -62,4 +62,24 @@
 
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
+}
+
+/* Center the search box and ensure equal spacing for nav items */
+.flex-grow {
+  flex-grow: 1;
+  justify-content: center;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.space-x-6 > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.space-x-3 > *:not(:last-child) {
+  margin-right: 0.75rem;
+}
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
 }

@@ -28,7 +28,7 @@ const Cart = () => {
         {cartItems.length === 0 ? (
           <div>
             Your cart is empty{" "}
-            <Link to="/shop" className="text-blue-500">
+            <Link to="/shop" className="text-dark-green-normal">
               Go To Shop
             </Link>
           </div>
@@ -50,20 +50,20 @@ const Cart = () => {
                   <div className="flex-1 ml-4">
                     <Link
                       to={`/product/${item._id}`}
-                      className="text-slate-800"
+                      className="text-slate-800 font-semibold"
                     >
                       {item.name}
                     </Link>
 
-                    <div className="mt-2 text-slate-500">{item.brand}</div>
-                    <div className="mt-2 text-slate-500 font-bold">
+                    <div className="mt-2 text-dark-black">{item.brand}</div>
+                    <div className="mt-2 text-dark-black font-bold">
                       ₹ {item.price}
                     </div>
                   </div>
 
                   <div className="w-24">
                     <select
-                      className="w-full p-1 border rounded text-black"
+                      className="w-full p-1 border rounded text-dark-black"
                       value={item.qty}
                       onChange={(e) =>
                         addToCartHandler(item, Number(e.target.value))
@@ -79,7 +79,7 @@ const Cart = () => {
 
                   <div>
                     <button
-                      className="text-red-500 mr-[5rem]"
+                      className="text-dark-red-normal mr-[5rem]"
                       onClick={() => removeFromCartHandler(item._id)}
                     >
                       <FaTrash className="ml-[1rem] mt-[.5rem]" />
@@ -102,7 +102,7 @@ const Cart = () => {
                   </div>
 
                   <button
-                    className="bg-green-500 mt-4 py-2 px-4 rounded-full text-lg w-3/6 text-white hover:bg-green-600"
+                    className="bg-dark-green-normal mt-4 py-2 px-4 rounded-full text-lg w-3/6 text-white hover:bg-dark-green-hover"
                     disabled={cartItems.length === 0}
                     onClick={checkoutHandler}
                   >

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useRegisterMutation } from "../../redux/api/usersApiSlice";
 import signupImage from "../../components/images/signup.jpg";
 import { useTranslation } from "react-i18next";
+import "./register.css"; // Import the CSS file
 
 const Register = () => {
   const { t } = useTranslation();
@@ -52,110 +53,106 @@ const Register = () => {
   };
 
   return (
-    <section className="pl-[10rem] flex flex-wrap mt-[5rem]">
-      <div className="mr-[4rem] mt-[5rem]">
-        <h1 className="text-2xl font-semibold mb-4">{t("Register")}</h1>
+    <div className="register-section">
+      <section className="register-container">
+        <div className="register-form">
+          <h1 className="text-2xl font-semibold mb-4">{t("Register")}</h1>
 
-        <form
-          onSubmit={submitHandler}
-          className="container w-[40rem]"
-          action=""
-        >
-          <div className="my-[2rem]">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-black"
-            >
-              {t("Name")}
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="mt-1 p-2 border rounded w-full"
-              placeholder={t("Enter your name")}
-              value={username}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </div>
-          <div className="my-[2rem]">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-black"
-            >
-              {t("Email address")}
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 p-2 border rounded w-full"
-              placeholder={t("Enter your email address")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="my-[2rem]">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-black"
-            >
-              {t("Password")}
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="mt-1 p-2 border rounded w-full"
-              placeholder={t("Enter your password")}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="my-[2rem]">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-black"
-            >
-              {t("Confirm Password")}
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              className="mt-1 p-2 border rounded w-full"
-              placeholder={t("Confirm Password")}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-
-          <button
-            disabled={isLoading}
-            type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer my[1rem]"
+          <form
+            onSubmit={submitHandler}
+            className="container w-[40rem]"
+            action=""
           >
-            {t(`${isLoading ? "Registering..." : "Register"}`)}
-          </button>
+            <div className="my-[2rem]">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-black"
+              >
+                {t("Name")}
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder={t("Enter your name")}
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+            <div className="my-[2rem]">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-black"
+              >
+                {t("Email address")}
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder={t("Enter your email address")}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="my-[2rem]">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-black"
+              >
+                {t("Password")}
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder={t("Enter your password")}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="my-[2rem]">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-black"
+              >
+                {t("Confirm Password")}
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                className="mt-1 p-2 border rounded w-full"
+                placeholder={t("Confirm Password")}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
 
-          {isLoading && <Loader />}
-        </form>
-
-        <div className="mt-4">
-          <p className="text-gray">
-            {t("Already have an account")}?{" "}
-            <Link
-              to={redirect ? `/login?redirect=${redirect}` : `/login`}
-              className="text-blue-500 hover:underline"
+            <button
+              disabled={isLoading}
+              type="submit"
+              className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer my[1rem]"
             >
-              {t("Login")}
-            </Link>
-          </p>
-        </div>
-      </div>
+              {t(`${isLoading ? "Registering..." : "Register"}`)}
+            </button>
 
-      <img
-        src={signupImage}
-        alt="Login"
-        className="h-[60rem] w-[55%] xl:block md:hidden sm:hidden rounded-lg"
-      />
-    </section>
+            {isLoading && <Loader />}
+          </form>
+
+          <div className="mt-4">
+            <p className="text-gray">
+              {t("Already have an account")}?{" "}
+              <Link
+                to={redirect ? `/login?redirect=${redirect}` : `/login`}
+                className="text-blue-500 hover:underline"
+              >
+                {t("Login")}
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 

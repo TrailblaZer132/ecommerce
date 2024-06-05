@@ -112,7 +112,7 @@ const ProductList = () => {
           )}
 
           <div className="mb-3">
-            <label className="border text-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+            <label className="border text-dark-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
               {t(`${image ? image.name : "Upload Image"}`)}
 
               <input
@@ -120,7 +120,7 @@ const ProductList = () => {
                 name="image"
                 accept="image/*"
                 onChange={uploadFileHandler}
-                className={!image ? "hidden" : "text-black"}
+                className={!image ? "hidden" : "text-dark-black"}
               />
             </label>
           </div>
@@ -131,7 +131,7 @@ const ProductList = () => {
                 <label htmlFor="name">{t("Name")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-dark-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -140,7 +140,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Price")}</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -151,7 +151,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Quantity")}</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
@@ -160,7 +160,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Brand")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                 />
@@ -172,7 +172,7 @@ const ProductList = () => {
             </label>
             <textarea
               type="text"
-              className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-black h-[8rem]"
+              className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem]"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -186,14 +186,14 @@ const ProductList = () => {
                 <input
                   type="text"
                   placeholder="Key"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
                   value={key}
                   onChange={(e) => handleDetailChange(key, e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Value"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
                   value={value}
                   onChange={(e) => handleDetailValueChange(key, e.target.value)}
                 />
@@ -202,7 +202,7 @@ const ProductList = () => {
             <button
               type="button"
               onClick={handleAddDetailField}
-              className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
+              className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
             >
               {t("Add Field")}
             </button>
@@ -212,7 +212,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Count In Stock")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                 />
@@ -236,7 +236,7 @@ const ProductList = () => {
 
             <button
               onClick={handleSubmit}
-              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-blue-500 text-white hover:bg-blue-600"
+              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
             >
               {t("Submit")}
             </button>

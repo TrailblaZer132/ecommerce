@@ -17,9 +17,9 @@ const Product = ({ product }) => {
 
       <div className="p-4">
         <Link to={`/product/${product._id}`}>
-          <h2 className="flex justify-between    items-center hover:text-blue-500">
-            <div className="text-lg">{product.name}</div>
-            <span className="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-white">
+          <h2 className="flex justify-between    items-center hover:text-dark-yellow">
+            <div className="text-lg font-semibold">{product.name}</div>
+            <span className="bg-green-100 text-dark-green-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-green-hover dark:text-white">
               ₹ {product.price}
             </span>
           </h2>

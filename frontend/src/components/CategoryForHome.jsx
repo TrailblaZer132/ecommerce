@@ -24,7 +24,7 @@ const Category = () => {
         {categories?.slice(0, 10).map((category) => (
           <div key={category._id}>
             <button
-              className="bg-white text-gray-500 py-2 px-4 rounded-lg m-2 ml-5 hover:bg-blue-500 hover:text-white  ease-in-out duration-100"
+              className=" text-dark-red-normal py-2 px-4 rounded-lg m-2 ml-5 hover:bg-dark-red-normal hover:text-white  ease-in-out duration-100 font-semibold text-xl"
               onClick={() => handleCategoryClick(category)}
             >
               {t(`${category.name}`)}
@@ -37,7 +37,7 @@ const Category = () => {
               <button
                 type="button"
                 onClick={toggleDropdown}
-                className="bg-white border border-gray-300 text-gray-500 py-2 px-4 rounded-lg m-2 ml-5 hover:bg-blue-500 hover:text-white ease-in-out duration-100 flex flex-wrap"
+                className=" text-gray-500 py-2 px-4 rounded-lg m-2 ml-5 hover:bg-dark-red-normal hover:text-white ease-in-out duration-100 flex flex-wrap text-bold"
                 id="options-menu"
                 aria-haspopup="true"
                 aria-expanded="true"
@@ -74,7 +74,7 @@ const Category = () => {
                     <a
                       key={category._id}
                       onClick={() => handleCategoryClick(category)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-gray-900"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-gray-900 font-semibold"
                       role="menuitem"
                     >
                       {t(`${category.name}`)}

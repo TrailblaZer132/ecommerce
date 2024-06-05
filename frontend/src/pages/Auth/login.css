@@ -1,0 +1,93 @@
+/* Set the background image and style the login section */
+.login-section {
+    background-image: url(../../components/images/login.jpg); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 35rem;
+    width: 40rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(206, 87, 87, 0.1);
+  }
+  
+  .login-form {
+    flex: 1;
+    max-width: 40rem;
+    margin-right: 1rem;
+  }
+  
+  .login-form h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .login-form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-form input {
+    width: 85%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-form button {
+    background-color: #da3636;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-form button:hover {
+    background-color: #da3636;
+  }
+  
+  .login-form p {
+    color: #d74e4e;
+  }
+  
+  .login-form p a {
+    color: #da3636;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .login-form p a:hover {
+    text-decoration: underline;
+    color: #da3636;
+  }
+  
+  .login-image {
+    display: none;
+    border-radius: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .login-image {
+      display: block;
+      height: 60rem;
+      width: 55%;
+    }
+  }
+  

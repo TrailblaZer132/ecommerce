@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import img1 from "../Utils/images/img1.jpg";
 import img2 from "../Utils/images/img2.jpg";
+import img4 from "../Utils/images/img4.jpg";
+import img5 from "../Utils/images/img5.jpg";
 
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = [img1, img2]; // Add more images if needed
+  const images = [img1, img2, img4, img5]; // Add more images if needed
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      nextSlide();
+    }, 5000); // Change slides every 5 seconds
+
+    // Return a cleanup function to clear the interval
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []); // Add empty dependency array to run effect only once
 
   const nextSlide = () => {
     setActiveIndex((prevIndex) =>
@@ -21,30 +34,26 @@ const Slider = () => {
   return (
     <div
       id="animation-carousel"
-      className="relative w-full mx-auto "
+      className="relative w-full mx-auto"
       style={{ maxWidth: "97%", marginBottom: "3%", marginLeft: "1.5%" }}
       data-carousel="static"
     >
       <br />
-      <div className="relative h-28 overflow-hidden md:h-48">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute w-full object-cover transition-transform ease-in-out duration-500 ${
-              index === activeIndex ? "opacity-100" : "opacity-0"
-            } ${
-              index === activeIndex
-                ? "transform translate-x-0"
-                : "transform translate-x-full"
-            }`}
-          >
-            <img
-              src={image}
-              className="w-full h-full object-contain"
-              alt={`Carousel ${index + 1}`}
-            />
-          </div>
-        ))}
+      <div className="relative h-[20rem] overflow-hidden md:h-[20rem]">
+        <div
+          className="absolute flex transition-transform duration-1000 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {images.map((image, index) => (
+            <div key={index} className="w-full flex-none">
+              <img
+                src={image}
+                className="w-full h-full object-cover"
+                alt={`Carousel ${index + 1}`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <button
         type="button"

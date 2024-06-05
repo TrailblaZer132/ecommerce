@@ -267,3 +267,4 @@ npm run frontend
    export default LanguageDropdown;
    ```
 
+npm install @mui/material react-router-dom react-multi-carousel

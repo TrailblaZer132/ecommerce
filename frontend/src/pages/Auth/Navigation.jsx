@@ -19,6 +19,7 @@ import FavoritesCount from "../../pages/Products/FavoritesCount";
 
 const Navigation = () => {
   const { t } = useTranslation();
+  const [clickCount, setClickCount] = useState(0);
   const { userInfo } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -52,182 +53,187 @@ const Navigation = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    setClickCount((prevCount) => prevCount + 1);
+
+    if (clickCount === 4) {
+      // Display the popup
+      alert("We are the creators of the website:\nUdit Nath\nKhiranjit Kumar Deka\nAnurag Kumar");
+      // Reset the click count
+      setClickCount(0);
+    }
+  };
+
   return (
     <div
       style={{ zIndex: 9999 }}
       className={`${
         showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:flex sm:flex flex-row justify-between p-4 text-white bg-blue-800 w-full h-12 fixed`}
+      } xl:flex lg:flex md:flex sm:flex flex-row justify-between items-center p-4 text-light-white bg-dark-red-normal w-full h-12 fixed`}
       id="navigation-container"
       onMouseLeave={() => setDropdownOpen(false)}
     >
-      <div className="flex flex-row items-center space-x-4">
+      <div className="flex items-center space-x-3 rtl:space-x-reverse">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
             src="https://flowbite.com/docs/images/logo.svg"
             className="h-8"
             alt="Flowbite Logo"
+            onClick={handleLogoClick}
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-light-white">
             E-Meghalaya
           </span>
         </a>
       </div>
-      <div className="flex flex-row items-center space-x-10">
+      <div className="flex flex-grow justify-center">
         <input
           type="text"
           placeholder="Search..."
-          className="mr-[25rem] py-2 px-[1rem] w-[30rem] h-[2.5rem] rounded-xl bg-white text-gray-500"
+          className="py-2 flex-grow px-4 w-96 h-10 rounded-xl bg-light-white text-light-gray"
         />
+      </div>
 
-        <Link to="/shop" className="nav-link hover:text-cyan-200">
-          <AiOutlineShopping size={26} />
-          <span className="nav-item-name">{t("SHOP")}</span>
-        </Link>
-
-        <Link to="/cart" className="nav-link relative hover:text-cyan-200">
-          <AiOutlineShoppingCart size={26} />
-          <span className="nav-item-name">{t("CART")}</span>
-          <div className="absolute top-0">
-            {cartItems.length > 0 && (
-              <span>
-                <span className="px-1 py-0 text-sm text-white bg-pink-500 rounded-full">
+      <div className="flex items-center space-x-6">
+        <div className="navigation-container">
+          <Link to="/shop" className="nav-link hover:text-dark-yellow">
+            <AiOutlineShopping size={26} />
+            <span className="nav-item-name">{t("Shop")}</span>
+          </Link>
+        </div>
+        <div className="navigation-container">
+          <Link to="/cart" className="nav-link relative hover:text-dark-yellow">
+            <AiOutlineShoppingCart size={26} />
+            <span className="nav-item-name">{t("Cart")}</span>
+            <div className="absolute top-0">
+              {cartItems.length > 0 && (
+                <span className="px-1 py-0 text-sm text-white bg-dark-green-normal rounded-full">
                   {cartItems.reduce((a, c) => a + c.qty, 0)}
                 </span>
-              </span>
+              )}
+            </div>
+          </Link>
+        </div>
+        <div className="navigation-container">
+          <Link
+            to="/favorite"
+            className="nav-link relative hover:text-dark-yellow"
+          >
+            <FaHeart size={26} />
+            <span className="nav-item-name pl-1">{t("Favourites")}</span>
+            <FavoritesCount />
+          </Link>
+        </div>
+        <div className="navigation-container">
+          <div className="nav-link hover:text-dark-yellow">
+            <AiOutlineTranslation size={26} />
+            <span className="nav-item-name">
+              <LanguageDropdown />
+            </span>
+          </div>
+        </div>
+
+        {userInfo ? (
+          <div className="relative flex items-center">
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center text-gray-800 focus:outline-none"
+            >
+              <span className="text-white">{userInfo.username}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className={`h-4 w-4 ml-1 ${
+                  dropdownOpen ? "transform rotate-180" : ""
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+                />
+              </svg>
+            </button>
+            {dropdownOpen && userInfo && (
+              <ul className="dropdown-menu">
+                {userInfo.isAdmin && (
+                  <>
+                    <li>
+                      <Link
+                        to="/admin/dashboard"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Dashboard")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/productlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Products")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/categorylist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Categories")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/orderlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Orders")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/userlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Users")}
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link
+                    to="/profile"
+                    className="rounded block px-4 py-2 hover:bg-gray-200"
+                  >
+                    {t("Profile")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/logout"
+                    onClick={logoutHandler}
+                    className="rounded block px-4 py-2 hover:bg-gray-200"
+                  >
+                    {t("Logout")}
+                  </Link>
+                </li>
+              </ul>
             )}
           </div>
-        </Link>
-
-        <Link to="/favorite" className="nav-link relative hover:text-cyan-200">
-          <FaHeart size={26} />
-          <span className="nav-item-name">{t("FAVOURITES")}</span>
-          <FavoritesCount />
-        </Link>
-
-        <div className="nav-link hover:text-cyan-200">
-          <AiOutlineTranslation size={26} />
-          <span className="nav-item-name">
-            <LanguageDropdown />
-          </span>
-        </div>
-      </div>
-
-      <div className="relative flex items-center ">
-        <button
-          onClick={toggleDropdown}
-          className="flex items-center text-gray-800 focus:outline-none"
-        >
-          {userInfo ? (
-            <span className="text-white ">{userInfo.username}</span>
-          ) : (
-            <></>
-          )}
-          {userInfo && (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-4 w-4 ml-1 ${
-                dropdownOpen ? "transform rotate-180" : ""
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="white"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
-              />
-            </svg>
-          )}
-        </button>
-
-        {dropdownOpen && userInfo && (
-          <ul className="dropdown-menu">
-            {userInfo.isAdmin && (
-              <>
-                <li>
-                  <Link
-                    to="/admin/dashboard"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Dashboard")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/productlist"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Products")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/categorylist"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Categories")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/orderlist"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Orders")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/admin/userlist"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Users")}
-                  </Link>
-                </li>
-              </>
-            )}
-
-            <li>
-              <Link
-                to="/profile"
-                className="rounded block px-4 py-2 hover:bg-gray-200"
-              >
-                {t("Profile")}
+        ) : (
+          <div>
+            <div>
+              <Link to="/login" className="nav-link">
+                <AiOutlineLogin size={26} />
+                <span className="nav-item-name">{t("Login")}</span>
               </Link>
-            </li>
-            <li>
-              <Link
-                to="/logout"
-                onClick={logoutHandler}
-                className="rounded block px-4 py-2 hover:bg-gray-200"
-              >
-                {t("Logout")}
-              </Link>
-            </li>
-          </ul>
+            </div>
+          </div>
         )}
       </div>
-
-      {!userInfo && (
-        <ul className="flex flex-row space-x-4">
-          <li>
-            <Link to="/login" className="nav-link">
-              <AiOutlineLogin size={26} />
-              <span className="nav-item-name">{t("LOGIN")}</span>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/register" className="nav-link">
-              <AiOutlineUserAdd size={26} />
-              <span className="nav-item-name">{t("REGISTER")}</span>
-            </Link>
-          </li>
-        </ul>
-      )}
     </div>
   );
 };

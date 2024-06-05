@@ -13,7 +13,7 @@ const CategoryForm = ({
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
           type="text"
-          className="py-3 px-4 border rounded-lg w-full capitalize"
+          className="py-3 px-4 border rounded-lg w-full capitalize focus:outline-none focus:ring-2 focus:ring-dark-green-normal focus:ring-opacity-50"
           placeholder={t("Write category name")}
           value={value}
           onChange={(e) => {
@@ -23,14 +23,14 @@ const CategoryForm = ({
         />
 
         <div className="flex justify-between">
-          <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 foucs:ring-pink-500 focus:ring-opacity-50">
+          <button className="bg-dark-green-normal text-white py-2 px-4 rounded-lg hover:bg-dark-green-hover focus:outline-none focus:ring-2 foucs:ring-pink-500 focus:ring-opacity-50">
             {t(`${buttonText}`)}
           </button>
 
           {handleDelete && (
             <button
               onClick={handleDelete}
-              className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 foucs:ring-red-500 focus:ring-opacity-50"
+              className="bg-dark-red-normal text-white py-2 px-4 rounded-lg hover:bg-dark-red-hover focus:outline-none focus:ring-2 foucs:ring-red-500 focus:ring-opacity-50"
             >
               {t("Delete")}
             </button>

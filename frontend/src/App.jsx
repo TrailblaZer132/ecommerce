@@ -15,7 +15,7 @@ const App = () => {
       {/* <Navbar /> */}
       <Navigation />
       
-      <main className="py-3 bg-gray-100">
+      <main className="py-3">
         <Outlet />
 
         {/* <center>

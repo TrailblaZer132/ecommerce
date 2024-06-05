@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
 import loginImage from "../../components/images/login.jpg";
 import { useTranslation } from "react-i18next";
+import "./login.css"; // Import the CSS file
 
 const Login = () => {
   const { t } = useTranslation();
@@ -44,9 +45,9 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <section className="pl-[10rem] flex flex-wrap mt-[5rem]">
-        <div className="mr-[4rem] mt-[5rem]">
+    <div className="login-section">
+      <section className="login-container">
+        <div className="login-form">
           <h1 className="text-2xl font-semibold mb-4">{t("Login")}</h1>
 
           <form
@@ -110,11 +111,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <img
-          src={loginImage}
-          alt="Login"
-          className="h-[60rem] w-[55%] xl:block md:hidden sm:hidden rounded-lg"
-        />
+        {/* <img src={loginImage} alt="Login" className="login-image" /> */}
       </section>
     </div>
   );

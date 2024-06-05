@@ -192,14 +192,14 @@ const AdminProductUpdate = () => {
             )}
 
             <div className="mb-3">
-              <label className="text-white py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11 hover:shadow-lg transition-all ease-in-out duration-75">
+              <label className="text-dark-black py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-semibold hover:shadow-lg transition-all ease-in-out duration-75">
                 {t(`${image ? image.name : "Upload Image"}`)}
                 <input
                   type="file"
                   name="image"
                   accept="image/*"
                   onChange={uploadFileHandler}
-                  className="text-white"
+                  className="text-dark-black"
                 />
               </label>
             </div>
@@ -210,7 +210,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name">{t("Name")}</label> <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem] capitalize"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] capitalize"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -220,7 +220,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name block">{t("Price")}</label> <br />
                   <input
                     type="number"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                   />
@@ -233,7 +233,7 @@ const AdminProductUpdate = () => {
                   <input
                     type="number"
                     min="1"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />
@@ -242,7 +242,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name block">{t("Brand")}</label> <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
                   />
@@ -254,7 +254,7 @@ const AdminProductUpdate = () => {
               </label>
               <textarea
                 type="text"
-                className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-black h-[8rem]"
+                className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem]"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -277,21 +277,21 @@ const AdminProductUpdate = () => {
                         [newKey]: value,
                       }));
                     }}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
                   />
                   <input
                     type="text"
                     placeholder=""
                     value={detail[key]}
                     onChange={(e) => handleDetailChange(key, e.target.value)}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-black mr-10"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
                   />
                 </div>
               ))}
               <button
                 type="button"
                 onClick={handleAddDetailField}
-                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-cyan-500 text-white"
+                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
               >
                 {t("Add Field")}
               </button>
@@ -302,7 +302,7 @@ const AdminProductUpdate = () => {
                   <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
                   />
@@ -312,7 +312,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="">{t("Category")}</label> <br />
                   <select
                     placeholder="Choose Category"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
                     onChange={(e) => setCategory(e.target.value)}
                   >
                     {categories?.map((c) => (
@@ -327,13 +327,13 @@ const AdminProductUpdate = () => {
               <div className="">
                 <button
                   onClick={handleSubmit}
-                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 text-white mr-6"
+                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-green-normal hover:bg-dark-green-hover  text-light-white mr-6"
                 >
                   {t("Update")}
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 text-white"
+                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-red-normal hover:bg-dark-red-hover  text-light-white"
                 >
                   {t("Delete")}
                 </button>

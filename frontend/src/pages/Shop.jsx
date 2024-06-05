@@ -112,11 +112,11 @@ const Shop = () => {
             className="p-3 mt-2 mb-2 rounded-xl"
             style={{
               borderRadius: "20px",
-              background: "#e8e8e8",
+              background: "#ffe0e0",
               boxShadow: "8px 8px 18px #cccccc, -8px -8px 18px #ffffff",
             }}
           >
-            <h2 className="h4 text-center py-2 bg-white rounded-full mb-2">
+            <h2 className="h4 text-center py-2 font-semibold rounded-full mb-2">
               Filter by Categories
             </h2>
 
@@ -129,7 +129,7 @@ const Shop = () => {
                       id={`${c._id}-checkbox`}
                       checked={checked.includes(c._id)} // Check if the category ID is present in the checked array
                       onChange={(e) => handleCheck(e.target.checked, c._id)}
-                      className="w-4 h-4 text-pink-600 bg-gray-100 border-gray-300 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 rounded focus:ring-dark-yellow dark:focus:ring-dark-yellow dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
 
                     <label
@@ -143,7 +143,7 @@ const Shop = () => {
               ))}
             </div>
 
-            <h2 className="h4 text-center py-2 bg-white rounded-full mb-2">
+            <h2 className="h4 text-center py-2 font-semibold rounded-full mb-2">
               Filter by Brands
             </h2>
 
@@ -155,7 +155,7 @@ const Shop = () => {
                     id={`${brand}-radio`}
                     name="brand"
                     onChange={() => handleBrandClick(brand)}
-                    className="w-4 h-4 text-pink-400 bg-gray-100 border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 focus:ring-dark-yellowdark:focus:ring-dark-yellow dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
 
                   <label
@@ -168,7 +168,7 @@ const Shop = () => {
               ))}
             </div>
 
-            <h2 className="h4 text-center py-2 bg-white rounded-full mb-2">
+            <h2 className="h4 text-center py-2 font-semibold rounded-full mb-2">
               Filter by Price
             </h2>
 
@@ -183,7 +183,10 @@ const Shop = () => {
             </div>
 
             <div className="p-5 pt-0">
-              <button className="w-full border my-4" onClick={resetFilters}>
+              <button
+                className="w-full border border-dark-green-normal text-dark-green-normal rounded-lg my-4"
+                onClick={resetFilters}
+              >
                 Reset
               </button>
             </div>
