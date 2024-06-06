@@ -18,6 +18,7 @@ export default {
             hover: "#1E8D3B",
           },
           orange: "#FF7900",
+          gray: "#262626",
         },
         light: {
           white: "#ffffff",

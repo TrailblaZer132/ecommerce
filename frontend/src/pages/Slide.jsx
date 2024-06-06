@@ -45,8 +45,6 @@ const Slide = ({ products = [], title }) => {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-
-            
             {randomizedProducts.map((product, index) => (
               <Link
                 key={index}
@@ -54,7 +52,7 @@ const Slide = ({ products = [], title }) => {
                 style={{ textDecoration: "none" }}
               >
                 <Box textAlign="center" style={{ padding: "25px 15px" }}>
-                  <Image src={product.image} />
+                  <Image src={product.image} loading="lazy" />
                   <TitleText style={{ fontWeight: 600, color: "#212121" }}>
                     {product.name}
                   </TitleText>
@@ -126,7 +124,7 @@ const DealText = styled(Typography)`
 const ViewAllButton = styled(Button)`
   margin-left: auto;
   background-color: #d72a2e;
-  border-radius: 2px;
+  border-radius: 10px;
   font-size: 13px;
   &:hover {
     background-color: #b71b1e;
