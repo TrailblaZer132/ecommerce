@@ -33,8 +33,18 @@ import Order from "./pages/Orders/Order.jsx";
 import UserOrder from "./pages/User/UserOrder.jsx";
 import OrderList from "./pages/Admin/OrderList.jsx";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import AboutUs from "./pages/AboutUs.jsx";
+import MeghalayaStories from "./pages/MeghalayaStories.jsx";
+import Payments from "./pages/Payments.jsx";
+import ShippingFooter from "./pages/ShippingFooter.jsx";
+import FAQ from "./pages/FAQ.jsx";
+import CancellationReturn from "./pages/CancellationReturn.jsx";
+import TermsOfUse from "./pages/TermsOfUse.jsx";
+import Security from "./pages/Security.jsx";  
+import Grievance from "./pages/Grievance.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,11 +60,22 @@ const router = createBrowserRouter(
       <Route path="/shop" element={<Shop />} />
       <Route path="/user-orders" element={<UserOrder />} />
 
+      <Route path="/contact-us" element={<ContactUs />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/meghalaya-stories" element={<MeghalayaStories />} />
+      <Route path="/payments" element={<Payments />} />
+      <Route path="/shipping-footer" element={<ShippingFooter />} />
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/cancellation&return" element={<CancellationReturn />} />
+      <Route path="/termsOfUse" element={<TermsOfUse />} />
+      <Route path="/security" element={<Security />} />
+      <Route path="/grievance-redressal" element={<Grievance />} />
+
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/placeorder" element={<PlaceOrder />} />
-        <Route path="/.order/:id" element={<Order />} />
+        <Route path="/order/:id" element={<Order />} />
       </Route>
 
       {/* Admin Routes */}

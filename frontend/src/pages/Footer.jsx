@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
@@ -12,25 +13,27 @@ const Footer = () => {
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Contact us
-                </a>
+                <Link to="/contact-us" className="hover:underline">
+                  Contact Us
+                </Link>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
-                  About Us
+                  <Link to="/about-us" className="hover:underline">
+                    About Us
+                  </Link>
                 </a>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Meghalaya Stories
-                </a>
+                <Link to="/meghalaya-stories" className="hover:underline">
+                  Meghalaya stories
+                </Link>
               </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">
+              {/* <li className="mb-4">
+                <Link to="/corporate-information" className="hover:underline">
                   Corporate Information
-                </a>
-              </li>
+                </Link>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -39,29 +42,21 @@ const Footer = () => {
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Payments
-                </a>
+                <li className="mb-4">
+                  <Link to="/payments" className="hover:underline">
+                    Patments
+                  </Link>
+                </li>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/shipping-footer" className="hover:underline">
                   Shipping
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Cancellation & Returns
-                </a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/faq" className="hover:underline">
                   FAQ
-                </a>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  Report Infringement
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -71,24 +66,24 @@ const Footer = () => {
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/cancellation&return" className="hover:underline">
                   Cancellation & Returns
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/termsOfUse" className="hover:underline">
                   Terms of Use
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/security" className="hover:underline">
                   Security
-                </a>
+                </Link>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
+                <Link to="/grievance-redressal" className="hover:underline">
                   Grievance Redressal
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
