@@ -17,6 +17,7 @@ const ProductList = () => {
 
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [brand, setBrand] = useState("");
   const [stock, setStock] = useState(0);
@@ -26,9 +27,12 @@ const ProductList = () => {
   const [uploadProductImage] = useUploadProductImageMutation();
   const [createProduct] = useCreateProductMutation();
   const { data: categories } = useFetchCategoriesQuery();
+  const [subcategories, setSubcategories] = useState([]);
+
   useEffect(() => {
     if (categories && categories.length > 0) {
       setCategory(categories[0]._id); // Set default category to the first one
+      setSubcategories(categories[0].subcategories || []);
     }
   }, [categories]);
 
@@ -47,6 +51,12 @@ const ProductList = () => {
     setDetail({ ...detail, [key]: value });
   };
 
+  const handleCategoryChange = (e) => {
+    const selectedCategory = categories.find((c) => c._id === e.target.value);
+    setCategory(e.target.value);
+    setSubcategories(selectedCategory?.subcategories || []);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,6 +68,7 @@ const ProductList = () => {
       productData.append("detail", JSON.stringify(detail)); // Stringify detail
       productData.append("price", price);
       productData.append("category", category);
+      productData.append("subcategory", subcategory);
       productData.append("quantity", quantity);
       productData.append("brand", brand);
       productData.append("countInStock", stock);
@@ -223,11 +234,30 @@ const ProductList = () => {
                 <select
                   placeholder="Choose Category"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
-                  onChange={(e) => setCategory(e.target.value)}
+                  value={category}
+                  onChange={handleCategoryChange}
                 >
                   {categories?.map((c) => (
                     <option key={c._id} value={c._id}>
                       {c.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex justify-between">
+              <div>
+                <label htmlFor="">{t("Subcategory")}</label> <br />
+                <select
+                  placeholder="Choose Subcategory"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
+                  value={subcategory}
+                  onChange={(e) => setSubcategory(e.target.value)}
+                >
+                  {subcategories.map((sub) => (
+                    <option key={sub._id} value={sub._id}>
+                      {sub.name}
                     </option>
                   ))}
                 </select>

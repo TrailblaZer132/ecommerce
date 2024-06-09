@@ -3,8 +3,7 @@ import Product from "../models/productModel.js";
 
 const addProduct = asyncHandler(async (req, res) => {
   try {
-    const { name, description, detail, price, category, quantity, brand } =
-      req.fields;
+    const { name, description, detail, price, category, subcategory, quantity, brand } = req.fields;
 
     // Validation
     switch (true) {
@@ -27,6 +26,7 @@ const addProduct = asyncHandler(async (req, res) => {
     const product = new Product({
       ...req.fields,
       detail: JSON.parse(req.fields.detail), // Parse detail as object
+      subcategory, // Add subcategory here
     });
     await product.save();
     res.json(product);
@@ -38,8 +38,7 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const updateProductDetails = asyncHandler(async (req, res) => {
   try {
-    const { name, description, detail, price, category, quantity, brand } =
-      req.fields;
+    const { name, description, detail, price, category, subcategory, quantity, brand } = req.fields;
 
     // Validation
     switch (true) {
@@ -64,6 +63,7 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       {
         ...req.fields,
         detail: JSON.parse(req.fields.detail), // Parse detail as object
+        subcategory, // Add subcategory here
       },
       { new: true }
     );

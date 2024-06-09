@@ -14,7 +14,7 @@ const App = () => {
       className="app-container"
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
-      <ToastContainer />
+      <ToastContainer zIndex={9999} />
       <Navigation />
 
       <main className="py-3" style={{ flex: "1 0 auto" }}>

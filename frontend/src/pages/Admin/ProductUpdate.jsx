@@ -26,6 +26,9 @@ const AdminProductUpdate = () => {
 
   const [price, setPrice] = useState(productData?.price || "");
   const [category, setCategory] = useState(productData?.category?._id || "");
+  const [subcategory, setSubcategory] = useState(
+    productData?.subcategory?._id || ""
+  );
   const [quantity, setQuantity] = useState(productData?.quantity || "");
   const [brand, setBrand] = useState(productData?.brand || "");
   const [stock, setStock] = useState(productData?.countInStock || 0);
@@ -36,6 +39,8 @@ const AdminProductUpdate = () => {
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
 
+  const [subcategories, setSubcategories] = useState([]);
+
   useEffect(() => {
     if (productData && productData._id) {
       setName(productData.name);
@@ -43,6 +48,7 @@ const AdminProductUpdate = () => {
       setDetail(productData.detail || {});
       setPrice(productData.price);
       setCategory(productData.category?._id);
+      setSubcategory(productData.subcategory?._id);
       setQuantity(productData.quantity);
       setBrand(productData.brand);
       setImage(productData.image);
@@ -55,6 +61,13 @@ const AdminProductUpdate = () => {
 
     return () => clearInterval(interval);
   }, [productData, refetch]);
+
+  useEffect(() => {
+    if (category) {
+      const selectedCategory = categories.find((c) => c._id === category);
+      setSubcategories(selectedCategory?.subcategories || []);
+    }
+  }, [category, categories]);
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
@@ -98,6 +111,7 @@ const AdminProductUpdate = () => {
       formData.append("detail", JSON.stringify(detail));
       formData.append("price", price);
       formData.append("category", category);
+      formData.append("subcategory", subcategory);
       formData.append("quantity", quantity);
       formData.append("brand", brand);
       formData.append("countInStock", stock);
@@ -217,7 +231,7 @@ const AdminProductUpdate = () => {
                 </div>
 
                 <div className="two">
-                  <label htmlFor="name block">{t("Price")}</label> <br />
+                  <label htmlFor="price">{t("Price")}</label> <br />
                   <input
                     type="number"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
@@ -308,19 +322,39 @@ const AdminProductUpdate = () => {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="">{t("Category")}</label> <br />
-                  <select
-                    placeholder="Choose Category"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    {categories?.map((c) => (
-                      <option key={c._id} value={c._id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex flex-wrap">
+                  <div className="three">
+                    <label htmlFor="category">{t("Category")}</label> <br />
+                    <select
+                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      <option value="">{t("Select Category")}</option>
+                      {categories.map((c) => (
+                        <option key={c._id} value={c._id}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="four">
+                    <label htmlFor="subcategory">{t("Subcategory")}</label>{" "}
+                    <br />
+                    <select
+                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                      value={subcategory}
+                      onChange={(e) => setSubcategory(e.target.value)}
+                    >
+                      <option value="">{t("Select Subcategory")}</option>
+                      {subcategories.map((sc) => (
+                        <option key={sc._id} value={sc._id}>
+                          {sc.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 

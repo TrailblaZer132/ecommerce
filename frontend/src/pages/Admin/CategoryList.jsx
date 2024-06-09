@@ -16,8 +16,10 @@ const CategoryList = () => {
   const { t } = useTranslation();
   const { data: categories, refetch } = useFetchCategoriesQuery();
   const [name, setName] = useState("");
+  const [subcategories, setSubcategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [updatingName, setUpdatingName] = useState("");
+  const [updatingSubcategories, setUpdatingSubcategories] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
   const [createCategory] = useCreateCategoryMutation();
@@ -31,11 +33,12 @@ const CategoryList = () => {
       return;
     }
     try {
-      const result = await createCategory({ name }).unwrap();
+      const result = await createCategory({ name, subcategories }).unwrap();
       if (result.error) {
         toast.error(result.error);
       } else {
         setName("");
+        setSubcategories([]);
         toast.success("Category created successfully");
         refetch();
       }
@@ -56,6 +59,7 @@ const CategoryList = () => {
         categoryId: selectedCategory._id,
         updatedCategory: {
           name: updatingName,
+          subcategories: updatingSubcategories,
         },
       }).unwrap();
 
@@ -65,6 +69,7 @@ const CategoryList = () => {
         toast.success(`${result.name} updated successfully`);
         setSelectedCategory(null);
         setUpdatingName("");
+        setUpdatingSubcategories([]);
         setModalVisible(false);
         refetch();
       }
@@ -101,6 +106,8 @@ const CategoryList = () => {
         <CategoryForm
           value={name}
           setValue={setName}
+          subcategories={subcategories}
+          setSubcategories={setSubcategories}
           handleSubmit={handleCreateCategory}
         />
         <br />
@@ -110,13 +117,12 @@ const CategoryList = () => {
           {categories?.map((category) => (
             <div key={category._id}>
               <button
-                className="bg-white border border-dark-green-normal text-dark-green-normal py-2 px-4 rounded-lg m-3 hover:bg-dark-green-normal hover:text-white focus:outline-none focus:ring-2 focus:ring-dark-green-normal focus:ring-opacity-50"
+                className="bg-white border border-dark-red-normal text-dark-red-normal py-2 px-4 rounded-lg m-3 hover:bg-dark-red-normal hover:text-white focus:outline-none focus:ring-2 focus:ring-dark-red-normal focus:ring-opacity-50"
                 onClick={() => {
-                  {
-                    setModalVisible(true);
-                    setSelectedCategory(category);
-                    setUpdatingName(category.name);
-                  }
+                  setModalVisible(true);
+                  setSelectedCategory(category);
+                  setUpdatingName(category.name);
+                  setUpdatingSubcategories(category.subcategories || []);
                 }}
               >
                 {t(`${category.name}`)}
@@ -128,6 +134,8 @@ const CategoryList = () => {
           <CategoryForm
             value={updatingName}
             setValue={(value) => setUpdatingName(value)}
+            subcategories={updatingSubcategories}
+            setSubcategories={setUpdatingSubcategories}
             handleSubmit={handleUpdateCategory}
             buttonText="Update"
             handleDelete={handleDeleteCategory}

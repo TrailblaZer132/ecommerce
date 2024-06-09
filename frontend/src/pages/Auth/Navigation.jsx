@@ -66,7 +66,7 @@ const Navigation = () => {
 
   return (
     <div
-      style={{ zIndex: 9999 }}
+      style={{ zIndex: 100 }}
       className={`${
         showSidebar ? "hidden" : "flex"
       } xl:flex lg:flex md:flex sm:flex flex-row justify-between items-center p-4 text-light-white bg-dark-red-normal w-full h-12 fixed`}

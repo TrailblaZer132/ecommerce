@@ -22,6 +22,7 @@ const productSchema = mongoose.Schema(
     brand: { type: String, required: true },
     quantity: { type: Number, required: true },
     category: { type: ObjectId, ref: "Category", required: true },
+    subcategory: { type: ObjectId, ref: "Subcategory"},
     description: { type: String, required: true },
     detail: { type: Map, of: String, required: true }, // Change detail to Map
 
