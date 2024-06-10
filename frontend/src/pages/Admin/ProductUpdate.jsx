@@ -19,11 +19,11 @@ const AdminProductUpdate = () => {
 
   const [image, setImage] = useState(productData?.image || "");
   const [name, setName] = useState(productData?.name || "");
-  const [description, setDescription] = useState(
-    productData?.description || ""
-  );
-  const [detail, setDetail] = useState(productData?.description || {});
+  const [description, setDescription] = useState(productData?.description || "");
+  const [detail, setDetail] = useState(productData?.detail || {});
 
+  const [actualPrice, setActualPrice] = useState(productData?.actualPrice || "");
+  const [discountPercentage, setDiscountPercentage] = useState(productData?.discountPercentage || 0);
   const [price, setPrice] = useState(productData?.price || "");
   const [category, setCategory] = useState(productData?.category?._id || "");
   const [subcategory, setSubcategory] = useState(
@@ -46,6 +46,8 @@ const AdminProductUpdate = () => {
       setName(productData.name);
       setDescription(productData.description);
       setDetail(productData.detail || {});
+      setActualPrice(productData.actualPrice);
+      setDiscountPercentage(productData.discountPercentage);
       setPrice(productData.price);
       setCategory(productData.category?._id);
       setSubcategory(productData.subcategory?._id);
@@ -103,13 +105,16 @@ const AdminProductUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const calculatedPrice = actualPrice * (1 - discountPercentage / 100);
     try {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("name", name);
       formData.append("description", description);
       formData.append("detail", JSON.stringify(detail));
-      formData.append("price", price);
+      formData.append("actualPrice", actualPrice);
+      formData.append("discountPercentage", discountPercentage);
+      formData.append("price", calculatedPrice);
       formData.append("category", category);
       formData.append("subcategory", subcategory);
       formData.append("quantity", quantity);
@@ -231,19 +236,30 @@ const AdminProductUpdate = () => {
                 </div>
 
                 <div className="two">
-                  <label htmlFor="price">{t("Price")}</label> <br />
+                  <label htmlFor="actualPrice block">{t("Actual Price")}</label> <br />
                   <input
                     type="number"
                     className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    value={actualPrice}
+                    onChange={(e) => setActualPrice(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="flex flex-wrap">
                 <div>
-                  <label htmlFor="name block">{t("Quantity")}</label> <br />
+                  <label htmlFor="discountPercentage block">{t("Discount Percentage")}</label> <br />
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                    value={discountPercentage}
+                    onChange={(e) => setDiscountPercentage(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="quantity block">{t("Quantity")}</label> <br />
                   <input
                     type="number"
                     min="1"
@@ -291,21 +307,21 @@ const AdminProductUpdate = () => {
                         [newKey]: value,
                       }));
                     }}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize"
                   />
                   <input
                     type="text"
                     placeholder=""
                     value={detail[key]}
                     onChange={(e) => handleDetailChange(key, e.target.value)}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize"
                   />
                 </div>
               ))}
               <button
                 type="button"
                 onClick={handleAddDetailField}
-                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
+                className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-button-normal text-light-white hover:bg-dark-button-hover"
               >
                 {t("Add Field")}
               </button>
@@ -361,7 +377,7 @@ const AdminProductUpdate = () => {
               <div className="">
                 <button
                   onClick={handleSubmit}
-                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-green-normal hover:bg-dark-green-hover  text-light-white mr-6"
+                  className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-button-normal hover:bg-dark-button-hover  text-light-white mr-6"
                 >
                   {t("Update")}
                 </button>

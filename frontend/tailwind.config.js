@@ -1,5 +1,3 @@
-import { orange } from '@mui/material/colors';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -19,6 +17,10 @@ export default {
           },
           orange: "#FF7900",
           gray: "#262626",
+          button: {
+            normal: "#fb641b",
+            hover: "#d65718",
+          },
         },
         light: {
           white: "#ffffff",

@@ -24,16 +24,22 @@ const productSchema = mongoose.Schema(
     category: { type: ObjectId, ref: "Category", required: true },
     subcategory: { type: ObjectId, ref: "Subcategory"},
     description: { type: String, required: true },
-    detail: { type: Map, of: String, required: true }, // Change detail to Map
+    detail: { type: Map, of: String, required: true }, 
 
     reviews: [reviewSchema],
     rating: { type: Number, required: true, default: 0 },
     numReviews: { type: Number, required: true, default: 0 },
-    price: { type: Number, required: true, default: 0 },
+    actualPrice: { type: Number, required: true, default: 0 },
+    discountPercentage: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 );
+
+
+productSchema.virtual('discountedPrice').get(function() {
+  return this.actualPrice * (1 - this.discountPercentage / 100);
+});
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;

@@ -7,7 +7,8 @@ const addProduct = asyncHandler(async (req, res) => {
       name,
       description,
       detail,
-      price,
+      actualPrice,
+      discountPercentage,
       category,
       subcategory,
       quantity,
@@ -24,10 +25,14 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Description is required" });
       case !detail:
         return res.json({ error: "Detail is required" });
-      case !price:
-        return res.json({ error: "Price is required" });
+      case !actualPrice:
+        return res.json({ error: "Actual price is required" });
+      case !discountPercentage:
+        return res.json({ error: "Discount percentage is required" });
       case !category:
         return res.json({ error: "Category is required" });
+      case !subcategory:
+        return res.json({ error: "Subcategory is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
     }
@@ -51,7 +56,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       name,
       description,
       detail,
-      price,
+      actualPrice,
+      discountPercentage,
       category,
       subcategory,
       quantity,
@@ -68,10 +74,14 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Description is required" });
       case !detail:
         return res.json({ error: "Detail is required" });
-      case !price:
-        return res.json({ error: "Price is required" });
+      case !actualPrice:
+        return res.json({ error: "Actual price is required" });
+      case !discountPercentage:
+        return res.json({ error: "Discount percentage is required" });
       case !category:
         return res.json({ error: "Category is required" });
+      case !subcategory:
+        return res.json({ error: "Subcategory is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
     }
@@ -240,7 +250,7 @@ const filterProducts = asyncHandler(async (req, res) => {
       args.category = checked;
     }
     if (radio.length > 0) {
-      args.price = { $gte: radio[0], $lte: radio[1] };
+      args.actualPrice = { $gte: radio[0], $lte: radio[1] };
     }
 
     const products = await Product.find(args);

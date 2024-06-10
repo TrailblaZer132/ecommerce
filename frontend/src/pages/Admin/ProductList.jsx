@@ -14,8 +14,8 @@ const ProductList = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [detail, setDetail] = useState({});
-
-  const [price, setPrice] = useState("");
+  const [actualPrice, setActualPrice] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState("");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -65,27 +65,28 @@ const ProductList = () => {
       productData.append("image", image);
       productData.append("name", name);
       productData.append("description", description);
-      productData.append("detail", JSON.stringify(detail)); // Stringify detail
-      productData.append("price", price);
+      productData.append("detail", JSON.stringify(detail)); 
+      productData.append("actualPrice", actualPrice);
+      productData.append("discountPercentage", discountPercentage);
       productData.append("category", category);
       productData.append("subcategory", subcategory);
       productData.append("quantity", quantity);
       productData.append("brand", brand);
       productData.append("countInStock", stock);
 
-      console.log("Submitting product with category ID: ", category); // Add this line
+      console.log("Submitting product with category ID: ", category); 
 
       const { data } = await createProduct(productData);
 
       if (data.error) {
-        toast.error(" try block error Product create failed. Try Again.");
+        toast.error("Product create failed. Try Again1.");
       } else {
         toast.success(`${data.name} is created`);
         navigate("/admin/allproductslist");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Product create failed. Try Again.");
+      toast.error("Product create failed. Try Again2.");
     }
   };
 
@@ -148,16 +149,26 @@ const ProductList = () => {
                 />
               </div>
               <div className="two ml-10 ">
-                <label htmlFor="name block">{t("Price")}</label> <br />
+                <label htmlFor="name block">{t("Actual Price")}</label> <br />
                 <input
                   type="number"
                   className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  value={actualPrice}
+                  onChange={(e) => setActualPrice(e.target.value)}
                 />
               </div>
             </div>
             <div className="flex flex-wrap">
+              <div className="two mr-10 ">
+                <label htmlFor="name block">{t("Discount Percentage")}</label>{" "}
+                <br />
+                <input
+                  type="number"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  value={discountPercentage}
+                  onChange={(e) => setDiscountPercentage(e.target.value)}
+                />
+              </div>
               <div className="one">
                 <label htmlFor="name block">{t("Quantity")}</label> <br />
                 <input
@@ -167,7 +178,7 @@ const ProductList = () => {
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
-              <div className="two ml-10 ">
+              <div className="two  ">
                 <label htmlFor="name block">{t("Brand")}</label> <br />
                 <input
                   type="text"
@@ -213,13 +224,13 @@ const ProductList = () => {
             <button
               type="button"
               onClick={handleAddDetailField}
-              className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
+              className="py-2 px-4 mt-2 mb-4 rounded-lg text-sm font-semibold bg-dark-button-normal text-light-white hover:bg-dark-button-hover"
             >
               {t("Add Field")}
             </button>
 
             <div className="flex justify-between">
-              <div>
+              <div className="one mr-10">
                 <label htmlFor="name block">{t("Count In Stock")}</label> <br />
                 <input
                   type="text"
@@ -228,45 +239,45 @@ const ProductList = () => {
                   onChange={(e) => setStock(e.target.value)}
                 />
               </div>
-
-              <div>
-                <label htmlFor="">{t("Category")}</label> <br />
-                <select
-                  placeholder="Choose Category"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
-                  value={category}
-                  onChange={handleCategoryChange}
-                >
-                  {categories?.map((c) => (
-                    <option key={c._id} value={c._id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
+              <div className="flex flex-wrap">
+                <div className="mr-10">
+                  <label htmlFor="">{t("Category")}</label> <br />
+                  <select
+                    placeholder="Choose Category"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
+                    value={category}
+                    onChange={handleCategoryChange}
+                  >
+                    {categories?.map((c) => (
+                      <option key={c._id} value={c._id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="">{t("Subcategory")}</label> <br />
+                  <select
+                    placeholder="Choose Subcategory"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
+                    value={subcategory}
+                    onChange={(e) => setSubcategory(e.target.value)}
+                  >
+                    {subcategories.map((sub) => (
+                      <option key={sub._id} value={sub._id}>
+                        {sub.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
-            <div className="flex justify-between">
-              <div>
-                <label htmlFor="">{t("Subcategory")}</label> <br />
-                <select
-                  placeholder="Choose Subcategory"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
-                  value={subcategory}
-                  onChange={(e) => setSubcategory(e.target.value)}
-                >
-                  {subcategories.map((sub) => (
-                    <option key={sub._id} value={sub._id}>
-                      {sub.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <div className="flex justify-between"></div>
 
             <button
               onClick={handleSubmit}
-              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-green-normal text-light-white hover:bg-dark-green-hover"
+              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-dark-button-normal text-light-white hover:bg-dark-button-hover"
             >
               {t("Submit")}
             </button>

@@ -35,8 +35,8 @@ const CategoryForm = ({
           onChange={(e) => setValue(e.target.value)}
         />
 
-        {/* Subcategories  is display none by default */}
-        <div className="space-y-2" style={{ display: "none" }}>
+        
+        <div className="space-y-2">
           <input
             type="text"
             className="py-3 px-4 border rounded-lg w-full capitalize focus:outline-none focus:ring-2 focus:ring-dark-green-normal focus:ring-opacity-50"

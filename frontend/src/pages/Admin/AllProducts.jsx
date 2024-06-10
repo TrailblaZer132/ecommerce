@@ -34,7 +34,9 @@ const AllProducts = () => {
               {t("All Products")} ({products.length})
             </div>
             <div className="flex flex-wrap justify-around items-center">
-              {products.map((product) => (
+              {products.map((product) => {
+                const calculatedPrice = product.actualPrice * (1 - product.discountPercentage / 100);
+                return (
                 <Link
                   key={product._id}
                   to={``}
@@ -64,7 +66,7 @@ const AllProducts = () => {
                       <div className="flex justify-between">
                         <Link
                           to={`/admin/product/update/${product._id}`}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-normal rounded-lg hover:bg-dark-red-hover focus:ring-4 focus:outline-none focus:ring-light-lightRed dark:bg-dark-red-normal dark:hover:bg-dark-red-hover dark:focus:ring-dark-red-hover"
+                            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-hover rounded-lg hover:bg-dark-red-hover focus:ring-4 focus:outline-none focus:ring-light-lightRed dark:bg-dark-red-normal dark:hover:bg-dark-red-hover dark:focus:ring-dark-red-hover"
                         >
                           Update Product
                           <svg
@@ -86,12 +88,13 @@ const AllProducts = () => {
                         <p className="text-gray-500">
                           Stock Available: {product?.countInStock}
                         </p>
-                        <p>₹{product?.price}</p>
+                          <p>₹{calculatedPrice.toFixed(2)}</p>
                       </div>
                     </div>
                   </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
           <div className="md:w-1/4 p-3 mt-2">
