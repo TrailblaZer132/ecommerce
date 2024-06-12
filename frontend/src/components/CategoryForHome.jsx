@@ -40,7 +40,7 @@ const Category = () => {
               setTimeoutId(
                 setTimeout(() => {
                   setHoveredCategory(null);
-                }, 1000)
+                }, 150)
               ); // Change this to the desired delay in milliseconds
             }}
           >
@@ -51,7 +51,7 @@ const Category = () => {
               {t(`${category.name}`)}
             </button>
             {hoveredCategory === category._id && category.subcategories && (
-              <div className="absolute top-full mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
                 {category.subcategories.map((subcategory) => (
                   <button
                     key={subcategory._id}

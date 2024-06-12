@@ -57,21 +57,19 @@ const Slide = ({ products = [], title }) => {
                     {product.name}
                   </TitleText>
                   <TextContainer>
-                    {/* <Text
+                    <Text
                       style={{
                         color: "#525050",
                       }}
                     >
-                      {product.price.mrp}
-                    </Text> */}
-                    <Text>₹{product.price}</Text>
-                    {/* <Text style={{ color: "green" }}>
-                      {product.price.discountPercent}
-                    </Text> */}
+                      ₹
+                      {product.actualPrice *
+                        (1 - product.discountPercentage / 100)}
+                    </Text>
+                    <Text style={{ color: "green" }}>
+                      ₹{product.actualPrice}
+                    </Text>
                   </TextContainer>
-                  {/* <Text style={{ color: "#212121", opacity: ".6" }}>
-                    {product.tagline}
-                  </Text> */}
                 </Box>
               </Link>
             ))}

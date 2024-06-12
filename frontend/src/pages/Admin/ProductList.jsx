@@ -32,7 +32,11 @@ const ProductList = () => {
   useEffect(() => {
     if (categories && categories.length > 0) {
       setCategory(categories[0]._id); // Set default category to the first one
-      setSubcategories(categories[0].subcategories || []);
+      const firstCategorySubcategories = categories[0].subcategories || [];
+      setSubcategories(firstCategorySubcategories);
+      if (firstCategorySubcategories.length > 0) {
+        setSubcategory(firstCategorySubcategories[0]._id); // Set default subcategory to the first one of the first category
+      }
     }
   }, [categories]);
 
