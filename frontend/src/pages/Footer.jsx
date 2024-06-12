@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
-      className="bg-light-white dark:bg-dark-gray"
+      className="bg-light-white dark:bg-dark-gray z-10"
       style={{ position: "static", bottom: 0, width: "100%" }}
     >
       <div className="mx-auto w-full max-w-screen-xl">

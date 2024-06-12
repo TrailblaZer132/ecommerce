@@ -14,12 +14,14 @@ import {
   FaShoppingCart,
   FaStar,
   FaStore,
+  FaInfoCircle,
 } from "react-icons/fa";
 import moment from "moment";
-import HeartIcon from "./HeartIcon";
+// import HeartIcon from "./HeartIcon";
 import Ratings from "./Ratings";
 import ProductTabs from "./ProductTabs";
 import { addToCart } from "../../redux/features/cart/cartSlice";
+import AddToFavoritesButton from "./AddToFavoritesButton";
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
@@ -72,6 +74,7 @@ const ProductDetails = () => {
     discountPercent = product.discountPercentage;
   }
 
+  console.log(product);
   return (
     <>
       <div>
@@ -91,117 +94,146 @@ const ProductDetails = () => {
         </Message>
       ) : (
         <>
-          <div className="flex flex-wrap relative items-between ml-[10rem] mt-[5rem]">
-            <div>
+          <div className="flex flex-wrap relative ml-[10rem] mt-[5rem] pb-80 overflow-hidden">
+            <div className="fixed left-[2.5rem] w-3/6 overflow-y-hiden overflow-x-hidden">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full xl:w-[40rem] lg:w-[35rem] md:w-[20rem] sm:w-[10rem] ml-[5rem] mr-[5rem] h-full xl:h-[40rem] lg:h-[35rem] md:h-[20rem] sm:h-[10rem] object-cover"
+                className="w-full xl:w-[30rem] lg:w-[25rem] md:w-[10rem] sm:w-[5rem] ml-[10rem] mr-[5rem] h-full xl:h-[30rem] lg:h-[25rem] md:h-[10rem] sm:h-[5rem] object-cover"
               />
-            </div>
 
-            <div className="flex flex-col justify-between">
-              <div className="flex items-center">
-                <h2 className="text-4xl font-semibold mr-2">{product.name}</h2>
-                <HeartIcon
+              <div className="flex flex-wrap btn-container mt-5">
+                <AddToFavoritesButton
                   product={product}
-                  style={{
-                    top: "10px",
-                    right: "5rem",
-                    position: "absolute",
-                    cursor: "pointer",
-                  }}
                 />
-              </div>
-              <p className="my-4 xl:w-[35rem] lg:w-[35rem] md:w-[30rem] text-[#9b9b9b]">
-                {product.description}
-              </p>
-
-              <div className="flex justify-between flex-wrap">
-                <Ratings
-                  value={product.rating}
-                  text={`${product.numReviews} reviews`}
-                />
-              </div>
-
-              <p className="text-3xl my-4 fnt-semibold">
-                ₹ {calculatedPrice.toFixed(2)}
-                {discountPercent > 5 && product && (
-                  <del className="text-red-500 ml-2">
-                    ₹ {product.actualPrice}
-                  </del>
-                )}
-              </p>
-
-              <div className="flex items-center justify-between w-[20rem]">
-                <div className="one">
-                  <h1 className="flex items-center mb-6">
-                    <FaStore className="mr-2 text-gray-700" /> Brand:{" "}
-                    {product.brand}
-                  </h1>
-                  <h1 className="flex items-center mb-6 w-[20rem]">
-                    <FaClock className="mr-2 text-gray-700" /> Added:{" "}
-                    {moment(product.createAt).fromNow()}
-                  </h1>
-                  <h1 className="flex items-center mb-6">
-                    <FaStar className="mr-2 text-gray-700" /> Reviews:{" "}
-                    {product.numReviews}
-                  </h1>
-                </div>
-
-                <div className="two">
-                  <h1 className="flex items-center mb-6">
-                    <FaStar className="mr-2 text-gray-700" /> Ratings: {rating}
-                  </h1>
-                  <h1 className="flex items-center mb-6">
-                    <FaShoppingCart className="mr-2 text-gray-700" /> Quantity:{" "}
-                    {product.quantity}
-                  </h1>
-                  <h1 className="flex items-center mb-6 w-[10rem]">
-                    <FaBox className="mr-2 text-gray-700" /> In Stock:{" "}
-                    {product.countInStock}
-                  </h1>
-                </div>
-              </div>
-
-              {product.countInStock > 0 && (
-                <div>
-                  <select
-                    value={qty}
-                    onChange={(e) => setQty(e.target.value)}
-                    className="p-2 w-[6rem] rounded-lg text-black"
-                  >
-                    {[...Array(product.countInStock).keys()].map((x) => (
-                      <option key={x + 1} value={x + 1}>
-                        {x + 1}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-
-              <div className="btn-container mt-5">
                 <button
                   onClick={addToCartHandler}
                   disabled={product.countInStock === 0}
-                  className="bg-green-600 text-white py-2 px-4 rounded-lg mt-4 md:mt-0"
+                  className="bg-dark-red-normal text-white py-4 px-10 rounded-lg mt-4 md:mt-0 mr-20 font-semibold"
                 >
                   Add To Cart
                 </button>
               </div>
             </div>
 
-            <div className="mt-[5rem] container flex flex-wrap items-start justify-between ml-[10rem]">
-              <ProductTabs
-                loadingProductReview={loadingProductReview}
-                userInfo={userInfo}
-                submitHandler={submitHandler}
-                rating={rating}
-                setRating={setRating}
-                comment={comment}
-                setComment={setComment}
-                product={product}
-              />
+            <div
+              className="ml-[40%] w-[50%] overflow-y-hidden overflow-x-hidden touch-auto
+             h-screen p-4"
+            >
+              <div className="flex flex-col justify-between">
+                <div className="flex items-center">
+                  <h2 className="text-4xl font-semibold mr-2">
+                    {product.name}
+                  </h2>
+                  {/* <HeartIcon
+                    product={product}
+                    style={{
+                      top: "10px",
+                      right: "5rem",
+                      position: "absolute",
+                      cursor: "pointer",
+                    }}
+                  /> */}
+                </div>
+                <p className="my-4 text-[#9b9b9b]">{product.description}</p>
+
+                <div className="flex justify-between flex-wrap">
+                  <Ratings
+                    value={product.rating}
+                    text={`${product.numReviews} reviews`}
+                  />
+                </div>
+
+                <p className="text-3xl my-4 font-semibold">
+                  ₹ {calculatedPrice.toFixed(2)}
+                  {discountPercent > 5 && product && (
+                    <del className="text-red-500 ml-2 font-normal text-lg">
+                      ₹ {product.actualPrice}
+                    </del>
+                  )}
+                </p>
+
+                <div className="mb-6">
+                  <h1 className="flex items-center mb-2">
+                    <FaInfoCircle className="mr-2 text-gray-700" /> Product
+                    Details:{" "}
+                  </h1>
+
+                  {product && product.detail && (
+                    <table className="table-auto">
+                      <tbody>
+                        {Object.entries(product.detail).map(([key, value]) => (
+                          <tr key={key}>
+                            <td className="border px-4 py-2">{key}</td>
+                            <td className="border px-4 py-2">{value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between w-[20rem]">
+                  <div className="one">
+                    <h1 className="flex items-center mb-6">
+                      <FaStore className="mr-2 text-gray-700" /> Brand:{" "}
+                      {product.brand}
+                    </h1>
+                    <h1 className="flex items-center mb-6 w-[20rem]">
+                      <FaClock className="mr-2 text-gray-700" /> Added:{" "}
+                      {moment(product.createAt).fromNow()}
+                    </h1>
+                    <h1 className="flex items-center mb-6">
+                      <FaStar className="mr-2 text-gray-700" /> Reviews:{" "}
+                      {product.numReviews}
+                    </h1>
+                  </div>
+
+                  <div className="two">
+                    <h1 className="flex items-center mb-6">
+                      <FaStar className="mr-2 text-gray-700" /> Ratings:{" "}
+                      {rating}
+                    </h1>
+                    <h1 className="flex items-center mb-6">
+                      <FaShoppingCart className="mr-2 text-gray-700" />{" "}
+                      Quantity: {product.quantity}
+                    </h1>
+                    <h1 className="flex items-center mb-6 w-[10rem]">
+                      <FaBox className="mr-2 text-gray-700" /> In Stock:{" "}
+                      {product.countInStock}
+                    </h1>
+                  </div>
+                </div>
+
+                {product.countInStock > 0 && (
+                  <div>
+                    <select
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                      className="p-2 w-[6rem] rounded-lg text-black"
+                    >
+                      {[...Array(product.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-5">
+                <ProductTabs
+                  loadingProductReview={loadingProductReview}
+                  userInfo={userInfo}
+                  submitHandler={submitHandler}
+                  rating={rating}
+                  setRating={setRating}
+                  comment={comment}
+                  setComment={setComment}
+                  product={product}
+                />
+              </div>
             </div>
           </div>
         </>

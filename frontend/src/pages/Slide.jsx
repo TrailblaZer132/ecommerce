@@ -9,7 +9,6 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { green } from "@mui/material/colors";
 
 const Slide = ({ products = [], title }) => {
   const navigate = useNavigate();

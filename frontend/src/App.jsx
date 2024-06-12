@@ -21,7 +21,7 @@ const App = () => {
         <Outlet />
       </main>
 
-      <Footer style={{ flexShrink: "0" }} />
+      <Footer style={{ flexShrink: "0"}} />
     </div>
   );
 };
