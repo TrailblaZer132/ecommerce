@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { green } from "@mui/material/colors";
 
 const Slide = ({ products = [], title }) => {
   const navigate = useNavigate();
@@ -59,14 +60,17 @@ const Slide = ({ products = [], title }) => {
                   <TextContainer>
                     <Text
                       style={{
-                        color: "#525050",
+                        color: "green",
+                        fontWeight: 600,
                       }}
                     >
                       ₹
                       {product.actualPrice *
                         (1 - product.discountPercentage / 100)}
                     </Text>
-                    <Text style={{ color: "green" }}>
+                    <Text
+                      style={{ color: "red", textDecoration: "line-through" }}
+                    >
                       ₹{product.actualPrice}
                     </Text>
                   </TextContainer>
@@ -116,7 +120,7 @@ const DealText = styled(Typography)`
   font-weight: 600;
   line-height: 32px;
   margin-right: 25px;
-  color: #d72a2e
+  color: #d72a2e;
 `;
 
 const ViewAllButton = styled(Button)`
@@ -141,12 +145,11 @@ const TitleText = styled(Typography)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
 `;
 
 const Text = styled(Typography)`
   font-size: 14px;
-  margin: 5px 10px 5px 0px; 
+  margin: 5px 10px 5px 0px;
 `;
 
 const TextContainer = styled(Container)`
