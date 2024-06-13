@@ -61,10 +61,14 @@ const Shop = () => {
         // Filter products based on both checked categories and price filter
         const filteredProducts = filteredProductsQuery.data.filter(
           (product) => {
-            // Check if the product price includes the entered price filter value
+            // Calculate the discounted price
+            const discountedPrice =
+              product.actualPrice * (1 - product.discountPercentage / 100);
+
+            // Check if the discounted price includes the entered price filter value
             return (
-              product.price.toString().includes(priceFilter) ||
-              product.price === parseInt(priceFilter, 10)
+              discountedPrice.toString().includes(priceFilter) ||
+              discountedPrice === parseInt(priceFilter, 10)
             );
           }
         );

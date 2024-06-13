@@ -35,10 +35,15 @@ const ProductCard = ({ p }) => {
 
       <div className="p-5">
         <div className="flex justify-between">
-          <h5 className="mb-2 text-xl text-whiet font-semibold dark:text-dark-black">{p?.name}</h5>
+          <h5 className="mb-2 text-xl text-whiet font-semibold dark:text-dark-black">
+            {p?.name}
+          </h5>
 
           <p className="font-semibold text-dark-black">
-            {p?.price?.toLocaleString("en-US", {
+            {(
+              p?.actualPrice *
+              (1 - p?.discountPercentage / 100)
+            )?.toLocaleString("en-US", {
               style: "currency",
               currency: "INR",
             })}
@@ -76,7 +81,7 @@ const ProductCard = ({ p }) => {
             className="p-2 rounded-full"
             onClick={() => addToCartHandler(p, 1)}
           >
-            <AiOutlineShoppingCart size={25} className="text-black"/>
+            <AiOutlineShoppingCart size={25} className="text-black" />
           </button>
         </section>
       </div>
