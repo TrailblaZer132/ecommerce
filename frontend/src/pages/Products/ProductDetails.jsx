@@ -173,16 +173,16 @@ const ProductDetails = () => {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between w-[20rem]">
+                <div className="flex items-center justify-between w-[25rem]">
                   <div className="one">
                     <h1 className="flex items-center mb-6">
                       <FaStore className="mr-2 text-gray-700" /> Brand:{" "}
                       {product.brand}
                     </h1>
-                    <h1 className="flex items-center mb-6 w-[20rem]">
+                    {/* <h1 className="flex items-center mb-6 w-[20rem]">
                       <FaClock className="mr-2 text-gray-700" /> Added:{" "}
                       {moment(product.createAt).fromNow()}
-                    </h1>
+                    </h1> */}
                     <h1 className="flex items-center mb-6">
                       <FaStar className="mr-2 text-gray-700" /> Reviews:{" "}
                       {product.numReviews}
@@ -190,10 +190,10 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="two">
-                    <h1 className="flex items-center mb-6">
+                    {/* <h1 className="flex items-center mb-6">
                       <FaStar className="mr-2 text-gray-700" /> Ratings:{" "}
                       {rating}
-                    </h1>
+                    </h1> */}
                     <h1 className="flex items-center mb-6">
                       <FaShoppingCart className="mr-2 text-gray-700" />{" "}
                       Quantity: {product.quantity}

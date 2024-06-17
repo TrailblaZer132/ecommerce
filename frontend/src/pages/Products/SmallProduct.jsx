@@ -20,7 +20,7 @@ const SmallProduct = ({ product }) => {
           <h2 className="flex justify-between items-center hover:text-dark-yellow font-semibold">
             <div>{product.name}</div>
             <span className="bg-dark-green-normal text-dark-green text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-green-hover dark:text-white">
-              ₹{product.price}
+              ₹{product.actualPrice * (1 - product.discountPercentage / 100)}
             </span>
           </h2>
         </Link>

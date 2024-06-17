@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Ratings from "./Ratings";
+import StarRating from "../../components/StarRating";
 import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
 import SmallProduct from "./SmallProduct";
 import Loader from "../../components/Loader";
@@ -16,7 +16,6 @@ const ProductTabs = ({
   product,
 }) => {
   const { data, isLoading } = useGetTopProductsQuery();
-
   const [activeTab, setActiveTab] = useState(1);
 
   if (isLoading) {
@@ -56,7 +55,6 @@ const ProductTabs = ({
         </div>
       </section>
 
-      {/* Second Part */}
       <section>
         {activeTab === 1 && (
           <div className="mt-4">
@@ -66,35 +64,20 @@ const ProductTabs = ({
                   <label htmlFor="rating" className="block text-xl mb-2">
                     Rating
                   </label>
-
-                  <select
-                    id="rating"
-                    required
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                    className="p-2 border rounded-lg xl:w-[40rem] text-black"
-                  >
-                    <option value="">Select</option>
-                    <option value="1">Inferior</option>
-                    <option value="2">Decent</option>
-                    <option value="3">Great</option>
-                    <option value="4">Excellent</option>
-                    <option value="5">Exceptional</option>
-                  </select>
+                  <StarRating rating={rating} setRating={setRating} />
                 </div>
 
                 <div className="my-2">
                   <label htmlFor="comment" className="block text-xl mb-2">
                     Comment
                   </label>
-
                   <textarea
                     id="comment"
                     rows="3"
                     required
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    className="p-2 border rounded-lg xl:w-[40rem] text-black"
+                    className="p-2 border rounded-lg xl:w-[30rem] text-black"
                   ></textarea>
                 </div>
                 <button
@@ -118,7 +101,6 @@ const ProductTabs = ({
         {activeTab === 2 && (
           <>
             <div>{product.reviews.length === 0 && <p>No Reviews</p>}</div>
-
             <div>
               {product.reviews.map((review) => (
                 <div
@@ -131,9 +113,12 @@ const ProductTabs = ({
                       {review.createdAt.substring(0, 10)}
                     </p>
                   </div>
-
                   <p className="my-4">{review.comment}</p>
-                  <Ratings value={review.rating} />
+                  <StarRating
+                    rating={review.rating}
+                    setRating={() => {}}
+                  />{" "}
+                  {/* Read-only */}
                 </div>
               ))}
             </div>

@@ -20,7 +20,7 @@ const ProductCard = ({ p }) => {
     <div className="w-[22rem] h-[18rem] relative bg-light-lightRed rounded-lg shaodw  ml-10 mb-2">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-blue-100 text-dark-green-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-green-hover dark:text-white">
+          <span className="absolute bottom-3 right-3 bg-blue-100 text-dark-red-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-red-normal dark:text-white">
             {p?.brand}
           </span>
           <img
@@ -57,7 +57,7 @@ const ProductCard = ({ p }) => {
         <section className="flex justify-between items-center">
           <Link
             to={`/product/${p._id}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-green-normal rounded-lg hover:bg-dark-green-hover  "
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-normal rounded-lg hover:bg-dark-red-hover  "
           >
             Read More
             <svg
