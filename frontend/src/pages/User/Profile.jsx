@@ -5,8 +5,10 @@ import Loader from "../../components/Loader";
 import { setCredentials } from "../../redux/features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { useProfileMutation } from "../../redux/api/usersApiSlice";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -48,44 +50,48 @@ const Profile = () => {
     <div className="container mx-auto p-4 mt-[10rem]">
       <div className="flex justify-center align-center md:flex md:space-x-4">
         <div className="md:w-1/3">
-          <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
+          <h2 className="text-2xl font-semibold mb-4">{t("Update Profile")}</h2>
 
           <form onSubmit={submitHandler}>
             <div className="mb-4">
-              <label className="block text-black mb-2">Name</label>
+              <label className="block text-black mb-2">{t("Name")}</label>
               <input
                 type="text"
-                placeholder="Enter name"
+                placeholder={t("Enter name")}
                 className="form-input p-4 border rounded-sm w-full text-gray-600 font-mono"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-black mb-2">Email</label>
+              <label className="block text-black mb-2">
+                {t("Email Address")}
+              </label>
               <input
                 type="email"
-                placeholder="Enter email"
+                placeholder={t("Enter your email address")}
                 className="form-input p-4 border rounded-sm w-full text-gray-600 font-mono"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-black mb-2">Password</label>
+              <label className="block text-black mb-2">{t("Password")}</label>
               <input
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter your password")}
                 className="form-input p-4 border rounded-sm w-full text-gray-600 font-mono"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mb-4">
-              <label className="block text-black mb-2">Confirm Password</label>
+              <label className="block text-black mb-2">
+                {t("Confirm Password")}
+              </label>
               <input
                 type="password"
-                placeholder="Confirm password"
+                placeholder={t("Confirm Password")}
                 className="form-input p-4 border rounded-sm w-full text-gray-600 font-mono"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -96,13 +102,13 @@ const Profile = () => {
                 type="submit"
                 className="bg-lime-500 text-white py-2 px-4 rounded hover:bg-lime-600"
               >
-                Update
+                {t("Update")}
               </button>
               <Link
                 to="/user-orders"
                 className="bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600"
               >
-                My Orders
+                {t("My Orders")}
               </Link>
             </div>
           </form>

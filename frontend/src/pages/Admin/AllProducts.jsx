@@ -68,7 +68,7 @@ const AllProducts = () => {
                           to={`/admin/product/update/${product._id}`}
                             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-hover rounded-lg hover:bg-dark-red-hover focus:ring-4 focus:outline-none focus:ring-light-lightRed dark:bg-dark-red-normal dark:hover:bg-dark-red-hover dark:focus:ring-dark-red-hover"
                         >
-                          Update Product
+                          {t("Update Product")}
                           <svg
                             className="w-3.5 h-3.5 ml-2"
                             aria-hidden="true"
@@ -86,7 +86,7 @@ const AllProducts = () => {
                           </svg>
                         </Link>
                         <p className="text-gray-500">
-                          Stock Available: {product?.countInStock}
+                          {t("Stock Available")}: {product?.countInStock}
                         </p>
                           <p>₹{calculatedPrice.toFixed(2)}</p>
                       </div>

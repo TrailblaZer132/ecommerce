@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { addToCart, removeFromCart } from "../redux/features/cart/cartSlice";
+import { useTranslation } from "react-i18next";
 
 const Cart = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -11,7 +13,12 @@ const Cart = () => {
   const { cartItems } = cart;
 
   const addToCartHandler = (product, qty) => {
-    dispatch(addToCart({ ...product, qty }));
+    // Calculate the discounted price
+    const discountedPrice =
+      product.actualPrice * (1 - product.discountPercentage / 100);
+
+    // Add the product to the cart with the discounted price
+    dispatch(addToCart({ ...product, price: discountedPrice, qty }));
   };
 
   const removeFromCartHandler = (id) => {
@@ -27,15 +34,15 @@ const Cart = () => {
       <div className="container flex justify-around items-start flex-wrap mx-auto mt-[5rem]">
         {cartItems.length === 0 ? (
           <div>
-            Your cart is empty{" "}
+            {t("Your cart is empty")}{" "}
             <Link to="/shop" className="text-dark-green-normal">
-              Go To Shop
+              {t("Go To Shop")}
             </Link>
           </div>
         ) : (
           <>
             <div className="flex flex-col w-[80%]">
-              <h1 className="text-2xl font-semibold mb-4">Shopping Cart</h1>
+              <h1 className="text-2xl font-semibold mb-4">{t("Shopping Cart")}</h1>
 
               {cartItems.map((item) => (
                 <div key={item._id} className="flex items-enter mb-[1rem] pb-2">
@@ -91,7 +98,7 @@ const Cart = () => {
               <div className="mt-8 w-[40rem]">
                 <div className="p-4 rounded-lg">
                   <h2 className="text-xl font-semibold mb-2">
-                    Items ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                    {t("Items")} ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                   </h2>
 
                   <div className="text-2xl font-bold">
@@ -106,7 +113,7 @@ const Cart = () => {
                     disabled={cartItems.length === 0}
                     onClick={checkoutHandler}
                   >
-                    Proceed To Checkout
+                    {t("Proceed To Checkout")}
                   </button>
                 </div>
               </div>

@@ -1,9 +1,10 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Payments = () => {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto px-4 mt-[5rem]">
-      <h1 className="mb-4 text-2xl font-bold text-gray-900">Payments</h1>
+      <h1 className="mb-4 text-2xl font-bold text-gray-900">{t("Payments")}</h1>
 
       <h2 className="mb-4 text-xl font-semibold text-gray-900">
         How do I pay for an E-Meghalaya purchase?

@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import HeartIcon from "./HeartIcon";
+import { useTranslation } from "react-i18next";
 
 const ProductCard = ({ p }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const addToCartHandler = (product, qty) => {
@@ -59,7 +61,7 @@ const ProductCard = ({ p }) => {
             to={`/product/${p._id}`}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-normal rounded-lg hover:bg-dark-red-hover  "
           >
-            Read More
+            {t("Read More")}
             <svg
               className="w-3.5 h-3.5 ml-2"
               aria-hidden="true"

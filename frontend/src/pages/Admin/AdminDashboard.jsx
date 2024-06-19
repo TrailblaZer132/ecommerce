@@ -10,8 +10,10 @@ import { useState, useEffect } from "react";
 import AdminMenu from "./AdminMenu";
 import OrderList from "./OrderList";
 import Loader from "../../components/Loader";
+import { useTranslation } from "react-i18next";
 
 const AdminDashboard = () => {
+  const { t } = useTranslation();
   const { data: sales, isLoading } = useGetTotalSalesQuery();
   const { data: customers, isLoading: loading } = useGetUsersQuery();
   const { data: orders, isLoading: loadingTwo } = useGetTotalOrdersQuery();
@@ -99,7 +101,7 @@ const AdminDashboard = () => {
               ₹
             </div>
 
-            <p className="mt-5">Sales</p>
+            <p className="mt-5">{t("Sales")}</p>
             <h1 className="text-xl font-bold">
               ₹ {isLoading ? <Loader /> : sales.totalSales.toFixed(2)}
             </h1>
@@ -109,7 +111,7 @@ const AdminDashboard = () => {
               @
             </div>
 
-            <p className="mt-5">Customers</p>
+            <p className="mt-5">{t("Customers")}</p>
             <h1 className="text-xl font-bold">
               {isLoading ? <Loader /> : customers?.length}
             </h1>
@@ -119,7 +121,7 @@ const AdminDashboard = () => {
               #
             </div>
 
-            <p className="mt-5">All Orders</p>
+            <p className="mt-5">{t("All Orders")}</p>
             <h1 className="text-xl font-bold">
               {isLoading ? <Loader /> : orders?.totalOrders}
             </h1>

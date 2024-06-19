@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer
       className="bg-light-white dark:bg-dark-gray z-10"
@@ -9,24 +11,24 @@ const Footer = () => {
         <div className="grid grid-cols-4 gap-8 px-4 py-6 lg:py-8 md:grid-cols-6">
           <div>
             <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-              About
+              {t("ABOUT")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <Link to="/contact-us" className="hover:underline">
-                  Contact Us
+                  {t("Contact Us")}
                 </Link>
               </li>
               <li className="mb-4">
                 <a href="#" className="hover:underline">
                   <Link to="/about-us" className="hover:underline">
-                    About Us
+                    {t("About Us")}
                   </Link>
                 </a>
               </li>
               <li className="mb-4">
                 <Link to="/meghalaya-stories" className="hover:underline">
-                  Meghalaya stories
+                  {t("Meghalaya stories")}
                 </Link>
               </li>
               {/* <li className="mb-4">
@@ -38,19 +40,19 @@ const Footer = () => {
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-              Help center
+              {t("HELP CENTER")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <li className="mb-4">
                   <Link to="/payments" className="hover:underline">
-                    Patments
+                    {t("Payments")}
                   </Link>
                 </li>
               </li>
               <li className="mb-4">
                 <Link to="/shipping-footer" className="hover:underline">
-                  Shipping
+                  {t("Shipping")}
                 </Link>
               </li>
               <li className="mb-4">
@@ -62,34 +64,34 @@ const Footer = () => {
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-              Consumer Policy
+              {t("CONSUMER POLICY")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <Link to="/cancellation&return" className="hover:underline">
-                  Cancellation & Returns
+                  {t("Cancellation & Returns")}
                 </Link>
               </li>
               <li className="mb-4">
                 <Link to="/termsOfUse" className="hover:underline">
-                  Terms of Use
+                  {t("Terms of Use")}
                 </Link>
               </li>
               <li className="mb-4">
                 <Link to="/security" className="hover:underline">
-                  Security
+                  {t("Security")}
                 </Link>
               </li>
               <li className="mb-4">
                 <Link to="/grievance-redressal" className="hover:underline">
-                  Grievance Redressal
+                  {t("Grievance Redressal")}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-              Related sites
+              {t("RELATED SITES")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
@@ -98,7 +100,7 @@ const Footer = () => {
                   target="_blank"
                   className="hover:underline"
                 >
-                  Government of Meghalaya
+                  {t("Government of Meghalaya")}
                 </a>
               </li>
               <li className="mb-4">
@@ -107,7 +109,7 @@ const Footer = () => {
                   target="_blank"
                   className="hover:underline"
                 >
-                  NLU Meghalaya
+                  {t("NLU Meghalaya")}
                 </a>
               </li>
               <li className="mb-4">
@@ -116,7 +118,7 @@ const Footer = () => {
                   target="_blank"
                   className="hover:underline"
                 >
-                  IIT Bhilai
+                  {t("IIT Bhilai")}
                 </a>
               </li>
               <li className="mb-4">
@@ -125,7 +127,7 @@ const Footer = () => {
                   target="_blank"
                   className="hover:underline"
                 >
-                  IIIT Guwahati
+                  {t("IIIT Guwahati")}
                 </a>
               </li>
             </ul>
@@ -139,18 +141,19 @@ const Footer = () => {
           ></div>
           <div>
             <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-              NLU Meghalaya Address
+              {t("NLU MEGHALAYA ADDRESS")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
               <li className="mb-4">
-                National Law University Meghalaya, Jingkieng, Nongthymmai,
-                Umsawli, Shillong, Meghalaya 793018
+                {t(
+                  `National Law University Meghalaya, Jingkieng, Nongthymmai, Umsawli, Shillong, Meghalaya 793018`
+                )}
               </li>
             </ul>
 
             <div className="flex flex-col items-start">
               <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
-                Social
+                {t("SOCIAL")}
               </h2>
 
               <div className="flex mt-4 mr-5 space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
@@ -171,7 +174,7 @@ const Footer = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="sr-only">Facebook page</span>
+                  <span className="sr-only">{t("Facebook page")}</span>
                 </a>
 
                 <a

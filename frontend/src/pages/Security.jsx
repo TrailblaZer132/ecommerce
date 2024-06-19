@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const securityTopics = {
   OnlinePayment: [
     {
@@ -69,11 +71,12 @@ const securityTopics = {
 };
 
 const OrderCancellationAndReturnPolicy = () => {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto p-8 mt-[5rem]">
       {/* Security Topics Section */}
       <div>
-        <h2 className="text-lg font-semibold mb-2">Security Topics</h2>
+        <h2 className="text-lg font-semibold mb-2">{t("Security Topics")}</h2>
         {Object.keys(securityTopics).map((topic) => (
           <div key={topic} className="mb-4">
             <h3 className="text-md font-semibold mb-2">{topic}</h3>

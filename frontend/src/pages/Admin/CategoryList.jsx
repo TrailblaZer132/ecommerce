@@ -105,7 +105,7 @@ const CategoryList = () => {
         </div>
         <CategoryForm
           value={name}
-          setValue={setName}
+          setValue={t(`${setName}`)}
           subcategories={subcategories}
           setSubcategories={setSubcategories}
           handleSubmit={handleCreateCategory}

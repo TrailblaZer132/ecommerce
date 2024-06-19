@@ -1,9 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 const ContactUs = () => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col items-center justify-center mt-[8rem]">
       <div className="flex flex-col-reverse lg:flex-row items-center  max-w-4xl p-8 lg:p-0">
         <div className="w-full lg:w-1/2 p-8">
-          <h1 className="mb-4 text-2xl font-bold text-dark-gray">Contact Us</h1>
+          <h1 className="mb-4 text-2xl font-bold text-dark-gray">{t("Contact Us")}</h1>
           <p className="mb-4 text-dark-gray">
             We would love to hear from you! Whether you have a question about
             features, pricing, need a demo, or anything else, our team is ready

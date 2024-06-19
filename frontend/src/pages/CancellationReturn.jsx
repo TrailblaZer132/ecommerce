@@ -1,11 +1,11 @@
+import { useTranslation } from "react-i18next";
 import React from "react";
 
 const OrderCancellationAndReturnPolicy = () => {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto p-8 mt-[5rem]">
-      <h1 className="text-2xl font-bold mb-4">
-        Order Cancellation and Return Policy
-      </h1>
+      <h1 className="text-2xl font-bold mb-4">{t("Cancellation & Returns")}</h1>
 
       <div className="mb-8">
         <h2 className="text-lg font-semibold mb-2">Cancellation Policy</h2>

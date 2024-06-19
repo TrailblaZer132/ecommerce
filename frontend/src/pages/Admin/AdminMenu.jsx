@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const AdminMenu = () => {
+  const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -39,7 +41,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Admin Dashboard
+                {t("Admin Dashboard")}
               </NavLink>
             </li>
             <li>
@@ -50,7 +52,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Create Category
+                {t("Create Category")}
               </NavLink>
             </li>
             <li>
@@ -61,7 +63,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Create Product
+                {t("Create Product")}
               </NavLink>
             </li>
             <li>
@@ -72,7 +74,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                All Products
+                {t("All Products")}
               </NavLink>
             </li>
             <li>
@@ -83,7 +85,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Manage Users
+                {t("Manage Users")}
               </NavLink>
             </li>
             <li>
@@ -94,7 +96,7 @@ const AdminMenu = () => {
                   color: isActive ? "greenyellow" : "white",
                 })}
               >
-                Manage Orders
+                {t("Manage Orders")}
               </NavLink>
             </li>
           </ul>

@@ -66,7 +66,7 @@ const Navigation = () => {
 
   return (
     <div
-      style={{ zIndex: 100 }}
+      style={{ zIndex: 999 }}
       className={`${
         showSidebar ? "hidden" : "flex"
       } xl:flex lg:flex md:flex sm:flex flex-row justify-between items-center p-4 text-light-white bg-dark-red-normal w-full h-12 fixed`}
@@ -89,7 +89,7 @@ const Navigation = () => {
       <div className="flex flex-grow justify-center">
         <input
           type="text"
-          placeholder="Search..."
+          placeholder={t("Search")}
           className="py-2 flex-grow px-4 w-96 h-10 rounded-xl bg-light-white text-light-gray"
         />
       </div>

@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 const AboutUs = () => {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-row  mt-[8rem] ml-[5rem]">
       <div className=" w-[70%]">
-        <h1 className="mb-4 text-2xl font-bold text-dark-gray">About Us</h1>
+        <h1 className="mb-4 text-2xl font-bold text-dark-gray">{t("About Us")}</h1>
         <p className="mb-4 text-dark-gray">
           We are a dedicated team of developers committed to delivering
           high-quality e-commerce solutions. Our mission is to provide a
