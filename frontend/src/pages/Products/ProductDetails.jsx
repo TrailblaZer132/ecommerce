@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [mainImage, setMainImage] = useState("");
 
   const {
     data: product,
@@ -72,6 +73,9 @@ const ProductDetails = () => {
     calculatedPrice =
       product.actualPrice * (1 - product.discountPercentage / 100);
     discountPercent = product.discountPercentage;
+    if (!mainImage) {
+      setMainImage(product.images[0]);
+    }
   }
 
   console.log(product);
@@ -95,17 +99,30 @@ const ProductDetails = () => {
       ) : (
         <>
           <div className="flex flex-wrap relative ml-[10rem] mt-[5rem] pb-80 overflow-hidden">
-            <div className="fixed left-[2.5rem] w-3/6 overflow-y-hiden overflow-x-hidden">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full xl:w-[30rem] lg:w-[25rem] md:w-[10rem] sm:w-[5rem] ml-[10rem] mr-[5rem] h-full xl:h-[30rem] lg:h-[25rem] md:h-[10rem] sm:h-[5rem] object-cover"
-              />
+            <div className="fixed left-[2.5rem] w-3/6 overflow-y-hidden overflow-x-hidden">
+              <div className="flex">
+                <div className="thumbnail-container mr-[5rem]">
+                  {product.images.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`Thumbnail ${index}`}
+                      className="thumbnail mb-4 w-20 h-20 object-cover cursor-pointer"
+                      onClick={() => setMainImage(img)}
+                    />
+                  ))}
+                </div>
+                <div className="main-image-container">
+                  <img
+                    src={mainImage}
+                    alt={product.name}
+                    className="w-full xl:w-[30rem] lg:w-[25rem] md:w-[20rem] h-full xl:h-[30rem] lg:h-[25rem] md:h-[20rem] object-cover"
+                  />
+                </div>
+              </div>
 
               <div className="flex flex-wrap btn-container mt-5">
-                <AddToFavoritesButton
-                  product={product}
-                />
+                <AddToFavoritesButton product={product} />
                 <button
                   onClick={addToCartHandler}
                   disabled={product.countInStock === 0}

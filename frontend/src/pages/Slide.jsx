@@ -45,37 +45,39 @@ const Slide = ({ products = [], title }) => {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            {randomizedProducts.map((product, index) => (
-              <Link
-                key={index}
-                to={`/product/${product._id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Box textAlign="center" style={{ padding: "25px 15px" }}>
-                  <Image src={product.image} loading="lazy" />
-                  <TitleText style={{ fontWeight: 600, color: "#212121" }}>
-                    {product.name}
-                  </TitleText>
-                  <TextContainer>
-                    <Text
-                      style={{
-                        color: "green",
-                        fontWeight: 600,
-                      }}
-                    >
-                      ₹
-                      {product.actualPrice *
-                        (1 - product.discountPercentage / 100)}
-                    </Text>
-                    <Text
-                      style={{ color: "red", textDecoration: "line-through" }}
-                    >
-                      ₹{product.actualPrice}
-                    </Text>
-                  </TextContainer>
-                </Box>
-              </Link>
-            ))}
+            {randomizedProducts.map((product, index) => {
+              const firstImage = product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg';
+
+              return (
+                <Link
+                  key={index}
+                  to={`/product/${product._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Box textAlign="center" style={{ padding: "25px 15px" }}>
+                    <Image src={firstImage} loading="lazy" alt={product.name} />
+                    <TitleText style={{ fontWeight: 600, color: "#212121" }}>
+                      {product.name}
+                    </TitleText>
+                    <TextContainer>
+                      <Text
+                        style={{
+                          color: "green",
+                          fontWeight: 600,
+                        }}
+                      >
+                        ₹{(product.actualPrice * (1 - product.discountPercentage / 100)).toFixed(2)}
+                      </Text>
+                      <Text
+                        style={{ color: "red", textDecoration: "line-through" }}
+                      >
+                        ₹{product.actualPrice}
+                      </Text>
+                    </TextContainer>
+                  </Box>
+                </Link>
+              );
+            })}
           </Carousel>
         </div>
       ) : (

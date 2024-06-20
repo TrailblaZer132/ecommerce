@@ -10,7 +10,7 @@ import AdminMenu from "./AdminMenu";
 import { useTranslation } from "react-i18next";
 const ProductList = () => {
   const { t } = useTranslation();
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);  
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [detail, setDetail] = useState({});
@@ -21,7 +21,7 @@ const ProductList = () => {
   const [quantity, setQuantity] = useState("");
   const [brand, setBrand] = useState("");
   const [stock, setStock] = useState(0);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);  
   const navigate = useNavigate();
 
   const [uploadProductImage] = useUploadProductImageMutation();
@@ -31,7 +31,7 @@ const ProductList = () => {
 
   useEffect(() => {
     if (categories && categories.length > 0) {
-      setCategory(categories[0]._id); // Set default category to the first one
+      setCategory(categories[0]._id); 
       const firstCategorySubcategories = categories[0].subcategories || [];
       setSubcategories(firstCategorySubcategories);
       if (firstCategorySubcategories.length > 0) {
@@ -66,7 +66,9 @@ const ProductList = () => {
 
     try {
       const productData = new FormData();
-      productData.append("image", image);
+      images.forEach(image => {
+        productData.append("images", image); 
+      });
       productData.append("name", name);
       productData.append("description", description);
       productData.append("detail", JSON.stringify(detail)); 
@@ -77,8 +79,8 @@ const ProductList = () => {
       productData.append("quantity", quantity);
       productData.append("brand", brand);
       productData.append("countInStock", stock);
-
-      console.log("Submitting product with category ID: ", category); 
+      productData.append("images", JSON.stringify(imageUrls));
+      console.log("Submitting product with category ID: ", category);
 
       const { data } = await createProduct(productData);
 
@@ -95,14 +97,17 @@ const ProductList = () => {
   };
 
   const uploadFileHandler = async (e) => {
+    const files = Array.from(e.target.files);
     const formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    files.forEach(file => {
+      formData.append("images", file);
+    });
 
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
-      setImage(res.image);
-      setImageUrl(res.image);
+      setImages(files);  
+      setImageUrls(res.images); 
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -117,26 +122,30 @@ const ProductList = () => {
             {t("Create Product")}
           </div>
 
-          {imageUrl && (
+          {imageUrls.length > 0 && (
             <div className="text-center">
-              <img
-                src={imageUrl}
-                alt="product"
-                className="block mx-auto max-h-[200px]"
-              />
+              {imageUrls.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`product-${index}`}
+                  className="block mx-auto max-h-[200px] my-2"
+                />
+              ))}
             </div>
           )}
 
           <div className="mb-3">
             <label className="border text-dark-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-              {t(`${image ? image.name : "Upload Image"}`)}
+              {t("Upload Images")}
 
               <input
                 type="file"
-                name="image"
+                multiple
+                name="images"
                 accept="image/*"
                 onChange={uploadFileHandler}
-                className={!image ? "hidden" : "text-dark-black"}
+                className="hidden"
               />
             </label>
           </div>

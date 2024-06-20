@@ -13,6 +13,7 @@ const addProduct = asyncHandler(async (req, res) => {
       subcategory,
       quantity,
       brand,
+      images,
     } = req.fields;
 
     // Validation
@@ -35,12 +36,15 @@ const addProduct = asyncHandler(async (req, res) => {
         return res.json({ error: "Subcategory is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
+      case !images || images.length === 0:
+        return res.json({ error: "Images are required" });
     }
 
     const product = new Product({
       ...req.fields,
-      detail: JSON.parse(req.fields.detail), // Parse detail as object
-      subcategory, // Add subcategory here
+      detail: JSON.parse(req.fields.detail),
+      subcategory,
+      images: JSON.parse(images),
     });
     await product.save();
     res.json(product);
@@ -62,6 +66,7 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       subcategory,
       quantity,
       brand,
+      images,
     } = req.fields;
 
     // Validation
@@ -84,14 +89,17 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Subcategory is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
+      case !images || images.length === 0:
+        return res.json({ error: "Images are required" });
     }
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
       {
         ...req.fields,
-        detail: JSON.parse(req.fields.detail), // Parse detail as object
-        subcategory, // Add subcategory here
+        detail: JSON.parse(req.fields.detail),
+        subcategory,
+        images,
       },
       { new: true }
     );
