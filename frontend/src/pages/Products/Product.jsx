@@ -9,7 +9,7 @@ const Product = ({ product }) => {
     <div className="w-[22rem] ml-[1rem] p-3 relative mt-[5rem]">
       <div className=" relative h-[20rem] w-[20rem] overflow-hidden rounded">
         <img
-          src={product.image}
+          src={product.images[0]}
           alt={product.name}
           className="h-full w-full object-cover"
           loading="lazy"

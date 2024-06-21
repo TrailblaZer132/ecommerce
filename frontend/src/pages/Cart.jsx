@@ -42,13 +42,15 @@ const Cart = () => {
         ) : (
           <>
             <div className="flex flex-col w-[80%]">
-              <h1 className="text-2xl font-semibold mb-4">{t("Shopping Cart")}</h1>
+              <h1 className="text-2xl font-semibold mb-4">
+                {t("Shopping Cart")}
+              </h1>
 
               {cartItems.map((item) => (
                 <div key={item._id} className="flex items-enter mb-[1rem] pb-2">
                   <div className="w-[5rem] h-[5rem]">
                     <img
-                      src={item.image}
+                      src={item.images[0]}
                       alt={item.name}
                       className="w-full h-full object-cover rounded"
                     />
@@ -64,7 +66,7 @@ const Cart = () => {
 
                     <div className="mt-2 text-dark-black">{item.brand}</div>
                     <div className="mt-2 text-dark-black font-bold">
-                      ₹ {item.price}
+                      ₹ {item.actualPrice * (1 - item.discountPercentage / 100)}
                     </div>
                   </div>
 
@@ -98,13 +100,19 @@ const Cart = () => {
               <div className="mt-8 w-[40rem]">
                 <div className="p-4 rounded-lg">
                   <h2 className="text-xl font-semibold mb-2">
-                    {t("Items")} ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                    {t("Items")} (
+                    {cartItems.reduce((acc, item) => acc + item.qty, 0)})
                   </h2>
 
                   <div className="text-2xl font-bold">
                     ₹{" "}
                     {cartItems
-                      .reduce((acc, item) => acc + item.qty * item.price, 0)
+                      .reduce((acc, item) => {
+                        const discountedPrice =
+                          item.actualPrice *
+                          (1 - item.discountPercentage / 100);
+                        return acc + item.qty * discountedPrice;
+                      }, 0)
                       .toFixed(2)}
                   </div>
 

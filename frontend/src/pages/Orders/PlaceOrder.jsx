@@ -66,7 +66,7 @@ const PlaceOrder = () => {
                   <tr key={index}>
                     <td className="p-2">
                       <img
-                        src={item.image}
+                        src={item.images[0]}
                         alt={item.name}
                         className="w-16 h-16 object-cover"
                       />
@@ -76,9 +76,17 @@ const PlaceOrder = () => {
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </td>
                     <td className="p-2">{item.qty}</td>
-                    <td className="p-2">{item.price.toFixed(2)}</td>
                     <td className="p-2">
-                      ₹ {(item.qty * item.price).toFixed(2)}
+                      {(
+                        item.price *
+                        (1 - item.discountPercentage / 100)
+                      ).toFixed(2)}
+                    </td>
+                    <td className="p-2">
+                      {(
+                        item.price *
+                        (1 - item.discountPercentage / 100)
+                      ).toFixed(2)}
                     </td>
                   </tr>
                 ))}

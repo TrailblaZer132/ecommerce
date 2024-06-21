@@ -27,7 +27,7 @@ const ProductCard = ({ p }) => {
           </span>
           <img
             className="cursor-pointer w-full"
-            src={p.image}
+            src={p.images[0]}
             alt={p.name}
             style={{ height: "170px", objectFit: "cover" }}
           />
