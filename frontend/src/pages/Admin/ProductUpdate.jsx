@@ -17,7 +17,8 @@ const AdminProductUpdate = () => {
 
   const { data: productData, refetch } = useGetProductByIdQuery(params._id);
 
-  const [image, setImage] = useState(productData?.image || "");
+  const [images, setImages] = useState(productData?.images || "");
+  const [imageUrls, setImageUrls] = useState([]); 
   const [name, setName] = useState(productData?.name || "");
   const [description, setDescription] = useState(productData?.description || "");
   const [detail, setDetail] = useState(productData?.detail || {});
@@ -53,7 +54,8 @@ const AdminProductUpdate = () => {
       setSubcategory(productData.subcategory?._id);
       setQuantity(productData.quantity);
       setBrand(productData.brand);
-      setImage(productData.image);
+      setImageUrls(productData.images);
+      
       setStock(productData.countInStock);
     }
 
@@ -70,22 +72,21 @@ const AdminProductUpdate = () => {
       setSubcategories(selectedCategory?.subcategories || []);
     }
   }, [category, categories]);
-
+  
   const uploadFileHandler = async (e) => {
+    const files = Array.from(e.target.files);
     const formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    files.forEach((file) => {
+      formData.append("images", file);
+    });
+  
     try {
       const res = await uploadProductImage(formData).unwrap();
-      toast.success("Item added successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-      });
-      setImage(res.image);
-    } catch (err) {
-      toast.success("Item added successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
-      });
+      toast.success(res.message);
+      setImages([...images, ...files]);
+      setImageUrls([...imageUrls, ...res.images]); 
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
     }
   };
 
@@ -108,7 +109,6 @@ const AdminProductUpdate = () => {
     const calculatedPrice = actualPrice * (1 - discountPercentage / 100);
     try {
       const formData = new FormData();
-      formData.append("image", image);
       formData.append("name", name);
       formData.append("description", description);
       formData.append("detail", JSON.stringify(detail));
@@ -120,11 +120,16 @@ const AdminProductUpdate = () => {
       formData.append("quantity", quantity);
       formData.append("brand", brand);
       formData.append("countInStock", stock);
-
-      const data = await updateProduct({ productId: params._id, formData });
-
+      formData.append("newImages", JSON.stringify(imageUrls)); 
+      formData.append("oldImages", JSON.stringify(productData.images)); 
+  
+      const data = await updateProduct({
+        productId: params._id,
+        formData,
+      });
+  
       console.log("Update product response:", data);
-
+  
       if (data?.error) {
         console.error(data.error);
         toast.error(data.error.message || "Product update failed. Try again.", {
@@ -146,7 +151,7 @@ const AdminProductUpdate = () => {
       });
     }
   };
-
+  
   const handleDelete = async () => {
     // Check if toast is defined
     if (typeof toast === "undefined") {
@@ -200,22 +205,26 @@ const AdminProductUpdate = () => {
               {t("Update / Delete Product")}
             </div>
 
-            {image && (
-              <div className="text-center">
+            {imageUrls.length > 0 && (
+            <div className="text-center">
+              {imageUrls.map((url, index) => (
                 <img
-                  src={image}
-                  alt="product"
-                  className="block mx-auto w-[25%] max-h-[25%]"
+                  key={index}
+                  src={url}
+                  alt={`product-${index}`}
+                  className="block mx-auto max-h-[200px] my-2"
                 />
-              </div>
-            )}
+              ))}
+            </div>
+          )}
 
             <div className="mb-3">
               <label className="text-dark-black py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-semibold hover:shadow-lg transition-all ease-in-out duration-75">
-                {t(`${image ? image.name : "Upload Image"}`)}
+                {t(`${images ? images.name : "Upload Image"}`)}
                 <input
                   type="file"
-                  name="image"
+                  name="images"
+                  multiple
                   accept="image/*"
                   onChange={uploadFileHandler}
                   className="text-dark-black"

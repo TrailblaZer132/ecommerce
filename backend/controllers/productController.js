@@ -66,7 +66,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
       subcategory,
       quantity,
       brand,
-      images,
+      newImages, 
+      
     } = req.fields;
 
     // Validation
@@ -89,9 +90,12 @@ const updateProductDetails = asyncHandler(async (req, res) => {
         return res.json({ error: "Subcategory is required" });
       case !quantity:
         return res.json({ error: "Quantity is required" });
-      case !images || images.length === 0:
+      case !newImages:
         return res.json({ error: "Images are required" });
     }
+
+   
+    const images = [...JSON.parse(newImages || '[]')];
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
@@ -112,6 +116,8 @@ const updateProductDetails = asyncHandler(async (req, res) => {
     res.status(400).json(error.message);
   }
 });
+
+
 
 const removeProduct = asyncHandler(async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AiOutlineShopping,
   AiOutlineLogin,
@@ -22,7 +22,16 @@ const Navigation = () => {
   const [clickCount, setClickCount] = useState(0);
   const { userInfo } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
-
+  console.log
+  // const userInfo = {
+  //   isAdmin: false,
+  //   isSeller: true,
+  //   isSuperAdmin: true,
+  // };
+  useEffect(() => {
+    console.log("Fetched userInfo:", userInfo);
+  }, [userInfo]);
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -169,6 +178,55 @@ const Navigation = () => {
                         {t("Dashboard")}
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        to="/admin/productlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Products")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/categorylist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Categories")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/orderlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Orders")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/admin/userlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Users")}
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {userInfo.isSeller && (
+                  <>
+                    <li>
+                      <Link
+                        to="/admin/productlist"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Products")}
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {userInfo.isSuperAdmin && (
+                  <>
+                    
                     <li>
                       <Link
                         to="/admin/productlist"

@@ -23,6 +23,16 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    isSeller: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isSuperAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );
