@@ -22,8 +22,10 @@ import Ratings from "./Ratings";
 import ProductTabs from "./ProductTabs";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import AddToFavoritesButton from "./AddToFavoritesButton";
+import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
+  const { t } = useTranslation();
   const { id: productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -86,7 +88,7 @@ const ProductDetails = () => {
           to="/"
           className="text-black font-semibold hover:underline ml-[10rem]"
         >
-          Go Back
+          {t("Go Back")}
         </Link>
       </div>
 
@@ -128,7 +130,7 @@ const ProductDetails = () => {
                   disabled={product.countInStock === 0}
                   className="bg-dark-red-normal text-white py-4 px-10 rounded-lg mt-4 md:mt-0 mr-20 font-semibold"
                 >
-                  Add To Cart
+                  {t("Add to Cart")}
                 </button>
               </div>
             </div>

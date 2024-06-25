@@ -105,7 +105,7 @@ const CategoryList = () => {
         </div>
         <CategoryForm
           value={name}
-          setValue={t(`${setName}`)}
+          setValue={setName}
           subcategories={subcategories}
           setSubcategories={setSubcategories}
           handleSubmit={handleCreateCategory}
@@ -133,7 +133,7 @@ const CategoryList = () => {
         <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
           <CategoryForm
             value={updatingName}
-            setValue={(value) => setUpdatingName(value)}
+            setValue={setUpdatingName}
             subcategories={updatingSubcategories}
             setSubcategories={setUpdatingSubcategories}
             handleSubmit={handleUpdateCategory}

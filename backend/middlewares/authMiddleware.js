@@ -30,19 +30,5 @@ const authorizeAdmin = (req, res, next) => {
         res.status(401).send("Not authorized as an admin");
     }
 }
-const authorizeSuperAdmin = (req, res, next) => {
-  if (req.user && req.user.isSuperAdmin) {
-      next();
-  } else {
-      res.status(401).send("Not authorized as an admin");
-  }
-}
-const authorizeSeller = (req, res, next) => {
-  if (req.user && req.user.isSeller) {
-      next();
-  } else {
-      res.status(401).send("Not authorized as an admin");
-  }
-}
 
-export { authenticate, authorizeAdmin ,authorizeSeller,authorizeSuperAdmin};
+export { authenticate, authorizeAdmin };

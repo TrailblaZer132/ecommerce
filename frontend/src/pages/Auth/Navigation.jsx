@@ -168,50 +168,51 @@ const Navigation = () => {
             </button>
             {dropdownOpen && userInfo && (
               <ul className="dropdown-menu">
-                {userInfo.isAdmin && (
-                  <>
-                    <li>
-                      <Link
-                        to="/admin/dashboard"
-                        className="rounded block px-4 py-2 hover:bg-gray-200"
-                      >
-                        {t("Dashboard")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/admin/productlist"
-                        className="rounded block px-4 py-2 hover:bg-gray-200"
-                      >
-                        {t("Products")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/admin/categorylist"
-                        className="rounded block px-4 py-2 hover:bg-gray-200"
-                      >
-                        {t("Categories")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/admin/orderlist"
-                        className="rounded block px-4 py-2 hover:bg-gray-200"
-                      >
-                        {t("Orders")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/admin/userlist"
-                        className="rounded block px-4 py-2 hover:bg-gray-200"
-                      >
-                        {t("Users")}
-                      </Link>
-                    </li>
-                  </>
-                )}
+                {userInfo.isSuperAdmin ||
+                  (userInfo.isAdmin && (
+                    <>
+                      <li>
+                        <Link
+                          to="/admin/dashboard"
+                          className="rounded block px-4 py-2 hover:bg-gray-200"
+                        >
+                          {t("Dashboard")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/admin/productlist"
+                          className="rounded block px-4 py-2 hover:bg-gray-200"
+                        >
+                          {t("Products")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/admin/categorylist"
+                          className="rounded block px-4 py-2 hover:bg-gray-200"
+                        >
+                          {t("Categories")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/admin/orderlist"
+                          className="rounded block px-4 py-2 hover:bg-gray-200"
+                        >
+                          {t("Orders")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/admin/userlist"
+                          className="rounded block px-4 py-2 hover:bg-gray-200"
+                        >
+                          {t("Users")}
+                        </Link>
+                      </li>
+                    </>
+                  ))}
                 {userInfo.isSeller && (
                   <>
                     <li>
@@ -226,7 +227,14 @@ const Navigation = () => {
                 )}
                 {userInfo.isSuperAdmin && (
                   <>
-                    
+                    <li>
+                      <Link
+                        to="/admin/dashboard"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Dashboard")}
+                      </Link>
+                    </li>
                     <li>
                       <Link
                         to="/admin/productlist"

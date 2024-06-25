@@ -11,7 +11,7 @@ import {
   updateUserById,
 } from "../controllers/userController.js";
 
-import { authenticate, authorizeAdmin ,authorizeSeller,authorizeSuperAdmin } from "../middlewares/authMiddleware.js";
+import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -35,8 +35,5 @@ router
   .delete(authenticate, authorizeAdmin, deleteUserById)
   .get(authenticate, authorizeAdmin, getUserById)
   .put(authenticate, authorizeAdmin, updateUserById);
-
-// router.route("/:id/promote").put(protect, isSuperAdmin, promoteToAdmin);
-// router.route("/:id/deleteAdmin").delete(protect, isSuperAdmin, deleteAdmin);
 
 export default router;

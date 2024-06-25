@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 import img1 from "../Utils/images/img1.jpg";
 import img2 from "../Utils/images/img2.jpg";
+import img3 from "../Utils/images/img3.jpg";
 import img4 from "../Utils/images/img4.jpg";
 import img5 from "../Utils/images/img5.jpg";
+import img6 from "../Utils/images/img6.jpg";
+import img7 from "../Utils/images/img7.jpg";
+import img8 from "../Utils/images/img8.jpg";
+import img9 from "../Utils/images/img9.jpg";
+import img10 from "../Utils/images/img10.jpg";
 
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = [img1, img2, img4, img5]; // Add more images if needed
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]; // Add more images if needed
 
   useEffect(() => {
     const intervalId = setInterval(() => {

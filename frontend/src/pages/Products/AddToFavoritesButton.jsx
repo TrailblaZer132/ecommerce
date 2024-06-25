@@ -11,8 +11,11 @@ import {
   getFavoritesFromLocalStorage,
   removeFavoriteFromLocalStorage,
 } from "../../Utils/localStorage";
+import { useTranslation } from "react-i18next";
+
 
 const AddToFavoritesButton = ({ product }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites) || [];
   const isFavorite = favorites.some((p) => p._id === product._id);
@@ -39,7 +42,7 @@ const AddToFavoritesButton = ({ product }) => {
         isFavorite ? "bg-dark-yellow" : "bg-dark-button-normal"
       }`}
     >
-      {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+      {isFavorite ? t("Remove from Favorites") : t("Add to Favorites")}
     </button>
   );
 };

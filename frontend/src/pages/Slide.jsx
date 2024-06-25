@@ -9,8 +9,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useTranslation } from "react-i18next";
+
 
 const Slide = ({ products = [], title }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const randomizedProducts = [...products].sort(() => Math.random() - 0.5);

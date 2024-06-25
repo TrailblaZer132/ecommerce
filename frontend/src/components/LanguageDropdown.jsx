@@ -31,7 +31,7 @@ const LanguageDropdown = () => {
         অসমীয়া
       </option>
       <option value="kh" className="bg-black">
-        খসি
+        Khasi
       </option>
       {/* Add more options for other languages */}
     </select>

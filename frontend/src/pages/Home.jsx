@@ -8,8 +8,11 @@ import Message from "../components/Message";
 import Slider from "./Slider";
 import Categories from "../components/CategoryForHome";
 import Slide from "./Slide";
+import { useTranslation } from "react-i18next";
+
 
 const Home = () => {
+  const { t } = useTranslation();
   const { keyword } = useParams();
   const { data, isLoading, isError } = useGetProductsQuery({ keyword });
 
@@ -44,13 +47,13 @@ const Home = () => {
         data.products && (
           <>
             <div>
-              <Slide products={data.products} title="Top Selection" />
+              <Slide products={data.products} title={t("Top Selection")} />
             </div>
             <div>
-              <Slide products={data.products} title="Recomended for You" />
+              <Slide products={data.products} title={t("Recomended for You")} />
             </div>
             <div>
-              <Slide products={data.products} title="Special Products" />
+              <Slide products={data.products} title={t("Special Products")} />
             </div>
             {/* <div className="flex justify-between items-center">
               <h1 className="ml-[20rem] mt-[10rem] text-[3rem]">

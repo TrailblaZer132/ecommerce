@@ -26,8 +26,6 @@ const createUser = asyncHandler(async (req, res) => {
       username: newUser.username,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
-      isSeller: newUser.isSeller,
-      isSuperAdmin: newUser.isSuperAdmin,
     });
   } catch (error) {
     res.status(400);
@@ -54,8 +52,6 @@ const loginUser = asyncHandler(async (req, res) => {
         username: existingUser.username,
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
-        isSeller: existingUser.isSeller,
-        isSuperAdmin: existingUser.isSuperAdmin,
       });
       return;
     }
@@ -183,31 +179,3 @@ export {
   getUserById,
   updateUserById,
 };
-
-// // Promote to admin
-// export const promoteToAdmin = async (req, res) => {
-//   const user = await User.findById(req.params.id);
-
-//   if (user) {
-//     user.isAdmin = true;
-
-//     const updatedUser = await user.save();
-//     res.json(updatedUser);
-//   } else {
-//     res.status(404);
-//     throw new Error('User not found');
-//   }
-// }
-
-// // Delete admin
-// export const deleteAdmin = async (req, res) => {
-//   const user = await User.findById(req.params.id);
-
-//   if (user && user.isAdmin) {
-//     await user.remove();
-//     res.json({ message: 'Admin removed' });
-//   } else {
-//     res.status(404);
-//     throw new Error('Admin not found');
-//   }
-// }
