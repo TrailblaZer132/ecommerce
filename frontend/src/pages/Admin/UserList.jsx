@@ -155,7 +155,7 @@ const UserList = () => {
                   </td>
 
                   <td className="px-4 py-2">
-                    {!user.isAdmin && (
+                    {!user.isAdmin && !user.isSuperAdmin && (
                       <button
                         onClick={() => deleteHandler(user._id)}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"

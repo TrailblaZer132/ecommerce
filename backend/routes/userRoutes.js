@@ -9,9 +9,10 @@ import {
   deleteUserById,
   getUserById,
   updateUserById,
+  registerAdmin,
 } from "../controllers/userController.js";
 
-import { authenticate, authorizeAdmin,authorizeSeller,authorizeSuperAdmin } from "../middlewares/authMiddleware.js";
+import { authenticate, authorizeAdmin,authorizeSuperAdmin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -35,5 +36,7 @@ router
   .delete(authenticate, authorizeAdmin, deleteUserById)
   .get(authenticate, authorizeAdmin, getUserById)
   .put(authenticate, authorizeAdmin, updateUserById);
+
+router.route("/registerAdmin").post(authenticate, authorizeSuperAdmin, registerAdmin);
 
 export default router;

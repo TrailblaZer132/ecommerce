@@ -10,7 +10,9 @@ const createUser = asyncHandler(async (req, res) => {
   }
 
   const userExists = await User.findOne({ email });
-  if (userExists) res.status(400).send("User already exists");
+  if (userExists) {
+    return res.status(400).send("User already exists");
+  }
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -126,7 +128,7 @@ const deleteUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
-    if (user.isAdmin) {
+    if (user.isAdmin && user.isSuperAdmin) {
       res.status(400);
       throw new Error("Cannot delete Admin user");
     }
@@ -172,6 +174,51 @@ const updateUserById = asyncHandler(async (req, res) => {
   }
 });
 
+//Superadmin
+const registerAdmin = asyncHandler(async (req, res) => {
+  if (!req.user.isSuperAdmin) {
+    res.status(403);
+    throw new Error("Not authorized as super admin");
+  }
+
+  const { username, email, password, pincode } = req.body;
+  if (!username || !email || !password || !pincode) {
+    throw new Error("Please fill in all fields");
+  }
+
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return res.status(400).send("User already exists");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+    isAdmin: true,
+    pincode,
+  });
+
+  try {
+    await newUser.save();
+    // createToken(res, newUser._id);
+
+    res.status(201).json({
+      _id: newUser._id,
+      username: newUser.username,
+      email: newUser.email,
+      isAdmin: newUser.isAdmin,
+      pincode: newUser.pincode,
+    });
+  } catch (error) {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
+
 export {
   createUser,
   loginUser,
@@ -182,4 +229,5 @@ export {
   deleteUserById,
   getUserById,
   updateUserById,
+  registerAdmin,
 };

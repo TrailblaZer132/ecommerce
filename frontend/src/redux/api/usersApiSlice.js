@@ -68,6 +68,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+
+    registerAdmin: builder.mutation({
+      query: (formData) => ({
+        url: `${USERS_URL}/registerAdmin`,
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
 });
 
@@ -81,4 +89,6 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useGetUserDetailsQuery,
+  useRegisterAdminMutation
 } = userApiSlice;
+

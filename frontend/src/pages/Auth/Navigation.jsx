@@ -16,6 +16,7 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import LanguageDropdown from "../../components/LanguageDropdown";
 import FavoritesCount from "../../pages/Products/FavoritesCount";
+import AdminRegistration from "../AdminRegistration";
 
 const Navigation = () => {
   const { t } = useTranslation();
@@ -213,7 +214,6 @@ const Navigation = () => {
                 )}
                 {userInfo.isSeller && (
                   <>
-                   
                     <li>
                       <Link
                         to="/seller/productlist"
@@ -222,7 +222,7 @@ const Navigation = () => {
                         {t("Products")}
                       </Link>
                     </li>
-                    
+
                     <li>
                       <Link
                         to="/seller/orderlist"
@@ -231,7 +231,6 @@ const Navigation = () => {
                         {t("Orders")}
                       </Link>
                     </li>
-                     
                   </>
                 )}
                 <li>
@@ -240,6 +239,14 @@ const Navigation = () => {
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
                     {t("Profile")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/adminRegistration"
+                    className="rounded block px-4 py-2 hover:bg-gray-200"
+                  >
+                    {t("Admin Registration")}
                   </Link>
                 </li>
                 <li>

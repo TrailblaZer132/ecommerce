@@ -14,6 +14,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register.jsx";
 import SellerRegistration from "./pages/Auth/sellerRegistration.jsx";
+import AdminRegistration from "./pages/AdminRegistration.jsx";
 
 import Profile from "./pages/User/Profile.jsx";
 
@@ -55,6 +56,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/sellerRegistration" element={<SellerRegistration />} />
+      <Route path="/adminRegistration" element={<AdminRegistration />} />
 
       <Route index={true} path="/" element={<Home />} />
 
