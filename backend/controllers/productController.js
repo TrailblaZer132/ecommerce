@@ -4,6 +4,7 @@ import Product from "../models/productModel.js";
 const addProduct = asyncHandler(async (req, res) => {
   try {
     const {
+      sellerId,
       name,
       description,
       detail,
@@ -44,6 +45,7 @@ const addProduct = asyncHandler(async (req, res) => {
       ...req.fields,
       detail: JSON.parse(req.fields.detail),
       subcategory,
+      sellerId,
       images: JSON.parse(images),
     });
     await product.save();

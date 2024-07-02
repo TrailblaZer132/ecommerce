@@ -18,7 +18,7 @@ const CategoryList = () => {
   const [name, setName] = useState("");
   const [subcategories, setSubcategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [updatingName, setUpdatingName] = useState("");
+  const [updatingName, setUpdatingName] = useState('');
   const [updatingSubcategories, setUpdatingSubcategories] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -125,7 +125,7 @@ const CategoryList = () => {
                   setUpdatingSubcategories(category.subcategories || []);
                 }}
               >
-                {t(`${category.name}`)}
+                {t(category.name)}
               </button>
             </div>
           ))}

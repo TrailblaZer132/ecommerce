@@ -44,6 +44,12 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    getSellerOrders: builder.query({
+      query: () => ({
+        url: `${ORDERS_URL}/seller`,
+      }),
+    }),
+
     deliverOrder: builder.mutation({
       query: (orderId) => ({
         url: `${ORDERS_URL}/${orderId}/deliver`,
@@ -69,7 +75,6 @@ export const {
   useGetTotalOrdersQuery,
   useGetTotalSalesQuery,
   useGetTotalSalesByDateQuery,
-  // ------------------
   useCreateOrderMutation,
   useGetOrderDetailsQuery,
   usePayOrderMutation,
@@ -77,4 +82,5 @@ export const {
   useGetMyOrdersQuery,
   useDeliverOrderMutation,
   useGetOrdersQuery,
+  useGetSellerOrdersQuery, // Export the new hook
 } = orderApiSlice;

@@ -13,10 +13,12 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 //auth
 import Login from "./pages/Auth/Login.jsx";
 import Register from "./pages/Auth/Register.jsx";
+import SellerRegistration from "./pages/Auth/sellerRegistration.jsx";
 
 import Profile from "./pages/User/Profile.jsx";
 
 import AdminRoute from "./pages/Admin/AdminRoute.jsx";
+import SellerRoute from "./pages/Admin/SellerRoute.jsx";
 import UserList from "./pages/Admin/UserList.jsx";
 import CategoryList from "./pages/Admin/CategoryList.jsx";
 import ProductList from "./pages/Admin/ProductList.jsx";
@@ -45,12 +47,14 @@ import CancellationReturn from "./pages/CancellationReturn.jsx";
 import TermsOfUse from "./pages/TermsOfUse.jsx";
 import Security from "./pages/Security.jsx";  
 import Grievance from "./pages/Grievance.jsx";
+import AplicationList from "./pages/Admin/AplicationList.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/sellerRegistration" element={<SellerRegistration />} />
 
       <Route index={true} path="/" element={<Home />} />
 
@@ -85,11 +89,23 @@ const router = createBrowserRouter(
         <Route path="productlist" element={<ProductList />} />
         <Route path="allproductslist" element={<AllProducts />} />
         <Route path="orderlist" element={<OrderList />} />
-
+        <Route path="Aplicationlist" element={<AplicationList />} />
         <Route path="product/update/:_id" element={<ProductUpdate />} />
         <Route path="dashboard" element={<AdminDashboard />} />
       </Route>
+
+      <Route path="/seller" element={<SellerRoute />}>
+        <Route path="productlist" element={<ProductList />} />
+        <Route path="orderlist" element={<OrderList />} />
+        <Route path="allproductslist" element={<AllProducts />} />
+        <Route path="product/update/:_id" element={<ProductUpdate />} />
+        
+      </Route>
     </Route>
+
+   
+    
+
   )
 );
 ReactDOM.createRoot(document.getElementById("root")).render(

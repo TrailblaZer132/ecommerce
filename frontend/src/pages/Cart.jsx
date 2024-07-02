@@ -66,7 +66,7 @@ const Cart = () => {
 
                     <div className="mt-2 text-dark-black">{item.brand}</div>
                     <div className="mt-2 text-dark-black font-bold">
-                      ₹ {item.actualPrice * (1 - item.discountPercentage / 100)}
+                      ₹ {(item.actualPrice * (1 - item.discountPercentage / 100)).toFixed(2)}
                     </div>
                   </div>
 
@@ -107,12 +107,7 @@ const Cart = () => {
                   <div className="text-2xl font-bold">
                     ₹{" "}
                     {cartItems
-                      .reduce((acc, item) => {
-                        const discountedPrice =
-                          item.actualPrice *
-                          (1 - item.discountPercentage / 100);
-                        return acc + item.qty * discountedPrice;
-                      }, 0)
+                      .reduce((acc, item) => acc + item.qty * item.actualPrice * (1 - item.discountPercentage / 100), 0)
                       .toFixed(2)}
                   </div>
 

@@ -11,7 +11,8 @@ import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
-
+import sellerRegistrationRoutes from "./routes/sellerRegistrationRoutes.js";
+import { checkSellerRegistration } from "./controllers/sellerRegistrationController.js";
 dotenv.config();
 const port = process.env.PORT || 5000;
 
@@ -29,6 +30,9 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/seller-registrations", sellerRegistrationRoutes);
+app.get("/api/seller-registrations", sellerRegistrationRoutes);
+app.get("/api/check-seller-registration", checkSellerRegistration); 
 
 app.get("/api/config/paypal", (req, res) => {
   res.send({ clientID: process.env.PAYPAL_CLIENT_ID });

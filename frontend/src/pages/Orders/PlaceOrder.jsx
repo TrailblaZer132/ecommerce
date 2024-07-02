@@ -24,20 +24,41 @@ const PlaceOrder = () => {
   const dispatch = useDispatch();
 
   const placeOrderHandler = async () => {
+    // Check if there are items in the cart before creating the order
+    if (cart.cartItems.length === 0) {
+      toast.error("No order items");
+      return; // Exit the function if there are no items
+    }
+
     try {
-      const res = await createOrder({
-        orderItems: cart.cartItems,
+      const orderData = {
+        orderItems: cart.cartItems.map((item) => ({
+          product: item._id, // Ensure this field is sent correctly
+          sellerId: item.sellerId,
+          name: item.name,
+          image: item.images[0], // Assuming the first image is used
+          qty: item.qty,
+          actualPrice: item.actualPrice,
+          discountPercentage: item.discountPercentage,
+          price: (
+            item.actualPrice *
+            (1 - item.discountPercentage / 100)
+          ).toFixed(2), // Calculate discounted price
+        })),
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
-      }).unwrap();
+      };
+      console.log("Order Data:", orderData); // Log order data for debugging
+      const res = await createOrder(orderData).unwrap();
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
     } catch (error) {
-      toast.error(error);
+      console.error("Error placing order:", error);
+      toast.error(error.data?.error || "An error occurred while placing the order");
     }
   };
 
@@ -45,7 +66,7 @@ const PlaceOrder = () => {
     <>
       <ProgressSteps step1 step2 step3 />
 
-      <div className="container mx-auto mt-8 ">
+      <div className="container mx-auto mt-8">
         {cart.cartItems.length === 0 ? (
           <Message>Your cart is empty</Message>
         ) : (
@@ -76,17 +97,9 @@ const PlaceOrder = () => {
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </td>
                     <td className="p-2">{item.qty}</td>
+                    <td className="p-2">₹ {(item.actualPrice * (1 - item.discountPercentage / 100)).toFixed(2)}</td>
                     <td className="p-2">
-                      {(
-                        item.price *
-                        (1 - item.discountPercentage / 100)
-                      ).toFixed(2)}
-                    </td>
-                    <td className="p-2">
-                      {(
-                        item.price *
-                        (1 - item.discountPercentage / 100)
-                      ).toFixed(2)}
+                      ₹ {(item.qty * item.actualPrice * (1 - item.discountPercentage / 100)).toFixed(2)}
                     </td>
                   </tr>
                 ))}
@@ -100,8 +113,8 @@ const PlaceOrder = () => {
           <div className="flex justify-between flex-wrap p-8 bg-[#e3e3e3] rounded-xl">
             <ul className="text-lg">
               <li>
-                <span className="font-semibold mb-4">Items:</span> ₹
-                {cart.itemsPrice}
+                <span className="font-semibold mb-4">Items:</span>
+                {cart.cartItems.reduce((acc, item) => acc + item.qty, 0)}
               </li>
               <li>
                 <span className="font-semibold mb-4">Shipping:</span> ₹
@@ -136,7 +149,7 @@ const PlaceOrder = () => {
 
           <button
             type="button"
-            className="bg-green-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4 hover:bg-green-600 "
+            className="bg-green-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4 hover:bg-green-600"
             disabled={cart.cartItems === 0}
             onClick={placeOrderHandler}
           >

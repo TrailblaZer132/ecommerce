@@ -26,6 +26,8 @@ const createUser = asyncHandler(async (req, res) => {
       username: newUser.username,
       email: newUser.email,
       isAdmin: newUser.isAdmin,
+      isSeller: newUser.isSeller,
+      pincode: newUser.pincode,
     });
   } catch (error) {
     res.status(400);
@@ -52,6 +54,8 @@ const loginUser = asyncHandler(async (req, res) => {
         username: existingUser.username,
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
+        isSeller: existingUser.isSeller,
+        pincode: existingUser.pincode,
       });
       return;
     }

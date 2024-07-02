@@ -1,13 +1,13 @@
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
-import { useGetOrdersQuery } from "../../redux/api/orderApiSlice";
+import { useGetSellerOrdersQuery } from "../../redux/api/orderApiSlice";
 import AdminMenu from "./AdminMenu";
 import { useTranslation } from "react-i18next";
 
 const OrderList = () => {
   const { t } = useTranslation();
-  const { data: orders, isLoading, error } = useGetOrdersQuery();
+  const { data: orders, isLoading, error } = useGetSellerOrdersQuery();
 
   return (
     <>
@@ -26,7 +26,7 @@ const OrderList = () => {
               <th className="text-left pl-1">{t("Items")}</th>
               <th className="text-left pl-1">{t("ID")}</th>
               <th className="text-left pl-1">{t("USER")}</th>
-              <th className="text-left pl-1">{t("DATA")}</th>
+              <th className="text-left pl-1">{t("DATE")}</th>
               <th className="text-left pl-1">{t("TOTAL")}</th>
               <th className="text-left pl-1">{t("PAID")}</th>
               <th className="text-left pl-1">{t("DELIVERED")}</th>
@@ -45,9 +45,7 @@ const OrderList = () => {
                   />
                 </td>
                 <td>{order._id}</td>
-
                 <td>{order.user ? order.user.username : "N/A"}</td>
-
                 <td>
                   {order.createdAt ? order.createdAt.substring(0, 10) : "N/A"}
                 </td>
@@ -80,7 +78,7 @@ const OrderList = () => {
 
                 <td>
                   <Link to={`/order/${order._id}`}>
-                    <button>{t("More")}</button>
+                    <button className="btn btn-sm btn-light">{t("Details")}</button>
                   </Link>
                 </td>
               </tr>

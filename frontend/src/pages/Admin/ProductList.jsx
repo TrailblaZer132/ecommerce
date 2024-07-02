@@ -5,7 +5,9 @@ import {
   useUploadProductImageMutation,
 } from "../../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../../redux/api/categoryApiSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import SellerMenu from "./SellerMenu";
 import AdminMenu from "./AdminMenu";
 import { useTranslation } from "react-i18next";
 const ProductList = () => {
@@ -35,7 +37,7 @@ const ProductList = () => {
       const firstCategorySubcategories = categories[0].subcategories || [];
       setSubcategories(firstCategorySubcategories);
       if (firstCategorySubcategories.length > 0) {
-        setSubcategory(firstCategorySubcategories[0]._id); // Set default subcategory to the first one of the first category
+        setSubcategory(firstCategorySubcategories[0]._id); 
       }
     }
   }, [categories]);
@@ -69,6 +71,7 @@ const ProductList = () => {
       images.forEach(image => {
         productData.append("images", image); 
       });
+      productData.append("sellerId", userId);
       productData.append("name", name);
       productData.append("description", description);
       productData.append("detail", JSON.stringify(detail)); 
@@ -88,7 +91,7 @@ const ProductList = () => {
         toast.error("Product create failed. Try Again1.");
       } else {
         toast.success(`${data.name} is created`);
-        navigate("/admin/allproductslist");
+        navigate("/seller/allproductslist");
       }
     } catch (error) {
       console.error(error);
@@ -112,16 +115,22 @@ const ProductList = () => {
       toast.error(error?.data?.message || error.error);
     }
   };
+  const { userInfo } = useSelector((state) => state.auth);
+  const userId = userInfo._id;
+  console.log(userId);
 
   return (
+    
+    
     <div className="container xl:mx-[9rem] sm:mx-[0] mt-[5rem]">
       <div className="flex flex-col md:flex-row">
-        <AdminMenu />
+      {userInfo.isSeller&& (<SellerMenu />)}
+      {userInfo.isAdmin&& (<AdminMenu />)}
         <div className="md:w-3/4 p-3">
           <div className="text-2xl font-semibold mb-4">
             {t("Create Product")}
           </div>
-
+          
           {imageUrls.length > 0 && (
             <div className="text-center">
               {imageUrls.map((url, index) => (

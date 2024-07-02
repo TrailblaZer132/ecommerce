@@ -4,7 +4,7 @@ import Product from "../models/productModel.js";
 // Utility Function
 function calcPrices(orderItems) {
   const itemsPrice = orderItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
+    (acc, item) => acc + item.actualPrice * (1 - item.discountPercentage / 100) * item.qty,
     0
   );
 
@@ -35,25 +35,29 @@ const createOrder = async (req, res) => {
       throw new Error("No order items");
     }
 
+    // Log the incoming order items for debugging
+    console.log("Order Items from Client:", orderItems);
+
+    // Fetch products from the database using product IDs from client
     const itemsFromDB = await Product.find({
-      _id: { $in: orderItems.map((x) => x._id) },
-    });
+      _id: { $in: orderItems.map((x) => x.product) },
+    }).populate("sellerId");
+
+    // Log the products fetched from the database
+    console.log("Products from DB:", itemsFromDB);
 
     const dbOrderItems = orderItems.map((itemFromClient) => {
       const matchingItemFromDB = itemsFromDB.find(
-        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
+        (itemFromDB) => itemFromDB._id.toString() === itemFromClient.product
       );
 
       if (!matchingItemFromDB) {
         res.status(404);
-        throw new Error(`Product not found: ${itemFromClient._id}`);
+        throw new Error(`Product not found: ${itemFromClient.product}`);
       }
-
       return {
         ...itemFromClient,
-        product: itemFromClient._id,
-        price: matchingItemFromDB.price,
-        _id: undefined,
+        sellerId: matchingItemFromDB.sellerId, 
       };
     });
 
@@ -77,7 +81,7 @@ const createOrder = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+  
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find({}).populate("user", "id username");
@@ -90,6 +94,25 @@ const getAllOrders = async (req, res) => {
 const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getSellerOrders = async (req, res) => {
+  try {
+    const sellerId = req.user._id;
+
+    // Fetch products that belong to the seller
+    const products = await Product.find({ sellerId });
+
+    // Extract the product IDs
+    const productIds = products.map(product => product._id);
+
+    // Find orders that contain these product IDs
+    const orders = await Order.find({ "orderItems.product": { $in: productIds } }).populate("user", "id username");
+
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -211,4 +234,5 @@ export {
   findOrderById,
   markOrderAsPaid,
   markOrderAsDelivered,
+  getSellerOrders,
 };
