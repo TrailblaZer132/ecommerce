@@ -67,5 +67,26 @@ const checkSellerRegistration = asyncHandler(async (req, res) => {
   }
 });
 
+const acceptSeller = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const adminId = req.user._id;
 
-export { registerSeller, checkSellerRegistration };
+    const seller = await SellerRegistration.findByIdAndUpdate(
+      userId,
+      { isSeller: true, acceptedByAdmin: adminId },
+      { new: true }
+    );
+
+    if (!seller) {
+      return res.status(404).send({ message: "Seller not found" });
+    }
+
+    res.status(200).send(seller);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+
+export { registerSeller, checkSellerRegistration, acceptSeller };

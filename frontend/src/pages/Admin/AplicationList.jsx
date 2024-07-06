@@ -1,16 +1,38 @@
 import { useSelector } from 'react-redux';
-import { useGetSellerApplicationsQuery, useToggleSellerStatusMutation } from '../../redux/api/sellerApplicationsApiSlice.js';
+import { useGetSellerApplicationsQuery, useToggleSellerStatusMutation, useAcceptSellerMutation } from '../../redux/api/sellerApplicationsApiSlice.js';
 
 const AplicationList = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const { data: sellers, error, isLoading } = useGetSellerApplicationsQuery();
+  const { data: sellers, error, isLoading, refetch } = useGetSellerApplicationsQuery();
   const [toggleSellerStatus] = useToggleSellerStatusMutation();
+  const [acceptSeller] = useAcceptSellerMutation();
 
-  const handleToggleSeller = async (email) => {
+  // const handleToggleSeller = async (email) => {
+  //   try {
+  //     await toggleSellerStatus(email).unwrap();
+  //   } catch (err) {
+  //     console.error('Failed to toggle seller status: ', err);
+  //   }
+  // };
+
+  // const handleAcceptSeller = async (userId) => {
+  //   try {
+  //     const result = await acceptSeller(userId).unwrap();
+  //     console.log("Accepted Seller Info:", result);
+  //   } catch (err) {
+  //     console.error("Failed to accept seller: ", err);
+  //   }
+  // };
+
+  const handleToggleAndAcceptSeller = async (email, userId) => {
     try {
       await toggleSellerStatus(email).unwrap();
+      await acceptSeller(userId).unwrap();
+      console.log("Toggled Seller Status:" + userInfo.isSeller);
+      console.log("Accepted Seller Info:" + userId);
+      refetch();
     } catch (err) {
-      console.error('Failed to toggle seller status: ', err);
+      console.error("Failed to toggle and accept seller: ", err);
     }
   };
   
@@ -56,7 +78,7 @@ const AplicationList = () => {
               </td>
               <td className="px-6 py-4">
                 <button 
-                  onClick={() => handleToggleSeller(seller.email)} 
+                  onClick={() => handleToggleAndAcceptSeller(seller.email, seller._id)} 
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
                   {seller.isSeller ? 'Revoke Seller' : 'Approve Seller'}
