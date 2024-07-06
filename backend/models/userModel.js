@@ -36,9 +36,7 @@ const userSchema = new mongoose.Schema(
     pincode: {
       type: String,
       required: false,
-      default: "111111"
     },
-    
   },
   { timestamps: true }
 );

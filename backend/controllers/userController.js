@@ -1,3 +1,4 @@
+// userController.js
 import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
@@ -29,6 +30,7 @@ const createUser = asyncHandler(async (req, res) => {
       email: newUser.email,
       isAdmin: newUser.isAdmin,
       isSeller: newUser.isSeller,
+      isSuperAdmin: newUser.isSuperAdmin,
       pincode: newUser.pincode,
     });
   } catch (error) {
@@ -57,6 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
         isSeller: existingUser.isSeller,
+        isSuperAdmin: existingUser.isSuperAdmin,
         pincode: existingUser.pincode,
       });
       return;
@@ -76,6 +79,11 @@ const logoutCurrentUser = asyncHandler(async (req, res) => {
 const getAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
+});
+
+const getAllPincodes = asyncHandler(async (req, res) => {
+  const pincodes = await User.distinct("pincode");
+  res.json(pincodes);
 });
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
@@ -230,4 +238,5 @@ export {
   getUserById,
   updateUserById,
   registerAdmin,
+  getAllPincodes,
 };

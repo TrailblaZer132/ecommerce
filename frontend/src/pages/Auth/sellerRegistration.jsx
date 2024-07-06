@@ -21,6 +21,7 @@ const SellerRegistration = () => {
   });
 
   const [alreadyApplied, setAlreadyApplied] = useState(false);
+  const [pincodes, setPincodes] = useState([]);
 
   useEffect(() => {
     if (userInfo?.email) {
@@ -30,6 +31,7 @@ const SellerRegistration = () => {
       }));
       checkIfAlreadyApplied(userInfo.email);
     }
+    fetchPincodes();
   }, [userInfo]);
 
   const checkIfAlreadyApplied = async (email) => {
@@ -42,6 +44,18 @@ const SellerRegistration = () => {
       toast.error('Error checking registration status');
     }
   };
+
+  const fetchPincodes = async () => {
+    try {
+      const response = await axios.get('/api/users/pincodes');
+      const pincodes = response.data;
+      setPincodes(pincodes);
+    } catch (error) {
+      console.log(error);
+      toast.error('Error fetching pincodes');
+    }
+  };
+  
 
   const handleChange = (e) => {
     setFormData({
@@ -72,6 +86,7 @@ const SellerRegistration = () => {
       toast.error('Already Applied or there is something went wrong');
     }
   };
+  console.log(userInfo);
 
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0] mt-[5rem]">
@@ -137,17 +152,20 @@ const SellerRegistration = () => {
               Address
             </label>
           </div>
-          {/* Pincode */}
+          {/* Pincode Dropdown */}
           <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
+            <select
               name="pincode"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
               required
               value={formData.pincode}
               onChange={handleChange}
-            />
+            >
+              <option value="" disabled>Select your pincode</option>
+              {pincodes.map((pincode, index) => (
+                <option key={index} value={pincode}>{pincode}</option>
+              ))}
+            </select>
             <label
               htmlFor="pincode"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -197,7 +215,7 @@ const SellerRegistration = () => {
               type="file"
               name="aadhaar"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+              required
               onChange={handleFileChange}
             />
             <label
@@ -213,7 +231,7 @@ const SellerRegistration = () => {
               type="file"
               name="pan"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+              required
               onChange={handleFileChange}
             />
             <label
@@ -223,15 +241,12 @@ const SellerRegistration = () => {
               PAN Upload
             </label>
           </div>
-          {/* Submit Button */}
-          <div className="relative z-0 w-full mb-5 group">
-            <button
-              type="submit"
-              className="w-full py-2.5 px-4 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Submit
+          </button>
         </form>
       )}
       <ToastContainer />

@@ -64,8 +64,15 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addToCart({ ...product, qty }));
-    navigate("/cart");
+    if (userInfo && userInfo.isSeller) {
+      dispatch(addToCart({ ...product, qty }));
+      navigate("/cart");
+    } else {
+      toast.error("Seller is not available right now", {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    }
   };
 
   let calculatedPrice = 0;
