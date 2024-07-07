@@ -39,8 +39,14 @@ const sellerRegistrationSchema = new mongoose.Schema(
     },
     acceptedByAdmin: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Assuming 'User' is the model name for admins
-      required: false, // This field is optional until a seller is accepted
+      ref: "User", 
+      required: false, 
+    },
+
+    userIdWhoGotAccepted: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", 
+      required: false, 
     },
   },
   {
