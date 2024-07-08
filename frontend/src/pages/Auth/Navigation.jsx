@@ -59,7 +59,9 @@ const Navigation = () => {
 
     if (clickCount === 4) {
       // Display the popup
-      alert("We are the creators of the website:\nUdit Nath\nKhiranjit Kumar Deka\nAnurag Kumar");
+      alert(
+        "We are the creators of the website:\nUdit Nath\nKhiranjit Kumar Deka\nAnurag Kumar"
+      );
       // Reset the click count
       setClickCount(0);
     }
@@ -241,14 +243,38 @@ const Navigation = () => {
                     {t("Profile")}
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/adminRegistration"
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Admin Registration")}
-                  </Link>
-                </li>
+                {userInfo.isSeller && (
+                  <li>
+                    <Link
+                      to="/sellerRegistration"
+                      className="rounded block px-4 py-2 hover:bg-gray-200"
+                    >
+                      {t("Become a Seller")}
+                    </Link>
+                  </li>
+                )}
+                {userInfo.isSuperAdmin && (
+                  <ul>
+                    <li>
+                      <Link
+                        to="/adminRegistration"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Admin Registration")}
+                      </Link>
+                    </li>
+
+                    <li>
+                      <Link
+                        to="/adminList"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Admin List")}
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+
                 <li>
                   <Link
                     to="/logout"
@@ -256,15 +282,6 @@ const Navigation = () => {
                     className="rounded block px-4 py-2 hover:bg-gray-200"
                   >
                     {t("Logout")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/sellerRegistration"
-                    // onClick={sellerhandler}
-                    className="rounded block px-4 py-2 hover:bg-gray-200"
-                  >
-                    {t("Become a Seller")}
                   </Link>
                 </li>
               </ul>

@@ -25,7 +25,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-   
+
     profile: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
@@ -76,6 +76,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: formData,
       }),
     }),
+
+    deleteAdmin: builder.mutation({
+      query: (userId) => ({
+        url: `${USERS_URL}/admin/${userId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -89,6 +96,7 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useGetUserDetailsQuery,
-  useRegisterAdminMutation
+  useRegisterAdminMutation,
+  useDeleteAdminMutation,
 } = userApiSlice;
 

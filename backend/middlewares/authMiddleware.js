@@ -44,4 +44,6 @@ const authorizeSuperAdmin = (req, res, next) => {
   }
 };
 
-export { authenticate, authorizeAdmin, authorizeSeller, authorizeSuperAdmin };
+
+
+export { authenticate, authorizeAdmin, authorizeSeller, authorizeSuperAdmin};

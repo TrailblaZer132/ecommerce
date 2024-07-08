@@ -10,10 +10,16 @@ import {
   getUserById,
   updateUserById,
   registerAdmin,
-  getAllPincodes
+  getAllPincodes,
+  deleteAdminAndResetSellers,
+  getAllAdmins,
 } from "../controllers/userController.js";
 
-import { authenticate, authorizeAdmin, authorizeSuperAdmin } from "../middlewares/authMiddleware.js";
+import {
+  authenticate,
+  authorizeAdmin,
+  authorizeSuperAdmin,
+} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -21,7 +27,7 @@ const router = express.Router();
 router
   .route("/")
   .post(createUser)
-  .get(authenticate, authorizeAdmin, getAllUsers);
+  .get(authenticate, getAllUsers);
 
 router.post("/auth", loginUser);
 router.post("/logout", logoutCurrentUser);
@@ -34,7 +40,6 @@ router
 // Pincode route
 router.route("/pincodes").get(authenticate, getAllPincodes);
 
-
 //ADMIN ROUTES
 router
   .route("/:id")
@@ -42,6 +47,12 @@ router
   .get(authenticate, authorizeAdmin, getUserById)
   .put(authenticate, authorizeAdmin, updateUserById);
 
-router.route("/registerAdmin").post(authenticate, authorizeSuperAdmin, registerAdmin);
+router
+  .route("/registerAdmin")
+  .post(authenticate, authorizeSuperAdmin, registerAdmin);
+
+router
+  .route("/admin/:adminId")
+  .delete(authenticate, authorizeSuperAdmin, deleteAdminAndResetSellers);
 
 export default router;

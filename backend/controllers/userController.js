@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
+import SellerRegistration from "../models/registrationModel.js";
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -76,10 +77,27 @@ const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 });
 
-const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
-  res.json(users);
-});
+const getAllUsers = async (req, res) => {
+  if (req.user && req.user.isSuperAdmin) {
+    try {
+      // Fetch and return all admin users for super admins
+      const admins = await User.find({ isAdmin: true });
+      res.json(admins);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  } else if (req.user && req.user.isAdmin) {
+    try {
+      // Fetch and return all seller users for admins
+      const sellers = await User.find({ isSeller: true });
+      res.json(sellers);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  } else {
+    res.status(401).send("Not authorized");
+  }
+};
 
 const getAllPincodes = asyncHandler(async (req, res) => {
   const pincodes = await User.distinct("pincode");
@@ -227,6 +245,66 @@ const registerAdmin = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteAdminAndResetSellers = async (req, res) => {
+  try {
+    const { adminId } = req.params;
+    const admin = await User.findOne({ _id: adminId, isAdmin: true });
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found." });
+    }
+
+    // Find SellerRegistrations with the same pincode
+    const sellerRegistrations = await SellerRegistration.find({
+      pincode: admin.pincode,
+    });
+
+    // Extract userIdsWhoGotAccepted from those registrations
+    const userIds = sellerRegistrations.map(
+      (registration) => registration.userIdWhoGotAccepted
+    );
+
+    // Set isSeller to false for users who got accepted under this admin
+    await User.updateMany(
+      { _id: { $in: userIds } },
+      { $set: { isSeller: false } }
+    );
+
+    // Delete SellerRegistration documents for sellers under the same pincode
+    await SellerRegistration.deleteMany({ pincode: admin.pincode });
+
+    // Delete the admin user
+    await User.deleteOne({ _id: adminId });
+
+    res
+      .status(200)
+      .json({ message: "Admin and related sellers reset successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+const getAllAdmins = asyncHandler(async (req, res) => {
+  if (req.user && req.user.isSuperAdmin) {
+    try {
+      const admins = await User.find({ isAdmin: true });
+      res.json(admins);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  } else if (req.user && req.user.isAdmin) {
+    try {
+      // Fetch and return non-admin users
+      const users = await User.find({ isAdmin: false });
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  } else {
+    res.status(401).send("Not authorized");
+  }
+});
+
+
 export {
   createUser,
   loginUser,
@@ -239,4 +317,6 @@ export {
   updateUserById,
   registerAdmin,
   getAllPincodes,
+  deleteAdminAndResetSellers,
+  getAllAdmins,
 };
