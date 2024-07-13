@@ -14,6 +14,19 @@ const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]; // Add more images if needed
 
+  const texts = [
+    "Beauty of Meghalaya",
+    "Famous places in Meghalaya",
+    "Stories of Meghalaya",
+    "Winds of Meghalaya",
+    "Stories of Meghalaya",
+    "Beauty of Meghalaya",
+    "Famous places in Meghalaya",
+    "Stories of Meghalaya",
+    "Winds of Meghalaya",
+    "Stories of Meghalaya",
+  ];
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlide();
@@ -45,7 +58,7 @@ const Slider = () => {
       data-carousel="static"
     >
       <br />
-      <div className="relative h-[20rem] overflow-hidden md:h-[20rem]">
+      <div className="relative h-[20rem] overflow-hidden">
         <div
           className="absolute flex transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
@@ -54,9 +67,12 @@ const Slider = () => {
             <div key={index} className="w-full flex-none">
               <img
                 src={image}
-                className="w-full h-full object-cover"
+                className="w-full object-cover"
                 alt={`Carousel ${index + 1}`}
               />
+              <div className="absolute top-[37%] w-full p-10 bg-black bg-opacity-0 hover:bg-opacity-50 transition duration-300 ease-in-out">
+                <p className="text-white text-lg">{texts[index]}</p>
+              </div>
             </div>
           ))}
         </div>

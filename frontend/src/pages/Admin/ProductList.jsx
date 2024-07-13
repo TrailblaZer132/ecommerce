@@ -12,7 +12,7 @@ import AdminMenu from "./AdminMenu";
 import { useTranslation } from "react-i18next";
 const ProductList = () => {
   const { t } = useTranslation();
-  const [images, setImages] = useState([]);  
+  const [images, setImages] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [detail, setDetail] = useState({});
@@ -23,7 +23,7 @@ const ProductList = () => {
   const [quantity, setQuantity] = useState("");
   const [brand, setBrand] = useState("");
   const [stock, setStock] = useState(0);
-  const [imageUrls, setImageUrls] = useState([]);  
+  const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate();
 
   const [uploadProductImage] = useUploadProductImageMutation();
@@ -33,11 +33,11 @@ const ProductList = () => {
 
   useEffect(() => {
     if (categories && categories.length > 0) {
-      setCategory(categories[0]._id); 
+      setCategory(categories[0]._id);
       const firstCategorySubcategories = categories[0].subcategories || [];
       setSubcategories(firstCategorySubcategories);
       if (firstCategorySubcategories.length > 0) {
-        setSubcategory(firstCategorySubcategories[0]._id); 
+        setSubcategory(firstCategorySubcategories[0]._id);
       }
     }
   }, [categories]);
@@ -68,13 +68,13 @@ const ProductList = () => {
 
     try {
       const productData = new FormData();
-      images.forEach(image => {
-        productData.append("images", image); 
+      images.forEach((image) => {
+        productData.append("images", image);
       });
       productData.append("sellerId", userId);
       productData.append("name", name);
       productData.append("description", description);
-      productData.append("detail", JSON.stringify(detail)); 
+      productData.append("detail", JSON.stringify(detail));
       productData.append("actualPrice", actualPrice);
       productData.append("discountPercentage", discountPercentage);
       productData.append("category", category);
@@ -102,15 +102,15 @@ const ProductList = () => {
   const uploadFileHandler = async (e) => {
     const files = Array.from(e.target.files);
     const formData = new FormData();
-    files.forEach(file => {
+    files.forEach((file) => {
       formData.append("images", file);
     });
 
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
-      setImages(files);  
-      setImageUrls(res.images); 
+      setImages(files);
+      setImageUrls(res.images);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -120,17 +120,15 @@ const ProductList = () => {
   console.log(userId);
 
   return (
-    
-    
     <div className="container xl:mx-[9rem] sm:mx-[0] mt-[5rem]">
       <div className="flex flex-col md:flex-row">
-      {userInfo.isSeller&& (<SellerMenu />)}
-      {userInfo.isAdmin&& (<AdminMenu />)}
+        {userInfo.isSeller && <SellerMenu />}
+        {userInfo.isAdmin && <AdminMenu />}
         <div className="md:w-3/4 p-3">
           <div className="text-2xl font-semibold mb-4">
             {t("Create Product")}
           </div>
-          
+
           {imageUrls.length > 0 && (
             <div className="text-center">
               {imageUrls.map((url, index) => (
@@ -165,7 +163,7 @@ const ProductList = () => {
                 <label htmlFor="name">{t("Name")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-dark-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg  text-dark-black shadow-md hover:shadow-lg transition-all ease-in-out duration-75 capitalize focus:outline-none"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -174,7 +172,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Actual Price")}</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={actualPrice}
                   onChange={(e) => setActualPrice(e.target.value)}
                 />
@@ -186,7 +184,7 @@ const ProductList = () => {
                 <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={discountPercentage}
                   onChange={(e) => setDiscountPercentage(e.target.value)}
                 />
@@ -195,7 +193,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Quantity")}</label> <br />
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
@@ -204,7 +202,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Brand")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                 />
@@ -216,7 +214,7 @@ const ProductList = () => {
             </label>
             <textarea
               type="text"
-              className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem]"
+              className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem] focus:outline-none"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -230,14 +228,14 @@ const ProductList = () => {
                 <input
                   type="text"
                   placeholder="Key"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 focus:outline-none"
                   value={key}
                   onChange={(e) => handleDetailChange(key, e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Value"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={value}
                   onChange={(e) => handleDetailValueChange(key, e.target.value)}
                 />
@@ -256,7 +254,7 @@ const ProductList = () => {
                 <label htmlFor="name block">{t("Count In Stock")}</label> <br />
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black"
+                  className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                 />
@@ -266,7 +264,7 @@ const ProductList = () => {
                   <label htmlFor="">{t("Category")}</label> <br />
                   <select
                     placeholder="Choose Category"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500 focus:outline-none"
                     value={category}
                     onChange={handleCategoryChange}
                   >
@@ -281,7 +279,7 @@ const ProductList = () => {
                   <label htmlFor="">{t("Subcategory")}</label> <br />
                   <select
                     placeholder="Choose Subcategory"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-gray-500 focus:outline-none"
                     value={subcategory}
                     onChange={(e) => setSubcategory(e.target.value)}
                   >

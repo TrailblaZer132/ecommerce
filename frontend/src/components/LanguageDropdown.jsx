@@ -16,7 +16,7 @@ const LanguageDropdown = () => {
     <select
       value={currentLang}
       onChange={changeLanguage}
-      className="bg-inherit"
+      className="bg-inherit focus:outline-none"
     >
       <option value="en" className="bg-black">
         English

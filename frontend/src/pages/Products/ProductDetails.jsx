@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -33,7 +33,9 @@ const ProductDetails = () => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [mainImage, setMainImage] = useState("");
+  const [mainImage, setMainImage] = useState(null);
+  const [isFixed, setIsFixed] = useState(true);
+  const [style, setStyle] = useState(transitionStyles);
 
   const {
     data: product,
@@ -64,15 +66,8 @@ const ProductDetails = () => {
   };
 
   const addToCartHandler = () => {
-    if (userInfo && userInfo.isSeller) {
-      dispatch(addToCart({ ...product, qty }));
-      navigate("/cart");
-    } else {
-      toast.error("Seller is not available right now", {
-        position: "top-right",
-        autoClose: 5000,
-      });
-    }
+    dispatch(addToCart({ ...product, qty }));
+    navigate("/cart");
   };
 
   let calculatedPrice = 0;
@@ -87,7 +82,24 @@ const ProductDetails = () => {
     }
   }
 
-  console.log(product);
+  useEffect(() => {
+    const handleScroll = () => {
+      const reviewDiv = document.getElementById("reviewDiv");
+      const triggerPoint = reviewDiv.offsetTop - 1000;
+
+      if (window.scrollY >= triggerPoint) {
+        setStyle({ ...transitionStyles, opacity: 0, visibility: "hidden" });
+      } else {
+        setStyle({ ...transitionStyles, opacity: 1, visibility: "visible" });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       <div>
@@ -107,8 +119,12 @@ const ProductDetails = () => {
         </Message>
       ) : (
         <>
-          <div className="flex flex-wrap relative ml-[10rem] mt-[5rem] pb-80 overflow-hidden">
-            <div className="fixed left-[2.5rem] w-3/6 overflow-y-hidden overflow-x-hidden">
+          <div className="flex flex-wrap relative ml-[10rem] mt-[5rem] pb-40 overflow-x-scroll">
+            <div
+              className={`left-[2.5rem] w-3/6 ${isFixed ? "fixed" : ""}`}
+              id="elementToAnimate"
+              style={style}
+            >
               <div className="flex">
                 <div className="thumbnail-container mr-[5rem]">
                   {product.images.map((img, index) => (
@@ -142,10 +158,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            <div
-              className="ml-[40%] w-[50%] overflow-y-hidden overflow-x-hidden touch-auto
-             h-screen p-4"
-            >
+            <div className="ml-[40%] w-[50%] h-screen p-4">
               <div className="flex flex-col justify-between">
                 <div className="flex items-center">
                   <h2 className="text-4xl font-semibold mr-2">
@@ -161,14 +174,10 @@ const ProductDetails = () => {
                     }}
                   /> */}
                 </div>
-                <p className="my-4 text-[#9b9b9b]">{product.description}</p>
-
-                <div className="flex justify-between flex-wrap">
-                  <Ratings
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </div>
+                <p className="my-4 text-[#9b9b9b] whitespace-pre-line">
+                  {product.description}
+                </p>
+                <hr />
 
                 <p className="text-3xl my-4 font-semibold">
                   ₹ {calculatedPrice.toFixed(2)}
@@ -178,30 +187,9 @@ const ProductDetails = () => {
                     </del>
                   )}
                 </p>
-
-                <div className="mb-6">
-                  <h1 className="flex items-center mb-2">
-                    <FaInfoCircle className="mr-2 text-gray-700" /> Product
-                    Details:{" "}
-                  </h1>
-
-                  {product && product.detail && (
-                    <table className="table-auto">
-                      <tbody>
-                        {Object.entries(product.detail).map(([key, value]) => (
-                          <tr key={key}>
-                            <td className="border px-4 py-2">{key}</td>
-                            <td className="border px-4 py-2">{value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
-                </div>
-
                 <div className="flex items-center justify-between w-[25rem]">
                   <div className="one">
-                    <h1 className="flex items-center mb-6">
+                    <h1 className="flex items-center mb-6 font-medium">
                       <FaStore className="mr-2 text-gray-700" /> Brand:{" "}
                       {product.brand}
                     </h1>
@@ -209,10 +197,10 @@ const ProductDetails = () => {
                       <FaClock className="mr-2 text-gray-700" /> Added:{" "}
                       {moment(product.createAt).fromNow()}
                     </h1> */}
-                    <h1 className="flex items-center mb-6">
+                    {/* <h1 className="flex items-center mb-6">
                       <FaStar className="mr-2 text-gray-700" /> Reviews:{" "}
                       {product.numReviews}
-                    </h1>
+                    </h1> */}
                   </div>
 
                   <div className="two">
@@ -220,18 +208,18 @@ const ProductDetails = () => {
                       <FaStar className="mr-2 text-gray-700" /> Ratings:{" "}
                       {rating}
                     </h1> */}
-                    <h1 className="flex items-center mb-6">
+                    {/* <h1 className="flex items-center mb-6">
                       <FaShoppingCart className="mr-2 text-gray-700" />{" "}
                       Quantity: {product.quantity}
-                    </h1>
-                    <h1 className="flex items-center mb-6 w-[10rem]">
+                    </h1> */}
+                    <h1 className="flex items-center mb-6 w-[10rem] font-medium">
                       <FaBox className="mr-2 text-gray-700" /> In Stock:{" "}
                       {product.countInStock}
                     </h1>
                   </div>
                 </div>
 
-                {product.countInStock > 0 && (
+                {/* {product.countInStock > 0 && (
                   <div>
                     <select
                       value={qty}
@@ -245,27 +233,74 @@ const ProductDetails = () => {
                       ))}
                     </select>
                   </div>
-                )}
+                )} */}
               </div>
 
-              <div className="mt-5">
-                <ProductTabs
-                  loadingProductReview={loadingProductReview}
-                  userInfo={userInfo}
-                  submitHandler={submitHandler}
-                  rating={rating}
-                  setRating={setRating}
-                  comment={comment}
-                  setComment={setComment}
-                  product={product}
+              <div className="flex justify-between flex-wrap">
+                <Ratings
+                  value={product.rating}
+                  text={`${product.numReviews} ${
+                    product.numReviews > 1 ? "Reviews" : "Review"
+                  }`}
                 />
               </div>
+
+              <br />
+              <hr />
+              <br />
+
+              <div className="mb-6">
+                <h1 className="flex items-center mb-2 font-bold">
+                  <FaInfoCircle className="mr-2 text-gray-700" /> Product
+                  Details:{" "}
+                </h1>
+
+                {product && product.detail && (
+                  <table className="table-auto border-hidden">
+                    <tbody>
+                      {Object.entries(product.detail).map(([key, value]) => (
+                        <tr key={key}>
+                          <td className="border px-4 py-2 border-hidden font-semibold">
+                            {key}
+                          </td>
+                          <td className="border px-4 py-2 border-hidden whitespace-pre-line">
+                            {value}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <hr />
+          <br />
+          <div className="justify-center clear-both">
+            <div className="m-20 mt-0" id="reviewDiv">
+              <ProductTabs
+                loadingProductReview={loadingProductReview}
+                userInfo={userInfo}
+                submitHandler={submitHandler}
+                rating={rating}
+                setRating={setRating}
+                comment={comment}
+                setComment={setComment}
+                product={product}
+              />
             </div>
           </div>
         </>
       )}
     </>
   );
+};
+
+const transitionStyles = {
+  transition: "opacity 0.5s ease-in-out",
+  opacity: 1, // Default visible state
 };
 
 export default ProductDetails;

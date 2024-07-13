@@ -17,7 +17,7 @@ const Ratings = ({ value, text }) => {
           {value.toFixed(1)}
         </span>
       </div>
-      <span className="text-lg font-semibold">{text && text}</span>
+      <span className="text-lg font-medium">{text && text}</span>
     </div>
   );
 };

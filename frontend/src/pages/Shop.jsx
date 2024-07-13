@@ -110,7 +110,7 @@ const Shop = () => {
 
   return (
     <>
-      <div className="container mx-auto mt-[5rem]">
+      <div className="container mx-20 mt-[5rem]">
         <div className="flex md:flex-row">
           <div
             className="p-3 mt-2 mb-2 rounded-xl"
@@ -124,16 +124,19 @@ const Shop = () => {
               Filter by Categories
             </h2>
 
-            <div className="p-5 w-[15rem]">
+            <div
+              className="p-5 w-[15rem]"
+              style={{ maxHeight: "300px", overflowY: "auto" }}
+            >
               {categories?.map((c) => (
                 <div key={c._id} className="mb-2">
                   <div className="flex items-center mr-4">
                     <input
                       type="checkbox"
                       id={`${c._id}-checkbox`}
-                      checked={checked.includes(c._id)} // Check if the category ID is present in the checked array
+                      checked={checked.includes(c._id)} 
                       onChange={(e) => handleCheck(e.target.checked, c._id)}
-                      className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 rounded focus:ring-dark-yellow dark:focus:ring-dark-yellow dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 rounded accent-dark-red-normal"
                     />
 
                     <label
@@ -151,7 +154,10 @@ const Shop = () => {
               Filter by Brands
             </h2>
 
-            <div className="p-5">
+            <div
+              className="p-5"
+              style={{ maxHeight: "300px", overflowY: "auto" }}
+            >
               {uniqueBrands?.map((brand) => (
                 <div key={brand} className="flex items-center mr-4 mb-5">
                   <input
@@ -159,7 +165,7 @@ const Shop = () => {
                     id={`${brand}-radio`}
                     name="brand"
                     onChange={() => handleBrandClick(brand)}
-                    className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 focus:ring-dark-yellowdark:focus:ring-dark-yellow dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-4 h-4 text-dark-yellow bg-gray-100 border-gray-300 accent-dark-red-normal"
                   />
 
                   <label
@@ -188,7 +194,7 @@ const Shop = () => {
 
             <div className="p-5 pt-0">
               <button
-                className="w-full border border-dark-green-normal text-dark-green-normal rounded-lg my-4"
+                className="w-full border border-dark-red-hover text-dark-red-normal rounded-lg my-4 hover:bg-dark-red-hover hover:text-white"
                 onClick={resetFilters}
               >
                 Reset
@@ -203,7 +209,7 @@ const Shop = () => {
                 <Loader />
               ) : (
                 products?.map((p) => (
-                  <div className="p-3" key={p._id}>
+                  <div className="p-5 w-1/4" key={p._id}>
                     <ProductCard p={p} />
                   </div>
                 ))

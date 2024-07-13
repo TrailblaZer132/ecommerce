@@ -21,17 +21,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="mt-[6rem] flex justify-center items-center">
-        <div className="mt-[6rem] flex ml-10">
-          {/* <div
-          className="p-4 text-white font-bold mr-4"
-          style={{
-            borderRadius: "10px",
-            background: "#4785ff",
-            boxShadow: "2px 2px 8px #b6b7b9, -2px -2px 8px #ffffff",
-          }}
-        > */}
-        </div>
+      <div className="mt-[5.5rem]  flex justify-center items-center">
         <Categories />
       </div>
       <Slider />

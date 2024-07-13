@@ -31,7 +31,7 @@ const Category = () => {
         {categories?.slice(0, 10).map((category) => (
           <div
             key={category._id}
-            className="m-2 relative"
+            className="relative"
             onMouseEnter={() => {
               clearTimeout(timeoutId);
               setHoveredCategory(category._id);
@@ -45,7 +45,7 @@ const Category = () => {
             }}
           >
             <button
-              className=" text-dark-red-normal py-2 px-4 rounded-lg m-2 ml-5 hover:bg-dark-red-normal hover:text-white  ease-in-out duration-100 font-semibold text-xl"
+              className=" text-dark-red-normal py-2 px-4 rounded-lg  ml-5 hover:bg-dark-red-normal hover:text-white  ease-in-out duration-100 font-semibold text-xl"
               onClick={() => handleCategoryClick(category)}
             >
               {t(`${category.name}`)}
@@ -55,7 +55,7 @@ const Category = () => {
                 {category.subcategories.map((subcategory) => (
                   <button
                     key={subcategory._id}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-gray-900"
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-light-lightRed hover:text-gray-900"
                     onClick={() =>
                       handleSubcategoryClick(category, subcategory)
                     }
@@ -110,7 +110,7 @@ const Category = () => {
                     <a
                       key={category._id}
                       onClick={() => handleCategoryClick(category)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-gray-900 font-semibold"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-light-lightRed hover:text-gray-900 font-semibold"
                       role="menuitem"
                     >
                       {t(`${category.name}`)}

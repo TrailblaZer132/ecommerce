@@ -19,7 +19,7 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="w-[22rem] h-[18rem] relative bg-light-lightRed rounded-lg shaodw  ml-10 mb-2">
+    <div className="w-[18rem] h-[20rem] relative bg-light-lightRed rounded-lg shadow  ml-20 mb-2">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
           <span className="absolute bottom-3 right-3 bg-blue-100 text-dark-red-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-red-normal dark:text-white">
@@ -56,12 +56,12 @@ const ProductCard = ({ p }) => {
           {p?.description?.substring(0, 60)} ...
         </p> */}
 
-        <section className="flex justify-between items-center">
+        <section className="absolute bottom-0 left-0 right-0 p-5 flex justify-between">
           <Link
             to={`/product/${p._id}`}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-red-normal rounded-lg hover:bg-dark-red-hover  "
           >
-            {t("Read More")}
+            {t("View")}
             <svg
               className="w-3.5 h-3.5 ml-2"
               aria-hidden="true"

@@ -12,11 +12,11 @@ import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../redux/api/usersApiSlice";
+import { useGetProductsQuery } from "../../redux/api/productApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import LanguageDropdown from "../../components/LanguageDropdown";
 import FavoritesCount from "../../pages/Products/FavoritesCount";
-import AdminRegistration from "../AdminRegistration";
 
 const Navigation = () => {
   const { t } = useTranslation();
@@ -26,6 +26,13 @@ const Navigation = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [logoutApiCall] = useLogoutMutation();
+
+  const { data: suggestions, isFetching: isSearching, error: searchError } = useGetProductsQuery({ keyword: searchTerm }, { skip: !searchTerm });
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -38,11 +45,6 @@ const Navigation = () => {
   const closeSidebar = () => {
     setShowSidebar(false);
   };
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
     try {
@@ -60,11 +62,15 @@ const Navigation = () => {
     if (clickCount === 4) {
       // Display the popup
       alert(
-        "We are the creators of the website:\nUdit Nath\nKhiranjit Kumar Deka\nAnurag Kumar"
+        "We are the creators of the website:\nUdit Nath uditjeet@gmail.com\nKhiranjit Kumar Deka\nAnurag Kumar"
       );
       // Reset the click count
       setClickCount(0);
     }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -85,16 +91,37 @@ const Navigation = () => {
             onClick={handleLogoClick}
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-light-white">
-            E-Meghalaya
+            Meghali
           </span>
         </a>
       </div>
-      <div className="flex flex-grow justify-center">
+      <div className="flex flex-grow justify-center relative">
         <input
           type="text"
           placeholder={t("Search")}
-          className="py-2 flex-grow px-4 w-96 h-10 rounded-xl bg-light-white text-light-gray"
+          className="py-2 flex-grow px-4 w-96 h-10 rounded-xl bg-light-white text-light-gray focus:outline-none"
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
+        {isSearching && <div>Loading...</div>}
+        {searchError && <div>Error loading suggestions</div>}
+        {searchTerm && suggestions?.products?.length > 0 && (
+          <ul className="absolute top-full mt-1 w-full bg-white shadow-lg max-h-60 overflow-auto">
+            {suggestions.products.map((product) => (
+              <li
+                key={product._id}
+                className="p-2 hover:bg-gray-200 cursor-pointer"
+              >
+                <Link
+                  to={`/product/${product._id}`}
+                  onClick={() => setSearchTerm("")}
+                >
+                  {product.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="flex items-center space-x-6">
@@ -142,7 +169,9 @@ const Navigation = () => {
               onClick={toggleDropdown}
               className="flex items-center text-gray-800 focus:outline-none"
             >
-              <span className="text-white">{userInfo.username}</span>
+              <span className="text-white hover:text-dark-yellow">
+                {userInfo.username}
+              </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className={`h-4 w-4 ml-1 ${
@@ -161,7 +190,7 @@ const Navigation = () => {
               </svg>
             </button>
             {dropdownOpen && userInfo && (
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu w-52">
                 {userInfo.isAdmin && (
                   <>
                     <li>
@@ -172,14 +201,14 @@ const Navigation = () => {
                         {t("Dashboard")}
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         to="/admin/productlist"
                         className="rounded block px-4 py-2 hover:bg-gray-200"
                       >
                         {t("Products")}
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         to="/admin/categorylist"
@@ -188,14 +217,14 @@ const Navigation = () => {
                         {t("Categories")}
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         to="/admin/orderlist"
                         className="rounded block px-4 py-2 hover:bg-gray-200"
                       >
                         {t("Orders")}
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         to="/admin/Aplicationlist"
@@ -274,6 +303,19 @@ const Navigation = () => {
                     </li>
                   </ul>
                 )}
+
+                {userInfo.isSeller == false &&
+                  userInfo.isAdmin == false &&
+                  userInfo.isSuperAdmin == false && (
+                    <li>
+                      <Link
+                        to="/sellerRegistration"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Become a Seller")}
+                      </Link>
+                    </li>
+                  )}
 
                 <li>
                   <Link

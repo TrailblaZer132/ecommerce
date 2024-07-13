@@ -278,6 +278,25 @@ const filterProducts = asyncHandler(async (req, res) => {
       .json({ error: "Internal server error in filtering products" });
   }
 });
+const SearchFetchProducts = asyncHandler(async (req, res) => {
+  try {
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const products = await Product.find({ ...keyword }).limit(10);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error in fetching products" });
+  }
+});
+
 
 export {
   addProduct,
@@ -290,4 +309,5 @@ export {
   fetchTopProducts,
   fetchNewProducts,
   filterProducts,
+  SearchFetchProducts,
 };

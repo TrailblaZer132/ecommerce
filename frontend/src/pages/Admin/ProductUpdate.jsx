@@ -18,13 +18,19 @@ const AdminProductUpdate = () => {
   const { data: productData, refetch } = useGetProductByIdQuery(params._id);
 
   const [images, setImages] = useState(productData?.images || "");
-  const [imageUrls, setImageUrls] = useState([]); 
+  const [imageUrls, setImageUrls] = useState([]);
   const [name, setName] = useState(productData?.name || "");
-  const [description, setDescription] = useState(productData?.description || "");
+  const [description, setDescription] = useState(
+    productData?.description || ""
+  );
   const [detail, setDetail] = useState(productData?.detail || {});
 
-  const [actualPrice, setActualPrice] = useState(productData?.actualPrice || "");
-  const [discountPercentage, setDiscountPercentage] = useState(productData?.discountPercentage || 0);
+  const [actualPrice, setActualPrice] = useState(
+    productData?.actualPrice || ""
+  );
+  const [discountPercentage, setDiscountPercentage] = useState(
+    productData?.discountPercentage || 0
+  );
   const [price, setPrice] = useState(productData?.price || "");
   const [category, setCategory] = useState(productData?.category?._id || "");
   const [subcategory, setSubcategory] = useState(
@@ -55,7 +61,7 @@ const AdminProductUpdate = () => {
       setQuantity(productData.quantity);
       setBrand(productData.brand);
       setImageUrls(productData.images);
-      
+
       setStock(productData.countInStock);
     }
 
@@ -72,19 +78,19 @@ const AdminProductUpdate = () => {
       setSubcategories(selectedCategory?.subcategories || []);
     }
   }, [category, categories]);
-  
+
   const uploadFileHandler = async (e) => {
     const files = Array.from(e.target.files);
     const formData = new FormData();
     files.forEach((file) => {
       formData.append("images", file);
     });
-  
+
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
       setImages([...images, ...files]);
-      setImageUrls([...imageUrls, ...res.images]); 
+      setImageUrls([...imageUrls, ...res.images]);
     } catch (error) {
       toast.error(error?.data?.message || error.error);
     }
@@ -120,16 +126,16 @@ const AdminProductUpdate = () => {
       formData.append("quantity", quantity);
       formData.append("brand", brand);
       formData.append("countInStock", stock);
-      formData.append("newImages", JSON.stringify(imageUrls)); 
-      formData.append("oldImages", JSON.stringify(productData.images)); 
-  
+      formData.append("newImages", JSON.stringify(imageUrls));
+      formData.append("oldImages", JSON.stringify(productData.images));
+
       const data = await updateProduct({
         productId: params._id,
         formData,
       });
-  
+
       console.log("Update product response:", data);
-  
+
       if (data?.error) {
         console.error(data.error);
         toast.error(data.error.message || "Product update failed. Try again.", {
@@ -151,7 +157,7 @@ const AdminProductUpdate = () => {
       });
     }
   };
-  
+
   const handleDelete = async () => {
     // Check if toast is defined
     if (typeof toast === "undefined") {
@@ -206,17 +212,17 @@ const AdminProductUpdate = () => {
             </div>
 
             {imageUrls.length > 0 && (
-            <div className="text-center">
-              {imageUrls.map((url, index) => (
-                <img
-                  key={index}
-                  src={url}
-                  alt={`product-${index}`}
-                  className="block mx-auto max-h-[200px] my-2"
-                />
-              ))}
-            </div>
-          )}
+              <div className="text-center">
+                {imageUrls.map((url, index) => (
+                  <img
+                    key={index}
+                    src={url}
+                    alt={`product-${index}`}
+                    className="block mx-auto max-h-[200px] my-2"
+                  />
+                ))}
+              </div>
+            )}
 
             <div className="mb-3">
               <label className="text-dark-black py-2 px-4 block w-full text-center rounded-lg cursor-pointer font-semibold hover:shadow-lg transition-all ease-in-out duration-75">
@@ -238,17 +244,18 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name">{t("Name")}</label> <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] capitalize"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] capitalize focus:outline-none"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
 
                 <div className="two">
-                  <label htmlFor="actualPrice block">{t("Actual Price")}</label> <br />
+                  <label htmlFor="actualPrice block">{t("Actual Price")}</label>{" "}
+                  <br />
                   <input
                     type="number"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                     value={actualPrice}
                     onChange={(e) => setActualPrice(e.target.value)}
                   />
@@ -257,12 +264,15 @@ const AdminProductUpdate = () => {
 
               <div className="flex flex-wrap">
                 <div>
-                  <label htmlFor="discountPercentage block">{t("Discount Percentage")}</label> <br />
+                  <label htmlFor="discountPercentage block">
+                    {t("Discount Percentage")}
+                  </label>{" "}
+                  <br />
                   <input
                     type="number"
                     min="0"
                     max="100"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] focus:outline-none"
                     value={discountPercentage}
                     onChange={(e) => setDiscountPercentage(e.target.value)}
                   />
@@ -272,7 +282,7 @@ const AdminProductUpdate = () => {
                   <input
                     type="number"
                     min="1"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] focus:outline-none"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />
@@ -281,7 +291,7 @@ const AdminProductUpdate = () => {
                   <label htmlFor="name block">{t("Brand")}</label> <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black focus:outline-none"
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
                   />
@@ -293,7 +303,7 @@ const AdminProductUpdate = () => {
               </label>
               <textarea
                 type="text"
-                className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem]"
+                className="p-2 mb-3 shadow-md hover:shadow-lg transition-all ease-in-out duration-75 border rounded-lg w-[97%] text-dark-black h-[8rem] focus:outline-none"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -316,14 +326,14 @@ const AdminProductUpdate = () => {
                         [newKey]: value,
                       }));
                     }}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize focus:outline-none"
                   />
                   <input
                     type="text"
                     placeholder=""
                     value={detail[key]}
                     onChange={(e) => handleDetailChange(key, e.target.value)}
-                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg shadow-md hover:shadow-lg transition-all ease-in-out duration-75 text-dark-black mr-10 capitalize focus:outline-none"
                   />
                 </div>
               ))}
@@ -341,7 +351,7 @@ const AdminProductUpdate = () => {
                   <br />
                   <input
                     type="text"
-                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                    className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] focus:outline-none"
                     value={stock}
                     onChange={(e) => setStock(e.target.value)}
                   />
@@ -351,7 +361,7 @@ const AdminProductUpdate = () => {
                   <div className="three">
                     <label htmlFor="category">{t("Category")}</label> <br />
                     <select
-                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] focus:outline-none"
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
@@ -368,7 +378,7 @@ const AdminProductUpdate = () => {
                     <label htmlFor="subcategory">{t("Subcategory")}</label>{" "}
                     <br />
                     <select
-                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem]"
+                      className="p-4 mb-3 w-[30rem] border rounded-lg transition-all ease-in-out duration-75 text-dark-black mr-[5rem] focus:outline-none"
                       value={subcategory}
                       onChange={(e) => setSubcategory(e.target.value)}
                     >

@@ -100,13 +100,13 @@ const Profile = () => {
             <div className="flex justify-evenly">
               <button
                 type="submit"
-                className="bg-lime-500 text-white py-2 px-4 rounded hover:bg-lime-600"
+                className="bg-dark-button-normal text-white py-2 px-4 rounded hover:bg-dark-button-hover"
               >
                 {t("Update")}
               </button>
               <Link
                 to="/user-orders"
-                className="bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600"
+                className="bg-dark-red-normal text-white py-2 px-4 rounded hover:bg-dark-red-hover"
               >
                 {t("My Orders")}
               </Link>

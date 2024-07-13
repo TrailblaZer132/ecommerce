@@ -52,20 +52,20 @@ const Login = () => {
 
           <form
             onSubmit={submitHandler}
-            className="container w-[40rem]"
+            className="container w-[40rem] focus:outline-none"
             action=""
           >
             <div className="my-[2rem]">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-black"
+                className="block text-sm font-medium text-black focus:outline-none"
               >
                 {t("Email Address")}
               </label>
               <input
                 type="email"
                 id="email"
-                className="mt-1 p-2 border rounded w-full"
+                className="mt-1 p-2 border rounded w-full focus:outline-none"
                 placeholder={t("Enter your email address")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -74,14 +74,14 @@ const Login = () => {
             <div className="my-[2rem]">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-black"
+                className="block text-sm font-medium text-black focus:outline-none"
               >
                 {t("Password")}
               </label>
               <input
                 type="password"
                 id="password"
-                className="mt-1 p-2 border rounded w-full"
+                className="mt-1 p-2 border rounded w-full focus:outline-none"
                 placeholder={t("Enter your password")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

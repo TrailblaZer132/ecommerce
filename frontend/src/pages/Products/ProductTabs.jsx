@@ -35,41 +35,41 @@ const ProductTabs = ({
           }`}
           onClick={() => handleTabClick(1)}
         >
-          Write Your Review
+          
         </div>
-        <div
+        {/* <div
           className={`flex-1 p-4 cursor-pointer text-lg ${
             activeTab === 2 ? "font-bold" : ""
           }`}
           onClick={() => handleTabClick(2)}
         >
           All Reviews
-        </div>
-        <div
+        </div> */}
+        {/* <div
           className={`flex-1 p-4 cursor-pointer text-lg ${
             activeTab === 3 ? "font-bold" : ""
           }`}
           onClick={() => handleTabClick(3)}
         >
           Related Products
-        </div>
+        </div> */}
       </section>
 
       <section>
         {activeTab === 1 && (
-          <div className="mt-4">
+          <div className="mt-7">
             {userInfo ? (
               <form onSubmit={submitHandler}>
                 <div className="my-2">
-                  <label htmlFor="rating" className="block text-xl mb-2">
-                    Rating
+                  <label htmlFor="rating" className="block text-xl mb-2 font-semibold">
+                    Your Rating
                   </label>
                   <StarRating rating={rating} setRating={setRating} />
                 </div>
 
                 <div className="my-2">
-                  <label htmlFor="comment" className="block text-xl mb-2">
-                    Comment
+                  <label htmlFor="comment" className="block text-xl mb-2 font-semibold">
+                    Your Comment
                   </label>
                   <textarea
                     id="comment"
@@ -83,7 +83,7 @@ const ProductTabs = ({
                 <button
                   type="submit"
                   disabled={loadingProductReview}
-                  className="bg-dark-green-normal text-white py-2 px-4 rounded-lg hover:bg-dark-green-hover"
+                  className="bg-dark-red-normal text-white py-2 px-4 rounded-lg hover:bg-dark-red-hover"
                 >
                   Submit
                 </button>
@@ -139,6 +139,32 @@ const ProductTabs = ({
               ))
             )}
           </section>
+        )}
+      </section>
+
+      <section className="reviews-list mt-8 w-full overflow-x-scroll pl-10">
+        <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
+        {product.reviews && product.reviews.length > 0 ? (
+          <div>
+            {product.reviews.map((review) => (
+              <div
+                key={review._id}
+                className="bg-light-lightRed p-4 rounded-lg mb-5"
+              >
+                <div className="flex justify-between">
+                  <p className="font-semibold">{review.name}</p>
+                  <p className="text-[#5a5a5a]">
+                    {review.createdAt.substring(0, 10)}
+                  </p>
+                </div>
+                <p className="my-4">{review.comment}</p>
+                <StarRating rating={review.rating} setRating={() => {}} />{" "}
+                {/* Read-only */}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No Reviews</p>
         )}
       </section>
     </div>
