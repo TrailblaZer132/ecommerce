@@ -50,6 +50,7 @@ import TermsOfUse from "./pages/TermsOfUse.jsx";
 import Security from "./pages/Security.jsx";  
 import Grievance from "./pages/Grievance.jsx";
 import AplicationList from "./pages/Admin/AplicationList.jsx";
+import Purchase from "./pages/Purchase.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,7 +69,7 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<Cart />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/user-orders" element={<UserOrder />} />
-
+      <Route path="/purchase" element={<Purchase />} />
       <Route path="/contact-us" element={<ContactUs />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/meghalaya-stories" element={<MeghalayaStories />} />

@@ -107,5 +107,18 @@ const acceptSeller = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+const getSellerByUserId = asyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const seller = await SellerRegistration.findOne({ userIdWhoGotAccepted: userId });
 
-export { registerSeller, checkSellerRegistration, acceptSeller };
+    if (!seller) {
+      return res.status(404).send({ message: "Seller not found" });
+    }
+
+    res.status(200).json(seller);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
+export { registerSeller, checkSellerRegistration, acceptSeller,getSellerByUserId  };

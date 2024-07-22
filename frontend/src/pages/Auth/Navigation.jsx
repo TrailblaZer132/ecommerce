@@ -99,14 +99,14 @@ const Navigation = () => {
         <input
           type="text"
           placeholder={t("Search")}
-          className="py-2 flex-grow px-4 w-96 h-10 rounded-xl bg-light-white text-light-gray focus:outline-none"
+          className="py-2 flex-grow px-4 w-96 h-9 rounded-3xl bg-light-white text-black focus:outline-none"
           value={searchTerm}
           onChange={handleSearchChange}
         />
         {isSearching && <div>Loading...</div>}
         {searchError && <div>Error loading suggestions</div>}
         {searchTerm && suggestions?.products?.length > 0 && (
-          <ul className="absolute top-full mt-1 w-full bg-white shadow-lg max-h-60 overflow-auto">
+          <ul className="absolute top-full mt-1 w-full bg-white text-black shadow-lg max-h-60 overflow-auto">
             {suggestions.products.map((product) => (
               <li
                 key={product._id}

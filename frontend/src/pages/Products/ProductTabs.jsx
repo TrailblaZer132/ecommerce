@@ -27,88 +27,76 @@ const ProductTabs = ({
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col">
       <section className="mr-[5rem]">
         <div
           className={`flex-1 p-4 cursor-pointer text-lg ${
             activeTab === 1 ? "font-bold" : ""
           }`}
           onClick={() => handleTabClick(1)}
-        >
-          
-        </div>
-        {/* <div
-          className={`flex-1 p-4 cursor-pointer text-lg ${
-            activeTab === 2 ? "font-bold" : ""
-          }`}
-          onClick={() => handleTabClick(2)}
-        >
-          All Reviews
-        </div> */}
-        {/* <div
-          className={`flex-1 p-4 cursor-pointer text-lg ${
-            activeTab === 3 ? "font-bold" : ""
-          }`}
-          onClick={() => handleTabClick(3)}
-        >
-          Related Products
-        </div> */}
+        ></div>
       </section>
 
-      <section>
-        {activeTab === 1 && (
-          <div className="mt-7">
-            {userInfo ? (
-              <form onSubmit={submitHandler}>
-                <div className="my-2">
-                  <label htmlFor="rating" className="block text-xl mb-2 font-semibold">
-                    Your Rating
-                  </label>
-                  <StarRating rating={rating} setRating={setRating} />
-                </div>
+      <div className="flex flex-col">
+        <section>
+          {activeTab === 1 && (
+            <div className="mt-7 ml-20">
+              {userInfo ? (
+                <form onSubmit={submitHandler}>
+                  <div className="my-2">
+                    <label
+                      htmlFor="rating"
+                      className="block text-xl mb-2 font-semibold"
+                    >
+                      Your Rating
+                    </label>
+                    <StarRating rating={rating} setRating={setRating} />
+                  </div>
 
-                <div className="my-2">
-                  <label htmlFor="comment" className="block text-xl mb-2 font-semibold">
-                    Your Comment
-                  </label>
-                  <textarea
-                    id="comment"
-                    rows="3"
-                    required
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    className="p-2 border rounded-lg xl:w-[30rem] text-black"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  disabled={loadingProductReview}
-                  className="bg-dark-red-normal text-white py-2 px-4 rounded-lg hover:bg-dark-red-hover"
-                >
-                  Submit
-                </button>
-              </form>
-            ) : (
-              <p>
-                Please <Link to="/login">sign in</Link> to write a review
-              </p>
-            )}
-          </div>
-        )}
-      </section>
-
-      <section>
-        {activeTab === 2 && (
-          <>
-            <div>{product.reviews.length === 0 && <p>No Reviews</p>}</div>
+                  <div className="my-2">
+                    <label
+                      htmlFor="comment"
+                      className="block text-xl mb-2 font-semibold"
+                    >
+                      Your Comment
+                    </label>
+                    <textarea
+                      id="comment"
+                      rows="3"
+                      required
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      className="p-2 border rounded-lg xl:w-[30rem] text-black focus:outline-none"
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={loadingProductReview}
+                    className="bg-dark-red-normal text-white py-2 px-4 rounded-lg hover:bg-dark-red-hover"
+                  >
+                    Submit
+                  </button>
+                </form>
+              ) : (
+                <p>
+                  Please <Link to="/login">sign in</Link> to write a review
+                </p>
+              )}
+            </div>
+          )}
+        </section>
+ 
+        <section className="reviews-list mt-8 max-w-5xl overflow-x-scroll ml-20">
+          <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
+          {product && product.reviews && product.reviews.length > 0 ? (
             <div>
               {product.reviews.map((review) => (
                 <div
                   key={review._id}
-                  className="bg-[#efefef] p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[50rem] sm:w-[24rem] mb-5"
+                  className="bg-light-lightRed p-4 rounded-lg mb-5"
                 >
                   <div className="flex justify-between">
-                    <strong className="text-[#5a5a5a]">{review.name}</strong>
+                    <p className="font-semibold">{review.name}</p>
                     <p className="text-[#5a5a5a]">
                       {review.createdAt.substring(0, 10)}
                     </p>
@@ -122,51 +110,11 @@ const ProductTabs = ({
                 </div>
               ))}
             </div>
-          </>
-        )}
-      </section>
-
-      <section>
-        {activeTab === 3 && (
-          <section className="ml-[4rem] flex flex-wrap">
-            {!data ? (
-              <Loader />
-            ) : (
-              data.map((product) => (
-                <div key={product._id}>
-                  <SmallProduct product={product} />
-                </div>
-              ))
-            )}
-          </section>
-        )}
-      </section>
-
-      <section className="reviews-list mt-8 w-full overflow-x-scroll pl-10">
-        <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
-        {product.reviews && product.reviews.length > 0 ? (
-          <div>
-            {product.reviews.map((review) => (
-              <div
-                key={review._id}
-                className="bg-light-lightRed p-4 rounded-lg mb-5"
-              >
-                <div className="flex justify-between">
-                  <p className="font-semibold">{review.name}</p>
-                  <p className="text-[#5a5a5a]">
-                    {review.createdAt.substring(0, 10)}
-                  </p>
-                </div>
-                <p className="my-4">{review.comment}</p>
-                <StarRating rating={review.rating} setRating={() => {}} />{" "}
-                {/* Read-only */}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No Reviews</p>
-        )}
-      </section>
+          ) : (
+            <p>No Reviews</p>
+          )}
+        </section>
+      </div>
     </div>
   );
 };

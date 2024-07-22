@@ -9,7 +9,7 @@ import Slider from "./Slider";
 import Categories from "../components/CategoryForHome";
 import Slide from "./Slide";
 import { useTranslation } from "react-i18next";
-
+import Navigation from "./Auth/Navigation";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -21,7 +21,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="mt-[5.5rem]  flex justify-center items-center">
+    
+      <div className="flex justify-center items-center mt-[2.5rem]" >
         <Categories />
       </div>
       <Slider />
@@ -45,28 +46,6 @@ const Home = () => {
             <div>
               <Slide products={data.products} title={t("Special Products")} />
             </div>
-            {/* <div className="flex justify-between items-center">
-              <h1 className="ml-[20rem] mt-[10rem] text-[3rem]">
-                Special Products
-              </h1>
-
-              <Link
-                to="/shop"
-                className="bg-dark-green-normal font-bold rounded-full py-2 px-10 mr-[18rem] mt-[10rem] text-white hover:bg-dark-green-hover transition duration-75 ease-in-out"
-              >
-                Shop
-              </Link>
-            </div> */}
-
-            {/* <div>
-              <div className="flex justify-center flex-wrap mt-[2rem]">
-                {data.products.map((product) => (
-                  <div key={product._id}>
-                    <Product product={product} />
-                  </div>
-                ))}
-              </div>
-            </div> */}
           </>
         )
       )}

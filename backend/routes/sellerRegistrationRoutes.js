@@ -3,6 +3,7 @@ import {
   registerSeller,
   checkSellerRegistration,
   acceptSeller,
+  getSellerByUserId,
 } from "../controllers/sellerRegistrationController.js";
 import {
   getAllSellerApplications,
@@ -40,4 +41,5 @@ router.route("/check-seller-registration").get(checkSellerRegistration);
 router.route("/all").get(getAllSellerApplications);
 router.route("/toggle-seller-status").post(toggleSellerStatus);
 router.post("/seller/accept", authenticate, authorizeAdmin, acceptSeller);
+router.get("/user/:userId", getSellerByUserId);
 export default router;

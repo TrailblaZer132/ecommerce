@@ -3,11 +3,16 @@ import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
 import { useGetSellerOrdersQuery } from "../../redux/api/orderApiSlice";
 import AdminMenu from "./AdminMenu";
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import SellerMenu from "./SellerMenu";
 import { useTranslation } from "react-i18next";
 
 const OrderList = () => {
   const { t } = useTranslation();
   const { data: orders, isLoading, error } = useGetSellerOrdersQuery();
+  const { userInfo } = useSelector((state) => state.auth);
+  
 
   return (
     <>
@@ -19,7 +24,8 @@ const OrderList = () => {
         </Message>
       ) : (
         <table className="container mx-auto mt-[5rem]">
-          <AdminMenu />
+          {userInfo.isSeller&& (<SellerMenu />)}
+          {userInfo.isAdmin&& (<AdminMenu />)}
 
           <thead className="w-full border">
             <tr className="mb-[5rem]">
@@ -54,7 +60,7 @@ const OrderList = () => {
 
                 <td className="py-2">
                   {order.isPaid ? (
-                    <p className="p-1 text-center bg-green-400 w-[6rem] rounded-full">
+                    <p className="p-1 text-center bg-dark-button-normal w-[6rem] rounded-full">
                       {t("Completed")}
                     </p>
                   ) : (
@@ -66,7 +72,7 @@ const OrderList = () => {
 
                 <td className="px-2 py-2">
                   {order.isDelivered ? (
-                    <p className="p-1 text-center bg-green-400 w-[6rem] rounded-full">
+                    <p className="p-1 text-center bg-dark-button-normal w-[6rem] rounded-full">
                       {t("Completed")}
                     </p>
                   ) : (

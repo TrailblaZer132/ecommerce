@@ -19,10 +19,10 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="w-[18rem] h-[20rem] relative bg-light-lightRed rounded-lg shadow  ml-20 mb-2">
+    <div className="w-[15rem] h-[22rem] relative bg-light-lightRed rounded-lg shadow  sm:ml-20 md:ml-[4rem] lg:ml-[4.3rem] xl:ml-[4.3rem] 2xl:ml-[4.3rem] 3xl:ml-[2rem] 4xl:ml-[2rem]">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-blue-100 text-dark-red-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-red-normal dark:text-white">
+          <span className="absolute bottom-3 right-3 bg-red-100 text-dark-red-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-red-normal dark:text-white">
             {p?.brand}
           </span>
           <img
@@ -37,11 +37,11 @@ const ProductCard = ({ p }) => {
 
       <div className="p-5">
         <div className="flex justify-between">
-          <h5 className="mb-2 text-xl text-whiet font-semibold dark:text-dark-black">
+          <h5 className="mb-2 text-lg text-dark-black font-semibold ">
             {p?.name}
           </h5>
 
-          <p className="font-semibold text-dark-black">
+          <p className="font-medium text-dark-red-normal">
             {(
               p?.actualPrice *
               (1 - p?.discountPercentage / 100)

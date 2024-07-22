@@ -20,16 +20,27 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "dotnet": "^1.1.4",
+    "easyinvoice": "^3.0.47",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "express-fileupload": "^1.5.0",
     "express-formidable": "^1.2.0",
+    "formik": "^2.4.6",
     "i18next": "^23.11.4",
     "i18next-http-backend": "^2.5.2",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "mongoose": "^8.3.4",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",
-    "react-i18next": "^14.1.1"
+    "rc-slider": "^11.1.0",
+    "react-i18next": "^14.1.1",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6"
   }
 }

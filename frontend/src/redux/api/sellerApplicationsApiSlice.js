@@ -14,7 +14,7 @@ export const sellerAplicationApi = createApi({
         body: { email },
       }),
     }),
-
+    
     acceptSeller: builder.mutation({
       query: (userId) => ({
         url: "/seller/accept",
@@ -25,7 +25,7 @@ export const sellerAplicationApi = createApi({
   }),
 });
 
-export const { useGetSellerApplicationsQuery, useToggleSellerStatusMutation, useAcceptSellerMutation } = sellerAplicationApi;
+export const { useGetSellerApplicationsQuery,useGetSellerByIdQuery, useToggleSellerStatusMutation, useAcceptSellerMutation } = sellerAplicationApi;
 
 
 

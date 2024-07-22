@@ -45,13 +45,13 @@ const Category = () => {
             }}
           >
             <button
-              className=" text-dark-red-normal py-2 px-4 rounded-lg  ml-5 hover:bg-dark-red-normal hover:text-white  ease-in-out duration-100 font-semibold text-xl"
+              className=" text-dark-red-normal py-1 px-4 rounded-lg  ml-5 hover:bg-dark-red-normal hover:text-white  ease-in-out duration-100 font-semibold text-xl mb-[0.5rem]"
               onClick={() => handleCategoryClick(category)}
             >
               {t(`${category.name}`)}
             </button>
             {hoveredCategory === category._id && category.subcategories && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+              <div className="absolute top-full left-[50%] transform -translate-x-1/2 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
                 {category.subcategories.map((subcategory) => (
                   <button
                     key={subcategory._id}

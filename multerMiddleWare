@@ -1,0 +1,38 @@
+const multer = require('multer');
+const path = require('path');
+
+// Set up storage
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'uploads/'); // Update this path to your uploads folder
+  },
+  filename: function(req, file, cb) {
+    // Use the original file name and extension
+    cb(null, file.originalname);
+  }
+});
+
+// File filter to accept only certain types of files
+const fileFilter = (req, file, cb) => {
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif|pdf/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images and PDFs Only!');
+  }
+};
+
+// Add the fileFilter to your multer configuration
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: { fileSize: 1000000 }, // for example, limit file size to 1MB
+});
+
+module.exports = upload;

@@ -57,24 +57,26 @@ const Slide = ({ products = [], title }) => {
                   to={`/product/${product._id}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <Box textAlign="center" style={{ padding: "25px 15px" }}>
+                  <Box textAlign="center"  style={{ padding: "25px 15px", justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column" }}>
                     <Image src={firstImage} loading="lazy" alt={product.name} />
-                    <TitleText style={{ fontWeight: 600, color: "#212121" }}>
+                    <TitleText style={{ fontWeight: 1000, color: "#212121" }}>
                       {product.name}
                     </TitleText>
                     <TextContainer>
                       <Text
                         style={{
-                          color: "green",
-                          fontWeight: 600,
+                          color: "black",
+                          fontWeight: 500,
+                          fontStyle: "bold",
                         }}
                       >
                         ₹{(product.actualPrice * (1 - product.discountPercentage / 100)).toFixed(2)}
                       </Text>
-                      <Text
-                        style={{ color: "red", textDecoration: "line-through" }}
-                      >
+                      <Text style={{ color: "gray",fontSize: "0.6rem", textDecoration: "line-through" }}>
                         ₹{product.actualPrice}
+                      </Text>
+                      <Text style={{ fontSize: "0.6rem", color: "red" }}>
+                        {product.discountPercentage}% off
                       </Text>
                     </TextContainer>
                   </Box>

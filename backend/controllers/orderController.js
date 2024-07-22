@@ -164,10 +164,9 @@ const calcualteTotalSalesByDate = async (req, res) => {
 
 const findOrderById = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id).populate(
-      "user",
-      "username email"
-    );
+    const order = await Order.findById(req.params.id)
+      .populate('user', 'username email')
+      .populate('orderItems.sellerId', 'companyName address pincode');
 
     if (order) {
       res.json(order);

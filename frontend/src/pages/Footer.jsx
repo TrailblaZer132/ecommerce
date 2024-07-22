@@ -4,16 +4,16 @@ const Footer = () => {
   const { t } = useTranslation();
   return (
     <footer
-      className="bg-light-white dark:bg-dark-gray z-10"
+      className="bg-dark-gray z-10"
       style={{ position: "static", bottom: 0, width: "100%" }}
     >
       <div className="mx-auto w-full max-w-screen-xl">
         <div className="grid grid-cols-7 gap-4 px-4 py-6">
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
               {t("ABOUT")}
             </h2>
-            <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+            <ul className=" text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <Link to="/contact-us" className="hover:underline">
                   {t("Contact Us")}
@@ -34,10 +34,10 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("HELP CENTER")}
             </h2>
-            <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+            <ul className="text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <li className="mb-4">
                   <Link to="/payments" className="hover:underline">
@@ -58,10 +58,10 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
               {t("CONSUMER POLICY")}
             </h2>
-            <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+            <ul className="text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <Link to="/cancellation&return" className="hover:underline">
                   {t("Cancellation & Returns")}
@@ -85,10 +85,10 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
               {t("RELATED SITES")}
             </h2>
-            <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+            <ul className="text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <a
                   href="https://www.meghalaya.gov.in/"
@@ -135,7 +135,7 @@ const Footer = () => {
             }}
           ></div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("ADDRESS")}
             </h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
@@ -147,14 +147,14 @@ const Footer = () => {
             </ul>
           </div>
           <div className="flex flex-col items-start">
-            <h2 className="mb-6 text-sm font-semibold text-dark-gray uppercase dark:text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("SOCIAL")}
             </h2>
 
             <div className="flex mt-4 mr-5 space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
               <a
                 href="#"
-                className="text-light-white hover:text-dark-gray dark:hover:text-dark-red-normal"
+                className="text-light-white hover:text-dark-red-normal"
               >
                 <svg
                   className="w-5 h-5"
@@ -174,7 +174,7 @@ const Footer = () => {
 
               <a
                 href="#"
-                className="text-light-white hover:text-dark-gray dark:hover:text-dark-red-normal [&>svg]:h-5 [&>svg]:w-5"
+                className="text-light-white hover:text-dark-red-normal [&>svg]:h-5 [&>svg]:w-5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const Footer = () => {
 
               <a
                 href="#"
-                className="text-light-white hover:text-dark-gray dark:hover:text-dark-red-normal [&>svg]:h-5 [&>svg]:w-5"
+                className="text-light-white hover:text-dark-red-normal [&>svg]:h-5 [&>svg]:w-5"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -211,8 +211,8 @@ const Footer = () => {
       </div>
 
       <div className="">
-        <div className="px-4 py-3 border-t bg-light-gray dark:bg-dark-gray md:flex md:items-center md:justify-between">
-          <span className="text-sm text-light-white dark:text-light-white sm:text-center ml-5">
+        <div className="px-4 py-3 border-t bg-dark-gray md:flex md:items-center md:justify-between">
+          <span className="text-sm text-light-white sm:text-center ml-5">
             © 2023{" "}
             <a href="#" className="hover:underline">
               E-Meghalaya

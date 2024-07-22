@@ -17,7 +17,7 @@ const orderSchema = mongoose.Schema(
         sellerId: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: "SellerRegistration",
+          // ref: "SellerRegistration",
         },
       },
     ],
@@ -83,6 +83,9 @@ const orderSchema = mongoose.Schema(
 
     deliveredAt: {
       type: Date,
+    },
+    invoiceUrl: {
+      type: String,
     },
   },
   {

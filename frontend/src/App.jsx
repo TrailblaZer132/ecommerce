@@ -17,7 +17,7 @@ const App = () => {
       <ToastContainer zIndex={9999} />
       <Navigation />
 
-      <main className="py-3" style={{ flex: "1 0 auto" }}>
+      <main style={{ flex: "1 0 auto", padding: "1rem 0" }}>
         <Outlet />
       </main>
 

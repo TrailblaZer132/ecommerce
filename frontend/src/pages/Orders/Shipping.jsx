@@ -14,6 +14,8 @@ const Shipping = () => {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
   const [address, setAddress] = useState(shippingAddress.address || "");
   const [city, setCity] = useState(shippingAddress.city || "");
+  const [phone, setPhone] = useState(shippingAddress.phone || "");
+  const [fullname, setfulname] = useState(shippingAddress.fullname || "");
   const [postalCode, setPostalCode] = useState(
     shippingAddress.postalCode || ""
   );
@@ -25,7 +27,7 @@ const Shipping = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    dispatch(saveShippingAddress({ fullname,address, city, postalCode, country,phone}));
     dispatch(savePaymentMethod(paymentMethod));
     navigate("/placeorder");
   };
@@ -40,9 +42,20 @@ const Shipping = () => {
   return (
     <div className="container mx-auto  mt-[5rem]">
       <ProgressSteps step1 step2 />
-      <div className="mt-[10rem] flex justify-around items-center flex-wrap">
+      <div className="mt-[2rem] flex justify-around items-center flex-wrap">
         <form onSubmit={submitHandler} className="w-[40rem]">
           <h1 className="text-2xl font-semibold mb-4">Shipping</h1>
+          <div className="mb-4">
+            <label className="block text-dark-gray mb-2">Full Name  (First and Last name)</label>
+            <input
+              type="text"
+              className="w-full p-2 border rounded"
+              placeholder="Enter Your Name"
+              value={fullname}
+              required
+              onChange={(e) => setfulname(e.target.value)}
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-dark-gray mb-2">Address</label>
             <input
@@ -63,6 +76,17 @@ const Shipping = () => {
               value={city}
               required
               onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-dark-gray mb-2">Phone Number</label>
+            <input
+              type="text"
+              className="w-full p-2 border rounded"
+              placeholder="Enter Phone Number"
+              value={phone}
+              required
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="mb-4">

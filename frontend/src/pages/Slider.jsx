@@ -15,16 +15,16 @@ const Slider = () => {
   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]; // Add more images if needed
 
   const texts = [
-    "Beauty of Meghalaya",
-    "Famous places in Meghalaya",
-    "Stories of Meghalaya",
-    "Winds of Meghalaya",
-    "Stories of Meghalaya",
-    "Beauty of Meghalaya",
-    "Famous places in Meghalaya",
-    "Stories of Meghalaya",
-    "Winds of Meghalaya",
-    "Stories of Meghalaya",
+    "Handcrafted Treasures from Meghalaya",
+    "Authenticity from the Heart of Meghalaya",
+    "Tradition Meets Craftsmanship",
+    "Meghalaya's Finest Artisans at Your Doorstep",
+    "Artistry Born in Meghalaya",
+    "Pure Craftsmanship from Meghalaya",
+    "Experience Meghalaya’s Handcrafted Excellence",
+    "Cultural Heritage in Every Piece",
+    "Meghalaya’s Artistry in Every Product",
+    "Handmade Wonders from Meghalaya",
   ];
 
   useEffect(() => {
@@ -54,23 +54,28 @@ const Slider = () => {
     <div
       id="animation-carousel"
       className="relative w-full mx-auto"
-      style={{ maxWidth: "97%", marginBottom: "3%", marginLeft: "1.5%" }}
+      style={{
+        maxWidth: "97%",
+        marginBottom: "3%",
+        marginLeft: "1.5%",
+        padding: "0",
+        marginTop: "0",
+      }}
       data-carousel="static"
     >
-      <br />
       <div className="relative h-[20rem] overflow-hidden">
         <div
           className="absolute flex transition-transform duration-1000 ease-in-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
           {images.map((image, index) => (
-            <div key={index} className="w-full flex-none">
+            <div key={index} className="w-full flex-none relative">
               <img
                 src={image}
-                className="w-full object-cover"
+                className="w-full h-[20rem] object-cover"
                 alt={`Carousel ${index + 1}`}
               />
-              <div className="absolute top-[37%] w-full p-10 bg-black bg-opacity-0 hover:bg-opacity-50 transition duration-300 ease-in-out">
+              <div className="absolute bottom-0 w-full p-4 bg-black bg-opacity-0 hover:bg-opacity-50 transition duration-300 ease-in-out text-center">
                 <p className="text-white text-lg">{texts[index]}</p>
               </div>
             </div>
