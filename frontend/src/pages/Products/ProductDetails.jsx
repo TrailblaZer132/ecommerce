@@ -167,7 +167,7 @@ const ProductDetails = () => {
             <div className="md:flex-1 px-4">
               <h2 className="text-4xl font-semibold mr-2">{product.name}</h2>
 
-              <p className="my-4 text-[#9b9b9b] whitespace-pre-line">
+              <p className="my-4 text-dark-gray whitespace-pre-line">
                 {product.description}
               </p>
               <hr />
@@ -195,16 +195,16 @@ const ProductDetails = () => {
               </div>
               <div className="flex items-center justify-between w-[25rem]">
                 <div className="one">
-                  <h1 className="flex items-center mb-6 font-medium">
-                    <FaStore className="mr-2 text-gray-700" /> Brand:{" "}
-                    {product.brand}
+                  <h1 className="flex items-center mb-6 font-semibold">
+                    <FaStore className="mr-2 text-gray-700" /> Brand{" "}
+                    <h2 className="font-normal ml-2">{product.brand}</h2>
                   </h1>
                 </div>
 
                 <div className="two">
-                  <h1 className="flex items-center mb-6 w-[10rem] font-medium">
-                    <FaBox className="mr-2 text-gray-700" /> In Stock:{" "}
-                    {product.countInStock}
+                  <h1 className="flex items-center mb-6 w-[10rem] font-semibold">
+                    <FaBox className="mr-2 text-gray-700" /> In Stock{" "}
+                    <h2 className="font-normal ml-2">{product.countInStock}</h2>
                   </h1>
                 </div>
               </div>
@@ -248,7 +248,6 @@ const ProductDetails = () => {
           </div>
         )}
       </div>
-
       <hr />
       <div className="mt-5">
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8" id="reviewDiv">
