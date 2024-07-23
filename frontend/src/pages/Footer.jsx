@@ -1,30 +1,26 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 const Footer = () => {
   const { t } = useTranslation();
   return (
-    <footer
-      className="bg-dark-gray z-10"
-      style={{ position: "static", bottom: 0, width: "100%" }}
-    >
+    <footer className="bg-dark-gray z-10 w-full">
       <div className="mx-auto w-full max-w-screen-xl">
-        <div className="grid grid-cols-7 gap-4 px-4 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 px-4 py-6">
           <div>
-            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("ABOUT")}
             </h2>
-            <ul className=" text-gray-400 font-medium text-xs">
+            <ul className="text-gray-400 font-medium text-xs">
               <li className="mb-4">
                 <Link to="/contact-us" className="hover:underline">
                   {t("Contact Us")}
                 </Link>
               </li>
               <li className="mb-4">
-                <a href="#" className="hover:underline">
-                  <Link to="/about-us" className="hover:underline">
-                    {t("About Us")}
-                  </Link>
-                </a>
+                <Link to="/about-us" className="hover:underline">
+                  {t("About Us")}
+                </Link>
               </li>
               <li className="mb-4">
                 <Link to="/meghalaya-stories" className="hover:underline">
@@ -39,11 +35,9 @@ const Footer = () => {
             </h2>
             <ul className="text-gray-400 font-medium text-xs">
               <li className="mb-4">
-                <li className="mb-4">
-                  <Link to="/payments" className="hover:underline">
-                    {t("Payments")}
-                  </Link>
-                </li>
+                <Link to="/payments" className="hover:underline">
+                  {t("Payments")}
+                </Link>
               </li>
               <li className="mb-4">
                 <Link to="/shipping-footer" className="hover:underline">
@@ -58,7 +52,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("CONSUMER POLICY")}
             </h2>
             <ul className="text-gray-400 font-medium text-xs">
@@ -85,7 +79,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold  uppercase text-light-white">
+            <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("RELATED SITES")}
             </h2>
             <ul className="text-gray-400 font-medium text-xs">
@@ -128,6 +122,7 @@ const Footer = () => {
             </ul>
           </div>
           <div
+            className="hidden xl:block"
             style={{
               borderLeft: "1px solid gray",
               height: "200px",
@@ -138,7 +133,7 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("ADDRESS")}
             </h2>
-            <ul className="text-gray-500 dark:text-gray-400 font-medium text-xs">
+            <ul className="text-gray-500 font-medium text-xs">
               <li className="mb-4">
                 {t(
                   `National Law University Meghalaya, Jingkieng, Nongthymmai, Umsawli, Shillong, Meghalaya 793018`
@@ -150,7 +145,6 @@ const Footer = () => {
             <h2 className="mb-6 text-sm font-semibold uppercase text-light-white">
               {t("SOCIAL")}
             </h2>
-
             <div className="flex mt-4 mr-5 space-x-5 rtl:space-x-reverse sm:justify-center md:mt-0">
               <a
                 href="#"
@@ -209,17 +203,14 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      <div className="">
-        <div className="px-4 py-3 border-t bg-dark-gray md:flex md:items-center md:justify-between">
-          <span className="text-sm text-light-white sm:text-center ml-5">
-            © 2023{" "}
-            <a href="#" className="hover:underline">
-              E-Meghalaya
-            </a>
-            . All Rights Reserved.
-          </span>
-        </div>
+      <div className="px-4 py-3 border-t bg-dark-gray md:flex md:items-center md:justify-between">
+        <span className="text-sm text-light-white sm:text-center ml-5">
+          © 2023{" "}
+          <a href="#" className="hover:underline">
+            E-Meghalaya
+          </a>
+          . All Rights Reserved.
+        </span>
       </div>
     </footer>
   );

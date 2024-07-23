@@ -160,10 +160,10 @@ const Shop = () => {
 
   return (
     <>
-      <div className="container  mt-[5rem] sm:mx-20 md:mx-[4rem] lg:mx-[4.3rem] xl:mx-[4.3rem] 2xl:mx-[4.3rem] 3xl:mx-[5rem] 4xl:mx-[5rem]">
+      <div className="container mt-[5rem] sm:mx-20 md:mx-[4rem] lg:mx-[2rem] xl:mx-[2rem] 2xl:mx-[4.3rem] 3xl:mx-[5rem] 4xl:mx-[5rem]">
         <div className="flex">
           <div
-            className="p-6 mt-2 mb-2 rounded-xl "
+            className="p-3 mt-2 mb-2 rounded-xl h-full"
             style={{
               borderRadius: "20px",
               background: "#ffe0e0",
@@ -191,7 +191,7 @@ const Shop = () => {
 
                     <label
                       htmlFor={`${c._id}-checkbox`}
-                      className="ml-2 text-sm font-medium text-black dark:text-gray-800"
+                      className="ml-2 text-sm font-medium text-black "
                     >
                       {c.name}
                     </label>
@@ -223,7 +223,7 @@ const Shop = () => {
 
                     <label
                       htmlFor={`${brand}-checkbox`}
-                      className="ml-2 text-sm font-medium text-black dark:text-gray-800"
+                      className="ml-2 text-sm font-medium text-black "
                     >
                       {brand}
                     </label>

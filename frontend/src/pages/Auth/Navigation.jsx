@@ -5,8 +5,10 @@ import {
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
   AiOutlineTranslation,
+  AiOutlineMenu,
+  AiOutlineClose,
 } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./Navigation.css";
@@ -32,7 +34,11 @@ const Navigation = () => {
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
 
-  const { data: suggestions, isFetching: isSearching, error: searchError } = useGetProductsQuery({ keyword: searchTerm }, { skip: !searchTerm });
+  const {
+    data: suggestions,
+    isFetching: isSearching,
+    error: searchError,
+  } = useGetProductsQuery({ keyword: searchTerm }, { skip: !searchTerm });
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -73,6 +79,12 @@ const Navigation = () => {
     setSearchTerm(e.target.value);
   };
 
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const toggleMobileDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+  };
+
   return (
     <div
       style={{ zIndex: 999 }}
@@ -99,10 +111,11 @@ const Navigation = () => {
         <input
           type="text"
           placeholder={t("Search")}
-          className="py-2 flex-grow px-4 w-96 h-9 rounded-3xl bg-light-white text-black focus:outline-none"
+          className="py-2 flex-grow px-4 w-96 h-9 rounded-3xl bg-light-white text-black focus:outline-none xs:w-24 sm:w-28 md:w-40"
           value={searchTerm}
           onChange={handleSearchChange}
         />
+
         {isSearching && <div>Loading...</div>}
         {searchError && <div>Error loading suggestions</div>}
         {searchTerm && suggestions?.products?.length > 0 && (
@@ -125,41 +138,49 @@ const Navigation = () => {
       </div>
 
       <div className="flex items-center space-x-6">
-        <div className="navigation-container">
-          <Link to="/shop" className="nav-link hover:text-dark-yellow">
-            <AiOutlineShopping size={26} />
-            <span className="nav-item-name">{t("Shop")}</span>
-          </Link>
-        </div>
-        <div className="navigation-container">
-          <Link to="/cart" className="nav-link relative hover:text-dark-yellow">
-            <AiOutlineShoppingCart size={26} />
-            <span className="nav-item-name">{t("Cart")}</span>
-            <div className="absolute top-0">
-              {cartItems.length > 0 && (
-                <span className="px-1 py-0 text-sm text-white bg-dark-green-normal rounded-full">
-                  {cartItems.reduce((a, c) => a + c.qty, 0)}
-                </span>
-              )}
+        <div className="flex">
+          <div className="navigation-container">
+            <Link
+              to="/shop"
+              className="nav-link hover:text-dark-yellow hidden lg:inline-flex"
+            >
+              <AiOutlineShopping size={26} />
+              <span className="nav-item-name">{t("Shop")}</span>
+            </Link>
+          </div>
+          <div className="navigation-container">
+            <Link
+              to="/cart"
+              className="nav-link relative hover:text-dark-yellow hidden lg:inline-flex"
+            >
+              <AiOutlineShoppingCart size={26} />
+              <span className="nav-item-name">{t("Cart")}</span>
+              <div className="absolute top-0">
+                {cartItems.length > 0 && (
+                  <span className="px-1 py-0 text-sm text-white bg-dark-green-normal rounded-full">
+                    {cartItems.reduce((a, c) => a + c.qty, 0)}
+                  </span>
+                )}
+              </div>
+            </Link>
+          </div>
+          <div className="navigation-container">
+            <Link
+              to="/favorite"
+              className="nav-link relative hover:text-dark-yellow hidden lg:inline-flex"
+            >
+              <FaHeart size={26} />
+              <span className="nav-item-name pl-1">{t("Favourites")}</span>
+              <FavoritesCount />
+            </Link>
+          </div>
+          <div className="navigation-container">
+            <div className="nav-link hover:text-dark-yellow hidden lg:inline-flex">
+              <AiOutlineTranslation size={26} />
+              <span className="nav-item-name">
+                <LanguageDropdown />
+              </span>
             </div>
-          </Link>
-        </div>
-        <div className="navigation-container">
-          <Link
-            to="/favorite"
-            className="nav-link relative hover:text-dark-yellow"
-          >
-            <FaHeart size={26} />
-            <span className="nav-item-name pl-1">{t("Favourites")}</span>
-            <FavoritesCount />
-          </Link>
-        </div>
-        <div className="navigation-container">
-          <div className="nav-link hover:text-dark-yellow">
-            <AiOutlineTranslation size={26} />
-            <span className="nav-item-name">
-              <LanguageDropdown />
-            </span>
           </div>
         </div>
 
@@ -339,6 +360,40 @@ const Navigation = () => {
             </div>
           </div>
         )}
+
+        <button
+          className="md:inline-flex sm:inline-flex h-10 w-10 items-center justify-center  text-light-white xl:hidden 2xl:hidden 3xl:hidden 4xl:hidden"
+          onClick={toggleMobileDropdown}
+        >
+          {isDropdownVisible && (
+            <div
+              className="dropdown-menu  text-dark-gray rounded w-40 flex flex-col"
+              style={{ textAlign: "left"}}
+            >
+              <Link to="/shop" className="dropdown-item">
+                <AiOutlineShopping size={20} className="mr-2 inline" />
+                Shop
+              </Link>
+              <Link to="/cart" className="dropdown-item">
+                <AiOutlineShoppingCart size={20} className="mr-2 inline" />
+                Cart
+              </Link>
+              <Link to="/favorite" className="dropdown-item">
+                <FaHeart size={20} className="mr-2 inline" />
+                Favourites
+              </Link>
+              <Link className="dropdown-item" to="">
+                <AiOutlineTranslation size={20} className="mr-2 inline" />
+                <LanguageDropdown />
+              </Link>
+            </div>
+          )}
+          {isDropdownVisible ? (
+            <AiOutlineClose size={20} />
+          ) : (
+            <AiOutlineMenu size={20} />
+          )}
+        </button>
       </div>
     </div>
   );

@@ -19,10 +19,10 @@ const ProductCard = ({ p }) => {
   };
 
   return (
-    <div className="w-[15rem] h-[22rem] relative bg-light-lightRed rounded-lg shadow  sm:ml-20 md:ml-[4rem] lg:ml-[4.3rem] xl:ml-[4.3rem] 2xl:ml-[4.3rem] 3xl:ml-[2rem] 4xl:ml-[2rem]">
+    <div className="w-[15rem] h-[22rem] relative bg-light-lightRed rounded-lg shadow  sm:ml-20 md:ml-[4rem] lg:ml-[4.3rem] xl:ml-[1rem] 2xl:ml-[4.3rem] 3xl:ml-[2rem] 4xl:ml-[2rem]">
       <section className="relative">
         <Link to={`/product/${p._id}`}>
-          <span className="absolute bottom-3 right-3 bg-red-100 text-dark-red-normal text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-dark-red-normal dark:text-white">
+          <span className="absolute bottom-3 right-3   text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full bg-dark-red-normal text-white">
             {p?.brand}
           </span>
           <img

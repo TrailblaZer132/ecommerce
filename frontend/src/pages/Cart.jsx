@@ -35,7 +35,7 @@ const Cart = () => {
         {cartItems.length === 0 ? (
           <div>
             {t("Your cart is empty")}{" "}
-            <Link to="/shop" className="text-dark-green-normal">
+            <Link to="/shop" className="text-dark-red-normal">
               {t("Go To Shop")}
             </Link>
           </div>

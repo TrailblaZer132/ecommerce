@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SellerRegistration = () => {
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    address: '',
-    pincode: '',
-    phoneNumber: '',
-    companyName: '',
+    email: "",
+    name: "",
+    address: "",
+    pincode: "",
+    phoneNumber: "",
+    companyName: "",
     aadhaar: null,
     pan: null,
   });
@@ -36,26 +36,27 @@ const SellerRegistration = () => {
 
   const checkIfAlreadyApplied = async (email) => {
     try {
-      const response = await axios.get(`/api/check-seller-registration?email=${email}`);
+      const response = await axios.get(
+        `/api/check-seller-registration?email=${email}`
+      );
       if (response.data.applied) {
         setAlreadyApplied(true);
       }
     } catch (error) {
-      toast.error('Error checking registration status');
+      toast.error("Error checking registration status");
     }
   };
 
   const fetchPincodes = async () => {
     try {
-      const response = await axios.get('/api/users/pincodes');
+      const response = await axios.get("/api/users/pincodes");
       const pincodes = response.data;
       setPincodes(pincodes);
     } catch (error) {
       console.log(error);
-      toast.error('Error fetching pincodes');
+      toast.error("Error fetching pincodes");
     }
   };
-  
 
   const handleChange = (e) => {
     setFormData({
@@ -79,11 +80,11 @@ const SellerRegistration = () => {
     });
 
     try {
-      const response = await axios.post('/api/seller-registrations', data);
-      toast.success('Your application was sent successfully!');
+      const response = await axios.post("/api/seller-registrations", data);
+      toast.success("Your application was sent successfully!");
       navigate("/");
     } catch (error) {
-      toast.error('Already Applied or there is something went wrong');
+      toast.error("Already Applied or there is something went wrong");
     }
   };
   console.log(userInfo);
@@ -92,17 +93,23 @@ const SellerRegistration = () => {
     <div className="container xl:mx-[9rem] sm:mx-[0] mt-[5rem]">
       {alreadyApplied ? (
         <div className="max-w-md mx-auto text-center">
-          <p className="text-xl font-semibold">YOU HAVE ALREADY APPLIED. PLEASE WAIT FOR CONFIRMATION, THANK YOU</p>
+          <p className="text-xl font-semibold">
+            YOU HAVE ALREADY APPLIED. PLEASE WAIT FOR CONFIRMATION, THANK YOU
+          </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto" encType="multipart/form-data">
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-md mx-auto"
+          encType="multipart/form-data"
+        >
           {/* Email */}
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="email"
               name="email"
               id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-600 appearance-none    focus:outline-none focus:ring-0  peer"
               placeholder=" "
               required
               value={formData.email}
@@ -111,7 +118,7 @@ const SellerRegistration = () => {
             />
             <label
               htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0   peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Email address
             </label>
@@ -121,7 +128,7 @@ const SellerRegistration = () => {
             <input
               type="text"
               name="name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600  focus:outline-none focus:ring-0  peer"
               placeholder=" "
               required
               value={formData.name}
@@ -129,7 +136,7 @@ const SellerRegistration = () => {
             />
             <label
               htmlFor="name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Name
             </label>
@@ -139,7 +146,7 @@ const SellerRegistration = () => {
             <input
               type="text"
               name="address"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               placeholder=" "
               required
               value={formData.address}
@@ -147,7 +154,7 @@ const SellerRegistration = () => {
             />
             <label
               htmlFor="address"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Address
             </label>
@@ -156,19 +163,23 @@ const SellerRegistration = () => {
           <div className="relative z-0 w-full mb-5 group">
             <select
               name="pincode"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               required
               value={formData.pincode}
               onChange={handleChange}
             >
-              <option value="" disabled>Select your Zone</option>
+              <option value="" disabled>
+                Select your Zone
+              </option>
               {pincodes.map((pincode, index) => (
-                <option key={index} value={pincode}>{pincode}</option>
+                <option key={index} value={pincode}>
+                  {pincode}
+                </option>
               ))}
             </select>
             <label
               htmlFor="pincode"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Zone
             </label>
@@ -178,7 +189,7 @@ const SellerRegistration = () => {
             <input
               type="text"
               name="phoneNumber"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               placeholder=" "
               required
               value={formData.phoneNumber}
@@ -186,7 +197,7 @@ const SellerRegistration = () => {
             />
             <label
               htmlFor="phoneNumber"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Phone Number
             </label>
@@ -196,7 +207,7 @@ const SellerRegistration = () => {
             <input
               type="text"
               name="companyName"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               placeholder=" "
               required
               value={formData.companyName}
@@ -204,7 +215,7 @@ const SellerRegistration = () => {
             />
             <label
               htmlFor="companyName"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Company Name
             </label>
@@ -214,13 +225,13 @@ const SellerRegistration = () => {
             <input
               type="file"
               name="aadhaar"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               required
               onChange={handleFileChange}
             />
             <label
               htmlFor="aadhaar"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               Aadhaar Upload
             </label>
@@ -230,13 +241,13 @@ const SellerRegistration = () => {
             <input
               type="file"
               name="pan"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-dark-red-normal focus:outline-none focus:ring-0 focus:border-dark-red-hover peer"
+              className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               required
               onChange={handleFileChange}
             />
             <label
               htmlFor="pan"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-hover peer-focus:dark:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
               PAN Upload
             </label>

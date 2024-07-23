@@ -49,8 +49,8 @@ const AplicationList = () => {
       <br />
       <br />
       <br />
-      <table className="w-full text-sm text-left rtl:text-right text-dark-gray dark:text-dark-gray">
-        <thead className="text-xs text-light-white uppercase bg-white dark:bg-dark-gray dark:text-light-white">
+      <table className="w-full text-sm text-left rtl:text-right text-dark-gray">
+        <thead className="text-xs  uppercase bg-dark-gray text-light-white">
           <tr>
             <th scope="col" className="px-6 py-3">
               Email
@@ -85,11 +85,11 @@ const AplicationList = () => {
           {filteredSellers.map((seller) => (
             <tr
               key={seller._id}
-              className="odd:bg-white even:dark:bg-light-red even:bg-light-gray odd:dark:bg-light-lightRed border-b dark:border-gray-700"
+              className=" even:bg-light-red  odd:bg-light-lightRed border-b border-gray-700"
             >
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-dark-black whitespace-nowrap dark:text-dark-gray"
+                className="px-6 py-4 font-medium text-dark-black whitespace-nowrap"
               >
                 {seller.email}
               </th>
