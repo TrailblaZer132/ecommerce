@@ -65,10 +65,10 @@ const Register = () => {
     <div className="register-section">
       <div className="register-container">
         <div className="register-form">
-          <h1>{t("Create Account")}</h1>
+          <h1>{t("Register")}</h1>
           {!isOtpSent ? (
             <form onSubmit={submitHandler}>
-              <label htmlFor="name">{t("User Name")}</label>
+              <label htmlFor="name">{t("Name")}</label>
               <input
                 type="text"
                 id="name"
@@ -123,7 +123,7 @@ const Register = () => {
           )}
 
           <div className="pt-3">
-            <h2>{t("Already have an account?")} <Link to={redirect ? `/login?redirect=${redirect}` : "/login"} className="text-red-500 underline">
+            <h2>{t("Already have an account")}? <Link to={redirect ? `/login?redirect=${redirect}` : "/login"} className="text-red-500 underline">
               {t("Login")}
             </Link></h2>
           </div>

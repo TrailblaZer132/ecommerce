@@ -21,8 +21,7 @@ const Home = () => {
 
   return (
     <>
-    
-      <div className="flex justify-center items-center mt-[2.5rem]" >
+      <div className="flex justify-center items-center mt-[2.5rem]">
         <Categories />
       </div>
       <Slider />
@@ -41,7 +40,10 @@ const Home = () => {
               <Slide products={data.products} title={t("Top Selection")} />
             </div>
             <div>
-              <Slide products={data.products} title={t("Recomended for You")} />
+              <Slide
+                products={data.products}
+                title={t("Recommended for You")}
+              />
             </div>
             <div>
               <Slide products={data.products} title={t("Special Products")} />

@@ -8,8 +8,11 @@ import ProgressSteps from "../../components/ProgressSteps";
 import Loader from "../../components/Loader";
 import { useCreateOrderMutation, useGetPaypalClientIdQuery, usePayOrderMutation } from "../../redux/api/orderApiSlice";
 import { clearCartItems } from "../../redux/features/cart/cartSlice";
+import { useTranslation } from "react-i18next";
+
 
 const PlaceOrder = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -122,17 +125,17 @@ const PlaceOrder = () => {
       <ProgressSteps step1 step2 step3 />
       <div className="container mx-auto mt-8">
         {cart.cartItems.length === 0 ? (
-          <Message>Your cart is empty</Message>
+          <Message>{t("Your cart is empty")}</Message>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <td className="px-1 py-2 text-left align-top">Image</td>
-                  <td className="px-1 py-2 text-left">Product</td>
-                  <td className="px-1 py-2 text-left">Quantity</td>
-                  <td className="px-1 py-2 text-left">Price</td>
-                  <td className="px-1 py-2 text-left">Total</td>
+                  <td className="px-1 py-2 text-left align-top">{t("Image")}</td>
+                  <td className="px-1 py-2 text-left">{t("Product")}</td>
+                  <td className="px-1 py-2 text-left">{t("Quantity")}</td>
+                  <td className="px-1 py-2 text-left">{t("Price")}</td>
+                  <td className="px-1 py-2 text-left">{t("Total")}</td>
                 </tr>
               </thead>
               <tbody>
@@ -163,23 +166,23 @@ const PlaceOrder = () => {
         )}
 
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-5">Order Summary</h2>
+          <h2 className="text-2xl font-semibold mb-5">{t("Order Summary")}</h2>
           <div className="flex justify-between flex-wrap p-8 bg-light-lightRed rounded-xl">
             <ul className="text-lg">
               <li>
-                <span className="font-semibold mb-4">Items </span>
+                <span className="font-semibold mb-4">{t("Items")} </span>
                 {cart.cartItems.reduce((acc, item) => acc + item.qty, 0)}
               </li>
               <li>
-                <span className="font-semibold mb-4">Shipping </span> ₹
+                <span className="font-semibold mb-4">{t("Shipping")} </span> ₹
                 {cart.shippingPrice}
               </li>
               <li>
-                <span className="font-semibold mb-4">Tax </span> ₹
+                <span className="font-semibold mb-4">{t("Tax")} </span> ₹
                 {cart.taxPrice}
               </li>
               <li>
-                <span className="font-semibold mb-4">Total </span> ₹
+                <span className="font-semibold mb-4">{t("Total")} </span> ₹
                 {cart.totalPrice}
               </li>
             </ul>
@@ -187,19 +190,19 @@ const PlaceOrder = () => {
             {error && <Message variant="danger">{error.data.message}</Message>}
 
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Shipping</h2>
+              <h2 className="text-2xl font-semibold mb-4">{t("Shipping")}</h2>
               <p>
-              <p><strong>Name </strong> {cart.shippingAddress.fullname}</p>
-              <p><strong>Contact </strong> {cart.shippingAddress.phone}</p>
-                <strong>Address </strong> {cart.shippingAddress.address},{" "}
+              <p><strong>{t("Name")} </strong> {cart.shippingAddress.fullname}</p>
+              <p><strong>{t("Contact")} </strong> {cart.shippingAddress.phone}</p>
+                <strong>{t("Address")} </strong> {cart.shippingAddress.address},{" "}
                 {cart.shippingAddress.city} {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
               </p>
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold mb-4">Payment Method</h2>
-              <strong>Method </strong> {cart.paymentMethod}
+              <h2 className="text-2xl font-semibold mb-4">{t("Payment Method")}</h2>
+              <strong>{t("Method")} </strong> {cart.paymentMethod}
             </div>
           </div>
           <div>

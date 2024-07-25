@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 const SellerRegistration = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -94,7 +96,7 @@ const SellerRegistration = () => {
       {alreadyApplied ? (
         <div className="max-w-md mx-auto text-center">
           <p className="text-xl font-semibold">
-            YOU HAVE ALREADY APPLIED. PLEASE WAIT FOR CONFIRMATION, THANK YOU
+            {t("YOU HAVE ALREADY APPLIED. PLEASE WAIT FOR CONFIRMATION, THANK YOU")}
           </p>
         </div>
       ) : (
@@ -120,7 +122,7 @@ const SellerRegistration = () => {
               htmlFor="floating_email"
               className="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0   peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Email address
+              {t("Email Address")}
             </label>
           </div>
           {/* Name */}
@@ -138,7 +140,7 @@ const SellerRegistration = () => {
               htmlFor="name"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Name
+              {t("Name")}
             </label>
           </div>
           {/* Address */}
@@ -156,20 +158,20 @@ const SellerRegistration = () => {
               htmlFor="address"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Address
+              {t("Address")}
             </label>
           </div>
           {/* Pincode Dropdown */}
           <div className="relative z-0 w-full mb-5 group">
             <select
-              name="pincode"
+              name="zone"
               className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               required
               value={formData.pincode}
               onChange={handleChange}
             >
               <option value="" disabled>
-                Select your Zone
+                {t("Select your Zone")}
               </option>
               {pincodes.map((pincode, index) => (
                 <option key={index} value={pincode}>
@@ -181,7 +183,7 @@ const SellerRegistration = () => {
               htmlFor="pincode"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Zone
+              {t("Zone")}
             </label>
           </div>
           {/* Phone Number */}
@@ -199,7 +201,7 @@ const SellerRegistration = () => {
               htmlFor="phoneNumber"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Phone Number
+              {t("Phone Number")}
             </label>
           </div>
           {/* Company Name */}
@@ -217,7 +219,7 @@ const SellerRegistration = () => {
               htmlFor="companyName"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Company Name
+              {t("Company Name")}
             </label>
           </div>
           {/* Aadhaar Upload */}
@@ -233,7 +235,7 @@ const SellerRegistration = () => {
               htmlFor="aadhaar"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Aadhaar Upload
+              {t("Aadhaar Upload")}
             </label>
           </div>
           {/* PAN Upload */}
@@ -249,14 +251,14 @@ const SellerRegistration = () => {
               htmlFor="pan"
               className="peer-focus:font-medium absolute text-sm  text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0  peer-focus:text-dark-red-normal peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              PAN Upload
+              {t("PAN Upload")}
             </label>
           </div>
           <button
             type="submit"
             className="w-full text-white bg-dark-red-normal hover:bg-dark-red-hover focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center "
           >
-            Submit
+            {t("Submit")}
           </button>
         </form>
       )}

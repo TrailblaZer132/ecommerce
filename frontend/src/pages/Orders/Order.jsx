@@ -11,8 +11,11 @@ import {
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
 } from "../../redux/api/orderApiSlice";
+import { useTranslation } from "react-i18next";
+
 
 const Order = () => {
+  const { t } = useTranslation();
   const { id: orderId } = useParams();
 
   const {
@@ -96,17 +99,17 @@ const Order = () => {
       <div className="md:w-2/3 pr-4">
         <div className="border gray-300 mt-5 pb-4 mb-5">
           {order.orderItems.length === 0 ? (
-            <Messsage>Order is empty</Messsage>
+            <Messsage>{t("Order is empty")}</Messsage>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-[80%]">
                 <thead className="border-b-2">
                   <tr>
-                    <th className="p-2">Image</th>
-                    <th className="p-2">Product</th>
-                    <th className="p-2 text-center">Quantity</th>
-                    <th className="p-2">Unit Price</th>
-                    <th className="p-2">Total</th>
+                    <th className="p-2">{t("Image")}</th>
+                    <th className="p-2">{t("Product")}</th>
+                    <th className="p-2 text-center">{t("Quantity")}</th>
+                    <th className="p-2">{t("Unit Price")}</th>
+                    <th className="p-2">{t("Total")}</th>
                   </tr>
                 </thead>
 
@@ -141,53 +144,53 @@ const Order = () => {
 
       <div className="md:w-1/3">
         <div className="mt-5 border-light-lightRed pb-4 mb-4">
-          <h2 className="text-xl font-bold mb-2">Shipping</h2>
+          <h2 className="text-xl font-bold mb-2">{t("Shipping")}</h2>
           <p className="mb-4 mt-4">
-            <strong className="text-dark-red-normal">Order</strong> {order._id}
+            <strong className="text-dark-red-normal">{t("Order")}</strong> {order._id}
           </p>
 
           <p className="mb-4">
-            <strong className="text-dark-red-normal">Name</strong>{" "}
+            <strong className="text-dark-red-normal">{t("Name")}</strong>{" "}
             {order.user.username}
           </p>
 
           <p className="mb-4">
-            <strong className="text-dark-red-normal">Email</strong> {order.user.email}
+            <strong className="text-dark-red-normal">{t("Email Address")}</strong> {order.user.email}
           </p>
 
           <p className="mb-4">
-            <strong className="text-dark-red-normal">Address</strong>{" "}
+            <strong className="text-dark-red-normal">{t("Address")}</strong>{" "}
             {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
             {order.shippingAddress.postalCode}, {order.shippingAddress.country}
           </p>
 
           <p className="mb-4">
-            <strong className="text-dark-red-normal">Method</strong>{" "}
+            <strong className="text-dark-red-normal">{t("Method")}</strong>{" "}
             {order.paymentMethod}
           </p>
 
           {order.isPaid ? (
-            <Messsage variant="success">Paid on {order.paidAt}</Messsage>
+            <Messsage variant="success">{t("Paid on")} {order.paidAt}</Messsage>
           ) : (
-            <Messsage variant="danger">Not paid</Messsage>
+            <Messsage variant="danger">{t("Not paid")}</Messsage>
           )}
         </div>
 
-        <h2 className="text-xl font-bold mb-2 mt-[3rem]">Order Summary</h2>
+        <h2 className="text-xl font-bold mb-2 mt-[3rem]">{t("Order Summary")}</h2>
         <div className="flex justify-between mb-2">
-          <span>Items</span>
+          <span>{t("Items")}</span>
           <span>₹ {order.itemsPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
-          <span>Shipping</span>
+          <span>{t("Shipping")}</span>
           <span>₹ {order.shippingPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
-          <span>Tax</span>
+          <span>{t("Tax")}</span>
           <span>₹ {order.taxPrice}</span>
         </div>
         <div className="flex justify-between mb-2">
-          <span>Total</span>
+          <span>{t("Total")}</span>
           <span>₹ {order.totalPrice}</span>
         </div>
 
@@ -218,7 +221,7 @@ const Order = () => {
               className="bg-dark-red-normal text-white w-full py-2"
               onClick={deliverHandler}
             >
-              Mark As Delivered
+              {t("Mark As Delivered")}
             </button>
           </div>
         )}

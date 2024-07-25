@@ -1,8 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 const ProgressSteps = ({ step1, step2, step3 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex justify-center items-center space-x-4 mt-[5rem]">
       <div className={`${step1 ? "text-dark-red-normal" : "text-gray-300"}`}>
-        <span className="ml-2">Login</span>
+        <span className="ml-2">{t("Login")}</span>
         <div className="mt-2 text-lg text-center">🔴</div>
       </div>
 
@@ -12,7 +15,7 @@ const ProgressSteps = ({ step1, step2, step3 }) => {
           <div
             className={`${step1 ? "text-dark-red-normal" : "text-gray-300"}`}
           >
-            <span>Shipping</span>
+            <span>{t("Shipping")}</span>
             <div className="mt-2 text-lg text-center">🔴</div>
           </div>
         </>
@@ -25,12 +28,8 @@ const ProgressSteps = ({ step1, step2, step3 }) => {
           ""
         )}
 
-        <div
-          className={`${
-            step3 ? "text-dark-red-normal" : "text-dark-gray"
-          }`}
-        >
-          <span className={`${!step3 ? "ml-[10rem]" : ""}`}>Summary</span>
+        <div className={`${step3 ? "text-dark-red-normal" : "text-dark-gray"}`}>
+          <span className={`${!step3 ? "ml-[10rem]" : ""}`}>{t("Summary")}</span>
           {step1 && step2 && step3 ? (
             <div className="mt-2 text-lg text-center">🔴</div>
           ) : (

@@ -6,7 +6,7 @@ import {
 } from "../../redux/api/usersApiSlice";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import AdminMenu from "../Admin/AdminMenu";
+// import AdminMenu from "../Admin/AdminMenu";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
@@ -38,7 +38,7 @@ const AdminList = () => {
 
   return (
     <div className="p-4 mt-[5rem]">
-      <AdminMenu />
+      {/* <AdminMenu /> */}
       <h1 className="text-2xl font-semibold mb-4 text-center p-4">
         {t("Admin List")}
       </h1>

@@ -5,6 +5,7 @@ import { useGetFilteredProductsQuery } from "../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../redux/api/categoryApiSlice";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { useTranslation } from "react-i18next";
 
 import {
   setCategories,
@@ -16,6 +17,7 @@ import Loader from "../components/Loader";
 import ProductCard from "./Products/ProductCard.jsx";
 
 const Shop = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const { categories, products, checked, checkedBrands, radio } = useSelector(
@@ -171,7 +173,7 @@ const Shop = () => {
             }}
           >
             <h2 className="h4 text-center py-2 font-semibold mb-2">
-              Filter by Categories
+              {t("Filter by Categories")}
             </h2>
 
             <div
@@ -201,7 +203,7 @@ const Shop = () => {
             </div>
 
             <h2 className="h4 text-center py-2 font-semibold mb-2">
-              Filter by Brands
+              {t("Filter by Brands")}
             </h2>
 
             <div
@@ -233,7 +235,7 @@ const Shop = () => {
             </div>
 
             <h2 className="h4 text-center py-2 font-semibold mb-2">
-              Filter by Price
+              {t("Filter by Price")}
             </h2>
 
             <div className="p-5">
@@ -257,13 +259,13 @@ const Shop = () => {
                 className="w-full border border-dark-red-hover text-dark-red-normal rounded-lg my-4 hover:bg-dark-red-hover hover:text-white"
                 onClick={resetFilters}
               >
-                Reset
+                {t("Reset")}
               </button>
             </div>
           </div>
 
           <div className="p-6 w-4/5">
-            <h2 className="h4 text-center mb-4">{products?.length} Products</h2>
+            <h2 className="h4 text-center mb-4">{products?.length} {t("Products")}</h2>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 4xl:grid-cols-7 gap-20">
               {products.length === 0 ? (
                 <Loader />

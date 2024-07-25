@@ -6,8 +6,12 @@ import {
   savePaymentMethod,
 } from "../../redux/features/cart/cartSlice";
 import ProgressSteps from "../../components/ProgressSteps";
+import { useTranslation } from "react-i18next";
+
+
 
 const Shipping = () => {
+  const { t } = useTranslation();
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -44,75 +48,81 @@ const Shipping = () => {
       <ProgressSteps step1 step2 />
       <div className="mt-[2rem] flex justify-around items-center flex-wrap">
         <form onSubmit={submitHandler} className="w-[40rem]">
-          <h1 className="text-2xl font-semibold mb-4">Shipping</h1>
+          <h1 className="text-2xl font-semibold mb-4">{t("Shipping")}</h1>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">Full Name  (First and Last name)</label>
+            <label className="block text-dark-gray mb-2">
+              {t("Full Name  (First and Last name)")}
+            </label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter Your Name"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={fullname}
               required
               onChange={(e) => setfulname(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">Address</label>
+            <label className="block text-dark-gray mb-2">{t("Address")}</label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter address"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={address}
               required
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">City</label>
+            <label className="block text-dark-gray mb-2">{t("City")}</label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter city"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={city}
               required
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">Phone Number</label>
+            <label className="block text-dark-gray mb-2">
+              {t("Phone Number")}
+            </label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter Phone Number"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={phone}
               required
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">Postal Code</label>
+            <label className="block text-dark-gray mb-2">
+              {t("Postal Code")}
+            </label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter postal code"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={postalCode}
               required
               onChange={(e) => setPostalCode(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray mb-2">Country</label>
+            <label className="block text-dark-gray mb-2">{t("Country")}</label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
-              placeholder="Enter country"
+              className="w-full p-2 border rounded outline-none"
+              placeholder=""
               value={country}
               required
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-dark-gray">Select Method</label>
+            <label className="block text-dark-gray">{t("Select Method")}</label>
             <div className="mt-2">
               <label className="inline-flex items-center">
                 <input
@@ -133,7 +143,7 @@ const Shipping = () => {
             className="bg-dark-red-normal text-light-white py-2 px-4 rounded-full text-lg w-full"
             type="submit"
           >
-            Continue
+            {t("Continue")}
           </button>
         </form>
       </div>

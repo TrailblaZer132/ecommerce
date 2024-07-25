@@ -7,8 +7,10 @@ import { useRegisterAdminMutation } from "../redux/api/usersApiSlice";
 import { setCredentials } from "../redux/features/auth/authSlice";
 import Loader from "../components/Loader";
 import "../pages/Auth/register.css"; // Assuming you want to use the same styling
+import { useTranslation } from "react-i18next";
 
 const AdminRegistration = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -42,10 +44,10 @@ const AdminRegistration = () => {
     <div className="register-section">
       <section className="register-container">
         <div className="register-form">
-          <h1>Register Admin</h1>
+          <h1>{t("Admin Registration")}</h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{t("Email Address")}</label>
               <input
                 type="email"
                 name="email"
@@ -55,7 +57,7 @@ const AdminRegistration = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">{t("Name")}</label>
               <input
                 type="text"
                 name="username"
@@ -65,7 +67,7 @@ const AdminRegistration = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">{t("Password")}</label>
               <input
                 type="password"
                 name="password"
@@ -75,7 +77,7 @@ const AdminRegistration = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="pincode">Pincode</label>
+              <label htmlFor="pincode">{t("Zone")}</label>
               <input
                 type="text"
                 name="pincode"
@@ -87,7 +89,7 @@ const AdminRegistration = () => {
             {isLoading && <Loader />}
             <br />
             <br />
-            <button type="submit">Register Admin</button>
+            <button type="submit">{t("Register")}</button>
           </form>
         </div>
       </section>

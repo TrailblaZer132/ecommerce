@@ -191,7 +191,7 @@ const totalReviewsWithComments = product?.reviews?.filter((review) => review.com
                         marginLeft: "0.5rem",
                       }}
                     >
-                      {discountPercent}% off
+                      {discountPercent} {t("% off")}
                     </span>
                   </p>
                 </div>
@@ -199,25 +199,25 @@ const totalReviewsWithComments = product?.reviews?.filter((review) => review.com
               <div className="flex items-center justify-between w-[25rem]">
                 <div className="one">
                   <h1 className="flex items-center mb-6 font-semibold">
-                    <FaStore className="mr-2 text-gray-700" /> Brand{" "}
+                    <FaStore className="mr-2 text-gray-700" /> {t("Brand")}{" "}
                     <h2 className="font-normal ml-2">{product.brand}</h2>
                   </h1>
                 </div>
 
                 <div className="two">
                   <h1 className="flex items-center mb-6 w-[10rem] font-semibold">
-                    <FaBox className="mr-2 text-gray-700" /> In Stock{" "}
+                    <FaBox className="mr-2 text-gray-700" /> {t("In Stock")}{" "}
                     <h2 className="font-normal ml-2">{product.countInStock}</h2>
                   </h1>
                 </div>
               </div>
 
               <div className="mb-4">
-                <span className="font-bold text-dark-gray">Ratings</span>
+                <span className="font-bold text-dark-gray">{t("Ratings")}</span>
                 <div>
                   <Ratings
                     value={product.rating}
-                     text={`${totalRatings} ${totalRatings > 1 ? "ratings" : "rating"} and ${totalReviewsWithComments} ${totalReviewsWithComments > 1 ? "people commented" : "comment"}`}                  />
+                     text={t(`${`${totalRatings} ${totalRatings > 1 ? "Ratings" : "Rating"} and ${totalReviewsWithComments} ${totalReviewsWithComments > 1 ? "people commented" : "comment"}`}`)}                  />
                 </div>
               </div>
               <br />
@@ -225,7 +225,7 @@ const totalReviewsWithComments = product?.reviews?.filter((review) => review.com
               <br />
               <div className="mb-4">
                 <span className="font-bold text-dark-gray">
-                  Product Details
+                  {t("Product Details")}
                 </span>
                 {product && product.detail && (
                   <table className="table-auto border-hidden mt-2">

@@ -144,7 +144,7 @@ const ProductList = () => {
 
           <div className="mb-3">
             <label className="border text-dark-black px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
-              {t("Upload Images")}
+              {t("Upload Image")}
 
               <input
                 type="file"

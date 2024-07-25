@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import StarRating from "../../components/StarRating";
 import { useGetTopProductsQuery } from "../../redux/api/productApiSlice";
 import Loader from "../../components/Loader";
+import {useTranslation} from "react-i18next";
 
 const ProductTabs = ({
   loadingProductReview,
@@ -14,6 +15,7 @@ const ProductTabs = ({
   setComment,
   product,
 }) => {
+  const { t } = useTranslation();
   const { data, isLoading } = useGetTopProductsQuery();
   const [activeTab, setActiveTab] = useState(1);
   const [error, setError] = useState('');
@@ -56,14 +58,14 @@ const ProductTabs = ({
                 {error && <div className="text-red-500">{error}</div>}
                 <div className="my-2">
                   <label htmlFor="rating" className="block text-xl mb-2 font-semibold">
-                    Your Rating
+                    {t("Your Rating")}
                   </label>
                   <StarRating rating={rating} setRating={setRating} />
                 </div>
 
                 <div className="my-2">
                   <label htmlFor="comment" className="block text-xl mb-2 font-semibold" >
-                    Your Comment
+                    {t("Your Comment")}
                   </label>
                   <textarea
                     id="comment"
@@ -78,7 +80,7 @@ const ProductTabs = ({
                   disabled={loadingProductReview}
                   className="bg-dark-red-normal text-white py-2 px-4 rounded-lg hover:bg-dark-red-hover"
                 >
-                  Submit
+                  {t("Submit")}
                 </button>
               </form>
             ) : (
@@ -87,7 +89,7 @@ const ProductTabs = ({
               </p>
             )}
             <div className="mt-8 w-full overflow-x-scroll">
-              <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("Customer Reviews")}</h2>
               {product.reviews && product.reviews.length > 0 ? (
                 <div>
                   {product.reviews
@@ -110,7 +112,7 @@ const ProductTabs = ({
                     ))}
                 </div>
               ) : (
-                <p>No Reviews</p>
+                <p>{t("No Reviews")}</p>
               )}
             </div>
           </div>

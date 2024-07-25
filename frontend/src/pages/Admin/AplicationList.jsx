@@ -1,9 +1,20 @@
-import { useSelector } from 'react-redux';
-import { useGetSellerApplicationsQuery, useToggleSellerStatusMutation, useAcceptSellerMutation } from '../../redux/api/sellerApplicationsApiSlice.js';
+import { useSelector } from "react-redux";
+import {
+  useGetSellerApplicationsQuery,
+  useToggleSellerStatusMutation,
+  useAcceptSellerMutation,
+} from "../../redux/api/sellerApplicationsApiSlice.js";
+import { useTranslation } from "react-i18next";
 
 const AplicationList = () => {
+  const { t } = useTranslation();
   const { userInfo } = useSelector((state) => state.auth);
-  const { data: sellers, error, isLoading, refetch } = useGetSellerApplicationsQuery();
+  const {
+    data: sellers,
+    error,
+    isLoading,
+    refetch,
+  } = useGetSellerApplicationsQuery();
   const [toggleSellerStatus] = useToggleSellerStatusMutation();
   const [acceptSeller] = useAcceptSellerMutation();
 
@@ -35,12 +46,13 @@ const AplicationList = () => {
       console.error("Failed to toggle and accept seller: ", err);
     }
   };
-  
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading seller applications</div>;
+  if (isLoading) return <div>{t("Loading")}</div>;
+  if (error) return <div>{t("Error loading seller applications")}</div>;
 
-  const filteredSellers = sellers.filter((seller) => seller.pincode === userInfo.pincode);
+  const filteredSellers = sellers.filter(
+    (seller) => seller.pincode === userInfo.pincode
+  );
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -53,31 +65,31 @@ const AplicationList = () => {
         <thead className="text-xs  uppercase bg-dark-gray text-light-white">
           <tr>
             <th scope="col" className="px-6 py-3">
-              Email
+              {t("Email Address")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Name
+              {t("Name")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Address
+              {t("Address")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Pincode
+              {t("Zone")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Phone Number
+              {t("Phone Number")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Company Name
+              {t("Company Name")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Aadhaar
+              {t("Aadhaar")}
             </th>
             <th scope="col" className="px-6 py-3">
-              PAN
+              {t("PAN")}
             </th>
             <th scope="col" className="px-6 py-3">
-              Actions
+              {t("Actions")}
             </th>
           </tr>
         </thead>
@@ -102,18 +114,18 @@ const AplicationList = () => {
                 <a
                   href={`/uploadsDOC/${seller.aadhaar}`}
                   download
-                  className="font-medium text-dark-gray  hover:underline"
+                  className="font-medium text-dark-red-normal  hover:underline"
                 >
-                  Download Aadhaar
+                  {t("Download Aadhaar")}
                 </a>
               </td>
               <td className="px-6 py-4">
                 <a
                   href={`/uploadsDOC/${seller.pan}`}
                   download
-                  className="font-medium text-dark-gray hover:underline"
+                  className="font-medium text-dark-red-normal hover:underline"
                 >
-                  Download PAN
+                  {t("Download PAN")}
                 </a>
               </td>
               <td className="px-6 py-4">
@@ -121,9 +133,9 @@ const AplicationList = () => {
                   onClick={() =>
                     handleToggleAndAcceptSeller(seller.email, seller._id)
                   }
-                  className="font-medium text-dark-gray hover:underline"
+                  className="font-medium text-dark-button-normal hover:underline hover:text-dark-button-hover"
                 >
-                  {seller.isSeller ? "Revoke Seller" : "Approve Seller"}
+                  {t(`${seller.isSeller ? "Revoke Seller" : "Approve Seller"}`)}
                 </button>
               </td>
             </tr>
