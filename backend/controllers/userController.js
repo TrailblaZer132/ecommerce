@@ -4,6 +4,13 @@ import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
 import SellerRegistration from "../models/registrationModel.js";
+import nodemailer from "nodemailer";
+import crypto from "crypto";
+import jwt from 'jsonwebtoken';
+
+
+
+let userOTPStore = {};  // Temporary storage for user OTPs
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -19,37 +26,103 @@ const createUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
+  // Generate OTP
+  const otp = crypto.randomBytes(2).toString('hex');
+
+  // Use Nodemailer to send email
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Email Verification OTP',
+    html: `<h2>Email Verification</h2>
+           <p>Your OTP for verification is: <strong>${otp}</strong></p>`
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error('Error sending email: ', err);
+      res.status(500).send("Error sending verification email");
+      return;
+    }
+
+    // Temporarily store user details and OTP
+    userOTPStore[email] = { username, hashedPassword, otp, createdAt: Date.now() };
+    
+    console.log('Email sent: ', info.response);
+    res.status(200).json({
+      message: 'OTP sent to your email. Please verify your OTP.'
+    });
+  });
+});
+
+const verifyOTP = asyncHandler(async (req, res) => {
+  const { email, otp } = req.body;
+  const userData = userOTPStore[email];
+
+  if (!userData) {
+    return res.status(400).send('Invalid OTP or email.');
+  }
+
+  const { username, hashedPassword, otp: storedOtp, createdAt } = userData;
+
+  // Check if OTP is correct and not expired (5 minutes expiry)
+  const isOTPValid = storedOtp === otp && (Date.now() - createdAt) < 300000;
+
+  if (!isOTPValid) {
+    return res.status(400).send('Invalid or expired OTP.');
+  }
+
   const newUser = new User({ username, email, password: hashedPassword });
+  await newUser.save();
+
+  // Remove user from OTP store after successful verification
+  delete userOTPStore[email];
+
+  res.status(201).json({
+    message: 'User registered successfully and verified.',
+  });
+});
+
+
+const verifyEmail = async (req, res) => {
+  const token = req.query.token;
+
+  if (!token) {
+    return res.status(400).send('Invalid token');
+  }
 
   try {
-    await newUser.save();
-    createToken(res, newUser._id);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
 
-    res.status(201).json({
-      _id: newUser._id,
-      username: newUser.username,
-      email: newUser.email,
-      isAdmin: newUser.isAdmin,
-      isSeller: newUser.isSeller,
-      isSuperAdmin: newUser.isSuperAdmin,
-      pincode: newUser.pincode,
-    });
+    if (!user) {
+      return res.status(400).send('Invalid token');
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    res.send('Email verified successfully');
   } catch (error) {
-    res.status(400);
-    throw new Error("Invalid user data");
+    res.status(400).send('Invalid token');
   }
-});
+};
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
 
-  if (existingUser) {
-    const isPasswordValid = await bcrypt.compare(
-      password,
-      existingUser.password
-    );
+  if (existingUser ) {
+    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
 
     if (isPasswordValid) {
       createToken(res, existingUser._id);
@@ -66,6 +139,8 @@ const loginUser = asyncHandler(async (req, res) => {
       return;
     }
   }
+
+  res.status(401).send("Invalid email or password, or email not verified");
 });
 
 const logoutCurrentUser = asyncHandler(async (req, res) => {
@@ -319,4 +394,17 @@ export {
   getAllPincodes,
   deleteAdminAndResetSellers,
   getAllAdmins,
+  verifyOTP,
+  verifyEmail,
 };
+
+
+
+
+
+
+
+
+
+
+

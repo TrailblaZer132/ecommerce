@@ -106,6 +106,9 @@ const ProductDetails = () => {
     };
   }, []);
 
+const totalRatings = product?.reviews?.length || 0;
+const totalReviewsWithComments = product?.reviews?.filter((review) => review.comment)?.length || 0;
+
   return (
     <div className="bg-light-red min-h-screen py-8">
       {" "}
@@ -214,10 +217,7 @@ const ProductDetails = () => {
                 <div>
                   <Ratings
                     value={product.rating}
-                    text={`${product.numReviews} ${
-                      product.numReviews > 1 ? "Reviews" : "Review"
-                    }`}
-                  />
+                     text={`${totalRatings} ${totalRatings > 1 ? "ratings" : "rating"} and ${totalReviewsWithComments} ${totalReviewsWithComments > 1 ? "people commented" : "comment"}`}                  />
                 </div>
               </div>
               <br />

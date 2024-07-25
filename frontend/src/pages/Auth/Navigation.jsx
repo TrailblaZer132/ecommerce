@@ -362,7 +362,7 @@ const Navigation = () => {
         )}
 
         <button
-          className="md:inline-flex sm:inline-flex h-10 w-10 items-center justify-center  text-light-white xl:hidden 2xl:hidden 3xl:hidden 4xl:hidden"
+          className="md:inline-flex sm:inline-flex h-10 w-10 items-center justify-center  text-light-white lg:hidden xl:hidden 2xl:hidden 3xl:hidden 4xl:hidden"
           onClick={toggleMobileDropdown}
         >
           {isDropdownVisible && (

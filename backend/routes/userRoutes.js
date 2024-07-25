@@ -13,6 +13,8 @@ import {
   getAllPincodes,
   deleteAdminAndResetSellers,
   getAllAdmins,
+  verifyEmail,
+  verifyOTP,
 } from "../controllers/userController.js";
 
 import {
@@ -23,7 +25,11 @@ import {
 
 const router = express.Router();
 
-//USER ROUTES
+// USER ROUTES
+
+router.post('/register', createUser);
+router.post('/verify-otp', verifyOTP);
+router.get('/verify-email', verifyEmail);
 router
   .route("/")
   .post(createUser)

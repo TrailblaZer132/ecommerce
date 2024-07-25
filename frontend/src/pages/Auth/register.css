@@ -1,95 +1,92 @@
 /* Set the background image and style the register section */
 .register-section {
-    background-image: url('../../components/images/login.jpg'); /* Path to your background image */
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-     display: flex;
-    justify-content: center;
-    align-items: center; }
-  
-  .register-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .register-form {
-    flex: 1;
-    width: 35rem;
-    height: 35rem; 
-    margin-right: 1rem;
-    
-  }
-  
-  .register-form h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    position: center;;
-  }
-  
-  .register-form label {
-    width: 70%;
-    display: block;
-    font-size: 1rem;
-    font-weight: 500;
-    
-  }
-  
-  .register-form input {
-    height: 3rem;
-    width: 35rem;
-    padding: 0.7rem;
-    border: 2px solid #ccc;
-    border-radius: 0.7rem;
-   
-  }
-  
-  .register-form button {
-    background-color: #da3636;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .register-form button:hover {
-    background-color: #da3636;
-  }
-  
-  .register-form p {
-    color: #000;
-  }
-  
-  .register-form p a {
-    color: #da3636;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .register-form p a:hover {
-    text-decoration: underline;
-    color: #da3636;
-  }
-  
+  background-image: url("../../components/images/login.jpg"); /* Path to your background image */
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-form {
+  flex: 1;
+  width: 35rem;
+  height: 35rem;
+  margin-right: 1rem;
+}
+
+.register-form h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: center;
+}
+
+.register-form label {
+  width: 70%;
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.register-form input {
+  height: 3rem;
+  width: 35rem;
+  padding: 0.7rem;
+  border: 2px solid #ccc;
+  border-radius: 0.7rem;
+}
+
+.register-form button {
+  background-color: #da3636;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.register-form button:hover {
+  background-color: #da3636;
+}
+
+.register-form p {
+  color: #000;
+}
+
+.register-form p a {
+  color: #da3636;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.register-form p a:hover {
+  text-decoration: underline;
+  color: #da3636;
+}
+
+.register-image {
+  display: none;
+  border-radius: 1rem;
+}
+
+@media (min-width: 500px) {
   .register-image {
-    display: none;
-    border-radius: 1rem;
+    display: block;
+    height: 60rem;
+    width: 55%;
   }
-  
-  @media (min-width: 500px) {
-    .register-image {
-      display: block;
-      height: 60rem;
-      width: 55%;
-    }
-  }
-  
+}

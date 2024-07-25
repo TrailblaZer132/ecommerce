@@ -1,3 +1,4 @@
+// productController.js
 import asyncHandler from "../middlewares/asyncHandler.js";
 import Product from "../models/productModel.js";
 
@@ -209,10 +210,16 @@ const addProductReview = asyncHandler(async (req, res) => {
         throw new Error("Product already reviewed");
       }
 
+      // Ensure at least one of the rating or comment is provided
+      if (!rating && !comment) {
+        res.status(400);
+        throw new Error("Rating or comment is required");
+      }
+
       const review = {
         name: req.user.username,
-        rating: Number(rating),
-        comment,
+        rating: rating ? Number(rating) : null, // Allow null rating if only comment is provided
+        comment: comment || "", // Default to empty string if comment is not provided
         user: req.user._id,
       };
 
@@ -220,9 +227,12 @@ const addProductReview = asyncHandler(async (req, res) => {
 
       product.numReviews = product.reviews.length;
 
-      product.rating =
-        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-        product.reviews.length;
+      // Calculate the new rating only if the new review includes a rating
+      if (rating) {
+        product.rating =
+          product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+          product.reviews.length;
+      }
 
       await product.save();
       res.status(201).json({ message: "Review added" });
