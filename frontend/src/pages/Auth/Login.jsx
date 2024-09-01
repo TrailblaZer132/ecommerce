@@ -9,6 +9,7 @@ import loginImage from "../../components/images/login.jpg";
 import { useTranslation } from "react-i18next";
 import "./login.css"; // Import the CSS file
 
+
 const Login = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
