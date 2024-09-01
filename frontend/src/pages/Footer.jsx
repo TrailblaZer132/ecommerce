@@ -207,9 +207,9 @@ const Footer = () => {
         <span className="text-sm text-light-white sm:text-center ml-5">
           © 2023{" "}
           <a href="#" className="hover:underline">
-            E-Meghalaya
+            Meghali
           </a>
-          . All Rights Reserved.
+           All Rights Reserved.
         </span>
       </div>
     </footer>

@@ -19,7 +19,7 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import LanguageDropdown from "../../components/LanguageDropdown";
 import FavoritesCount from "../../pages/Products/FavoritesCount";
-
+import logo from "../../Utils/images/logo.png"
 const Navigation = () => {
   const { t } = useTranslation();
   const [clickCount, setClickCount] = useState(0);
@@ -97,7 +97,7 @@ const Navigation = () => {
       <div className="flex items-center space-x-3 rtl:space-x-reverse">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
+            src={logo}
             className="h-8"
             alt="Flowbite Logo"
             onClick={handleLogoClick}

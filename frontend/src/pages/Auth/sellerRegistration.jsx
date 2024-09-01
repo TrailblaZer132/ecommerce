@@ -164,13 +164,13 @@ const SellerRegistration = () => {
           {/* Pincode Dropdown */}
           <div className="relative z-0 w-full mb-5 group">
             <select
-              name="zone"
+              name="pincode"
               className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2  appearance-none text-black border-gray-600 focus:border-dark-red-normal focus:outline-none focus:ring-0  peer"
               required
               value={formData.pincode}
               onChange={handleChange}
             >
-              <option value="" disabled>
+              <option value="pincode">
                 {t("Select your Zone")}
               </option>
               {pincodes.map((pincode, index) => (
