@@ -38,6 +38,7 @@
     "rc-slider": "^11.1.0",
     "react-i18next": "^14.1.1",
     "twilio": "^5.2.2",
+    "yargs": "^17.7.2",
     "yup": "^1.4.0"
   },
   "devDependencies": {
