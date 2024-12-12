@@ -1,5 +1,6 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+import asyncHandler from "express-async-handler";
 
 // Utility Function
 function calcPrices(orderItems) {
@@ -223,6 +224,37 @@ const markOrderAsDelivered = async (req, res) => {
   }
 };
 
+// const updateDeliveryStatus = asyncHandler(async (req, res) => {
+//   const { orderId, status, deliveryAgent } = req.body;
+//   const order = await Order.findById(orderId);
+
+//   if (order) {
+//     order.deliveryStatus = status;
+//     if (deliveryAgent) {
+//       order.deliveryAgent = deliveryAgent;
+//     }
+//     await order.save();
+//     res.status(200).json(order);
+//   } else {
+//     res.status(404);
+//     throw new Error("Order not found");
+//   }
+// });
+
+// const getDeliveryDetails = asyncHandler(async (req, res) => {
+//   const order = await Order.findById(req.params.id).populate(
+//     "user",
+//     "name email"
+//   );
+
+//   if (order) {
+//     res.json(order);
+//   } else {
+//     res.status(404);
+//     throw new Error("Order not found");
+//   }
+// });
+
 export {
   createOrder,
   getAllOrders,
@@ -234,4 +266,6 @@ export {
   markOrderAsPaid,
   markOrderAsDelivered,
   getSellerOrders,
+  // updateDeliveryStatus,
+  // getDeliveryDetails,
 };

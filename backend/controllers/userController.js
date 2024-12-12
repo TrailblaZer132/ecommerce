@@ -134,6 +134,7 @@ const loginUser = asyncHandler(async (req, res) => {
         isAdmin: existingUser.isAdmin,
         isSeller: existingUser.isSeller,
         isSuperAdmin: existingUser.isSuperAdmin,
+        isChatSupport: existingUser.isChatSupport,
         pincode: existingUser.pincode,
       });
       return;
@@ -380,6 +381,41 @@ const getAllAdmins = asyncHandler(async (req, res) => {
 });
 
 
+const registerChatSupport = asyncHandler(async (req, res) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    throw new Error("Please fill in all fields");
+  }
+
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    return res.status(400).send("User already exists");
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const user = await User.create({
+    username,
+    email,
+    password: hashedPassword,
+    isChatSupport: true,
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      isChatSupport: user.isChatSupport,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+});
+
+
 export {
   createUser,
   loginUser,
@@ -396,6 +432,7 @@ export {
   getAllAdmins,
   verifyOTP,
   verifyEmail,
+  registerChatSupport,
 };
 
 

@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
     isSuperAdmin: { type: Boolean, required: true, default: false },
     pincode: { type: String, required: false },
     verificationToken: { type: String },
+    isChatSupport: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );

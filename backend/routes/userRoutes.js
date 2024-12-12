@@ -15,6 +15,8 @@ import {
   getAllAdmins,
   verifyEmail,
   verifyOTP,
+  registerChatSupport,
+
 } from "../controllers/userController.js";
 
 import {
@@ -60,5 +62,9 @@ router
 router
   .route("/admin/:adminId")
   .delete(authenticate, authorizeSuperAdmin, deleteAdminAndResetSellers);
+
+
+router.route("/registerChatSupport").post(authenticate, authorizeSuperAdmin, registerChatSupport);
+
 
 export default router;

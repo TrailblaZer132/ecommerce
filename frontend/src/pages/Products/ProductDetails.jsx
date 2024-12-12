@@ -76,6 +76,12 @@ const ProductDetails = () => {
     navigate("/purchase", { state: { product } });
   };
 
+  const handleChatSupport = () => {
+    navigate("/chat", {
+      state: { productId: product._id, productName: product.name },
+    });
+  };
+
   let calculatedPrice = 0;
   let discountPercent = 0;
 
@@ -196,6 +202,7 @@ const totalReviewsWithComments = product?.reviews?.filter((review) => review.com
                   </p>
                 </div>
               </div>
+
               <div className="flex items-center justify-between w-[25rem]">
                 <div className="one">
                   <h1 className="flex items-center mb-6 font-semibold">
@@ -217,9 +224,27 @@ const totalReviewsWithComments = product?.reviews?.filter((review) => review.com
                 <div>
                   <Ratings
                     value={product.rating}
-                     text={t(`${`${totalRatings} ${totalRatings > 1 ? "Ratings" : "Rating"} and ${totalReviewsWithComments} ${totalReviewsWithComments > 1 ? "people commented" : "comment"}`}`)}                  />
+                    text={t(
+                      `${`${totalRatings} ${
+                        totalRatings > 1 ? "Ratings" : "Rating"
+                      } and ${totalReviewsWithComments} ${
+                        totalReviewsWithComments > 1
+                          ? "people commented"
+                          : "comment"
+                      }`}`
+                    )}
+                  />
                 </div>
               </div>
+
+              <button
+                className="text-dark-black py-2 px-4 rounded-full text-md font-semibold border border-dark-red-normal hover:bg-dark-red-hover hover:text-white"
+                onClick={handleChatSupport}
+              >
+                {t("Chat Support")}
+              </button>
+
+              <br />
               <br />
               <hr />
               <br />

@@ -19,7 +19,7 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { useTranslation } from "react-i18next";
 import LanguageDropdown from "../../components/LanguageDropdown";
 import FavoritesCount from "../../pages/Products/FavoritesCount";
-import logo from "../../Utils/images/logo.png"
+import logo from "../../Utils/images/logo.png";
 const Navigation = () => {
   const { t } = useTranslation();
   const [clickCount, setClickCount] = useState(0);
@@ -283,6 +283,14 @@ const Navigation = () => {
                         {t("Orders")}
                       </Link>
                     </li>
+                    {/* <li>
+                      <Link
+                        to="/seller/order/:id/delivery-status"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Delivery Status")}
+                      </Link>
+                    </li> */}
                   </>
                 )}
                 <li>
@@ -293,6 +301,20 @@ const Navigation = () => {
                     {t("Profile")}
                   </Link>
                 </li>
+
+                {userInfo && !userInfo.isAdmin && !userInfo.isSuperAdmin && (
+                  <ul>
+                    <li>
+                      <Link
+                        to="/chat"
+                        className="rounded block px-4 py-2 hover:bg-gray-200"
+                      >
+                        {t("Chat Dashboard")}
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+
                 {userInfo.isSeller && (
                   <li>
                     <Link
@@ -303,6 +325,17 @@ const Navigation = () => {
                     </Link>
                   </li>
                 )}
+
+                {/* {userInfo && userInfo.isChatSupport && (
+                  <ul>
+                    <li>
+                      <Link to="/chat" className="nav-link">
+                        {t("Chat Dashboard")}
+                      </Link>
+                    </li>
+                  </ul>
+                )} */}
+
                 {userInfo.isSuperAdmin && (
                   <ul>
                     <li>
@@ -327,7 +360,8 @@ const Navigation = () => {
 
                 {userInfo.isSeller == false &&
                   userInfo.isAdmin == false &&
-                  userInfo.isSuperAdmin == false && (
+                  userInfo.isSuperAdmin == false &&
+                  userInfo.isChatSupport == false && (
                     <li>
                       <Link
                         to="/sellerRegistration"
@@ -368,7 +402,7 @@ const Navigation = () => {
           {isDropdownVisible && (
             <div
               className="dropdown-menu  text-dark-gray rounded w-40 flex flex-col"
-              style={{ textAlign: "left"}}
+              style={{ textAlign: "left" }}
             >
               <Link to="/shop" className="dropdown-item">
                 <AiOutlineShopping size={20} className="mr-2 inline" />
@@ -388,6 +422,7 @@ const Navigation = () => {
               </Link>
             </div>
           )}
+
           {isDropdownVisible ? (
             <AiOutlineClose size={20} />
           ) : (

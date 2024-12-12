@@ -12,6 +12,8 @@ import {
   markOrderAsPaid,
   markOrderAsDelivered,
   getSellerOrders, // Import the new controller
+  // updateDeliveryStatus,
+  // getDeliveryDetails,
 } from "../controllers/orderController.js";
 
 import { authenticate, authorizeAdmin, authorizeSeller } from "../middlewares/authMiddleware.js";
@@ -31,6 +33,11 @@ router.route("/:id/pay").put(authenticate, markOrderAsPaid);
 router
   .route("/:id/deliver")
   .put(authenticate, authorizeSeller, markOrderAsDelivered);
+
+// router
+//   .route("/:id/delivery")
+//   .put(authenticate, authorizeSeller, updateDeliveryStatus);
+// router.route("/:id/delivery-details").get(authenticate, getDeliveryDetails);
 
 export default router;
 

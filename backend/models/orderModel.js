@@ -87,6 +87,16 @@ const orderSchema = mongoose.Schema(
     invoiceUrl: {
       type: String,
     },
+    // deliveryStatus: {
+    //   type: String,
+    //   enum: ["Pending", "Shipped", "Out for Delivery", "Delivered"],
+    //   default: "Pending",
+    // },
+    // deliveryAgent: {
+    //   name: { type: String },
+    //   contact: { type: String },
+    //   estimatedDeliveryDate: { type: Date },
+    // },
   },
   {
     timestamps: true,

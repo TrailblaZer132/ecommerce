@@ -47,10 +47,16 @@ import ShippingFooter from "./pages/ShippingFooter.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import CancellationReturn from "./pages/CancellationReturn.jsx";
 import TermsOfUse from "./pages/TermsOfUse.jsx";
-import Security from "./pages/Security.jsx";  
+import Security from "./pages/Security.jsx";
 import Grievance from "./pages/Grievance.jsx";
 import AplicationList from "./pages/Admin/AplicationList.jsx";
 import Purchase from "./pages/Purchase.jsx";
+
+// import DeliveryProgress from "./pages/DeliveryProgress.jsx";
+// import SellerDeliveryStatus from "./pages/SellerDeliveryStatus.jsx";
+
+import Chat from "./pages/Chat.jsx";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -80,6 +86,16 @@ const router = createBrowserRouter(
       <Route path="/termsOfUse" element={<TermsOfUse />} />
       <Route path="/security" element={<Security />} />
       <Route path="/grievance-redressal" element={<Grievance />} />
+      {/* <Route
+        path="/order/:id/delivery-progress"
+        element={<DeliveryProgress />}
+      />
+      <Route
+        path="/seller/order/:id/delivery-status"
+        element={<SellerDeliveryStatus />}
+      /> */}
+
+      <Route path="/chat" element={<Chat />} />
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
@@ -105,13 +121,8 @@ const router = createBrowserRouter(
         <Route path="orderlist" element={<OrderList />} />
         <Route path="allproductslist" element={<AllProducts />} />
         <Route path="product/update/:_id" element={<ProductUpdate />} />
-        
       </Route>
     </Route>
-
-   
-    
-
   )
 );
 ReactDOM.createRoot(document.getElementById("root")).render(
